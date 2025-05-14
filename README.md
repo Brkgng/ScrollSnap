@@ -2,6 +2,10 @@
 
 ScrollSnap is an open-source macOS application designed to capture scrolling screenshots with a customizable selection area and menu interface. It allows users to define a capture region, take stitched scrolling screenshots, and save them to various destinations (e.g., Desktop, Clipboard, Preview). Built with Swift and leveraging AppKit and ScreenCaptureKit, ScrollSnap provides a sleek overlay-based UI for precise control.
 
+<div style="text-align: center;">
+  <img src="assets/preview.gif" alt="ScrollSnap Demo" style="width: 700px; height: 400px;">
+</div>
+
 ## Features
 
 - **Customizable Selection Area**: Resize and drag a selection rectangle to define the capture region.
