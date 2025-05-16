@@ -6,6 +6,11 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
   <img src="assets/preview.gif" alt="ScrollSnap Demo" style="width: 700px; height: 400px;">
 </div>
 
+## Download
+
+- 📦 [Download ZIP from GitHub Releases](https://github.com/brkgng/ScrollSnap/releases/latest) - **Free**
+- 🍎 [Download on the App Store](https://apps.apple.com/app/scrollsnap/id6744903723) – Paid version for users who prefer App Store convenience
+
 ## Features
 
 - **Customizable Selection Area**: Resize and drag a selection rectangle to define the capture region.
