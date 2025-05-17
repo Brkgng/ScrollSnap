@@ -22,6 +22,7 @@
 		D4C1F4D32CEF9F6A00E5A9A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4C1F4D22CEF9F6A00E5A9A8 /* Assets.xcassets */; };
 		D4C1F4D62CEF9F6A00E5A9A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4C1F4D52CEF9F6A00E5A9A8 /* Preview Assets.xcassets */; };
 		D4C1F4E02CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C1F4DF2CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift */; };
+		D4C253F22DD8CC0A00669C45 /* PermissionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C253F12DD8CC0A00669C45 /* PermissionRequestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		D4C1F4D52CEF9F6A00E5A9A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D4C1F4D72CEF9F6A00E5A9A8 /* ScrollSnap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScrollSnap.entitlements; sourceTree = "<group>"; };
 		D4C1F4DF2CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotUtilities.swift; sourceTree = "<group>"; };
+		D4C253F12DD8CC0A00669C45 /* PermissionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionRequestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		D4BBCA782D7089A10022FF73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D4C253F12DD8CC0A00669C45 /* PermissionRequestView.swift */,
 				D4BBCA6E2D5A12600022FF73 /* OverlayView.swift */,
 				D4C1F4D02CEF9F6900E5A9A8 /* ContentView.swift */,
 				D4BBCA892D7343CB0022FF73 /* ThumbnailView.swift */,
@@ -225,6 +228,7 @@
 				D417112C2D7DD42200DE2390 /* SelectionRectangleView.swift in Sources */,
 				D4BBCA6D2D5A11370022FF73 /* OverlayManager.swift in Sources */,
 				D4BBCA692D5A106B0022FF73 /* Constants.swift in Sources */,
+				D4C253F22DD8CC0A00669C45 /* PermissionRequestView.swift in Sources */,
 				D46B282E2D82437400CEE936 /* SettingsWindowController.swift in Sources */,
 				D417112E2D7DD4BE00DE2390 /* MenuBarView.swift in Sources */,
 			);
@@ -370,6 +374,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ScrollSnap/ScrollSnap.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
@@ -403,6 +408,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ScrollSnap/ScrollSnap.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;

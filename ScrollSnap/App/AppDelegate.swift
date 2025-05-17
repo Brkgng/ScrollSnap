@@ -8,15 +8,11 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     let overlayManager = OverlayManager()
     private var settingsWindowController: SettingsWindowController?
+    private var permissionWindow: NSWindow?
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        if let window = NSApplication.shared.windows.first {
-            window.setIsVisible(false)
-        }
-        
         setupMainMenu()
         
-        // Check permission on launch
         Task {
             let hasPermission = await checkScreenRecordingPermission()
             await MainActor.run {
@@ -24,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     // Setup overlays only if permission is granted
                     overlayManager.setupOverlays()
                 } else {
-                    showPermissionDeniedAlert()
+                    self.showPermissionRequestWindow()
                 }
             }
         }
@@ -66,16 +62,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         settingsWindowController?.window?.makeKeyAndOrderFront(nil)
     }
     
-    private func showPermissionDeniedAlert() {
-        let alert = NSAlert()
-        alert.messageText = "Screen Recording Permission Required"
-        alert.informativeText = "ScrollSnap needs screen recording permission to capture screenshots. \n\nPlease enable it in System Preferences > Security & Privacy > Screen Recording, then relaunch the app."
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "Quit")
+    private func showPermissionRequestWindow() {
+        let permissionView = PermissionRequestView()
+        let hostingController = NSHostingController(rootView: permissionView)
         
-        let response = alert.runModal()
-        if response == .alertFirstButtonReturn { // Quit
-            NSApplication.shared.terminate(self)
-        }
+        permissionWindow = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 450, height: 400),
+            styleMask: [.titled, .closable],
+            backing: .buffered,
+            defer: false
+        )
+        
+        permissionWindow?.center()
+        permissionWindow?.contentViewController = hostingController
+        permissionWindow?.title = "Screen Recording Permission"
+        permissionWindow?.level = .floating
+        permissionWindow?.makeKeyAndOrderFront(nil)
     }
 }
