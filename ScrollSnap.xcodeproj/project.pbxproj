@@ -1,0 +1,470 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D417112C2D7DD42200DE2390 /* SelectionRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417112B2D7DD42200DE2390 /* SelectionRectangleView.swift */; };
+		D417112E2D7DD4BE00DE2390 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417112D2D7DD4BE00DE2390 /* MenuBarView.swift */; };
+		D45709EC2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D45709EB2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy */; };
+		D46B282E2D82437400CEE936 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46B282D2D82437400CEE936 /* SettingsWindowController.swift */; };
+		D4BBCA692D5A106B0022FF73 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBCA682D5A106B0022FF73 /* Constants.swift */; };
+		D4BBCA6D2D5A11370022FF73 /* OverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBCA6C2D5A11370022FF73 /* OverlayManager.swift */; };
+		D4BBCA6F2D5A12600022FF73 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBCA6E2D5A12600022FF73 /* OverlayView.swift */; };
+		D4BBCA7C2D708B340022FF73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBCA7B2D708B340022FF73 /* AppDelegate.swift */; };
+		D4BBCA882D7276D20022FF73 /* StitchingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBCA872D7276D20022FF73 /* StitchingManager.swift */; };
+		D4BBCA8A2D7343CB0022FF73 /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBCA892D7343CB0022FF73 /* ThumbnailView.swift */; };
+		D4C1F4CF2CEF9F6900E5A9A8 /* ScrollSnapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C1F4CE2CEF9F6900E5A9A8 /* ScrollSnapApp.swift */; };
+		D4C1F4D12CEF9F6900E5A9A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C1F4D02CEF9F6900E5A9A8 /* ContentView.swift */; };
+		D4C1F4D32CEF9F6A00E5A9A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4C1F4D22CEF9F6A00E5A9A8 /* Assets.xcassets */; };
+		D4C1F4D62CEF9F6A00E5A9A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4C1F4D52CEF9F6A00E5A9A8 /* Preview Assets.xcassets */; };
+		D4C1F4E02CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C1F4DF2CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift */; };
+		D4C253F22DD8CC0A00669C45 /* PermissionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C253F12DD8CC0A00669C45 /* PermissionRequestView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D417112B2D7DD42200DE2390 /* SelectionRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionRectangleView.swift; sourceTree = "<group>"; };
+		D417112D2D7DD4BE00DE2390 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		D4318A2B2D86CD3F009A9A1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45709EB2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		D46B282D2D82437400CEE936 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		D4BBCA682D5A106B0022FF73 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D4BBCA6C2D5A11370022FF73 /* OverlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayManager.swift; sourceTree = "<group>"; };
+		D4BBCA6E2D5A12600022FF73 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		D4BBCA7B2D708B340022FF73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D4BBCA872D7276D20022FF73 /* StitchingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StitchingManager.swift; sourceTree = "<group>"; };
+		D4BBCA892D7343CB0022FF73 /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
+		D4C1F4CB2CEF9F6900E5A9A8 /* ScrollSnap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollSnap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4C1F4CE2CEF9F6900E5A9A8 /* ScrollSnapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSnapApp.swift; sourceTree = "<group>"; };
+		D4C1F4D02CEF9F6900E5A9A8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D4C1F4D22CEF9F6A00E5A9A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4C1F4D52CEF9F6A00E5A9A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D4C1F4D72CEF9F6A00E5A9A8 /* ScrollSnap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScrollSnap.entitlements; sourceTree = "<group>"; };
+		D4C1F4DF2CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotUtilities.swift; sourceTree = "<group>"; };
+		D4C253F12DD8CC0A00669C45 /* PermissionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionRequestView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D4C1F4C82CEF9F6900E5A9A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D46B282F2D824E6200CEE936 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D46B282D2D82437400CEE936 /* SettingsWindowController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D4BBCA772D7089980022FF73 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				D4BBCA6C2D5A11370022FF73 /* OverlayManager.swift */,
+				D4BBCA872D7276D20022FF73 /* StitchingManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		D4BBCA782D7089A10022FF73 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D4C253F12DD8CC0A00669C45 /* PermissionRequestView.swift */,
+				D4BBCA6E2D5A12600022FF73 /* OverlayView.swift */,
+				D4C1F4D02CEF9F6900E5A9A8 /* ContentView.swift */,
+				D4BBCA892D7343CB0022FF73 /* ThumbnailView.swift */,
+				D417112B2D7DD42200DE2390 /* SelectionRectangleView.swift */,
+				D417112D2D7DD4BE00DE2390 /* MenuBarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D4BBCA792D7089AC0022FF73 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D4BBCA682D5A106B0022FF73 /* Constants.swift */,
+				D4C1F4DF2CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D4BBCA7A2D708B170022FF73 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D4C1F4CE2CEF9F6900E5A9A8 /* ScrollSnapApp.swift */,
+				D4BBCA7B2D708B340022FF73 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D4C1F4C22CEF9F6900E5A9A8 = {
+			isa = PBXGroup;
+			children = (
+				D4C1F4CD2CEF9F6900E5A9A8 /* ScrollSnap */,
+				D4C1F4CC2CEF9F6900E5A9A8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D4C1F4CC2CEF9F6900E5A9A8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4C1F4CB2CEF9F6900E5A9A8 /* ScrollSnap.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4C1F4CD2CEF9F6900E5A9A8 /* ScrollSnap */ = {
+			isa = PBXGroup;
+			children = (
+				D45709EB2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy */,
+				D4318A2B2D86CD3F009A9A1C /* Info.plist */,
+				D46B282F2D824E6200CEE936 /* Controllers */,
+				D4BBCA7A2D708B170022FF73 /* App */,
+				D4BBCA792D7089AC0022FF73 /* Utilities */,
+				D4BBCA782D7089A10022FF73 /* Views */,
+				D4BBCA772D7089980022FF73 /* Managers */,
+				D4C1F4D22CEF9F6A00E5A9A8 /* Assets.xcassets */,
+				D4C1F4D72CEF9F6A00E5A9A8 /* ScrollSnap.entitlements */,
+				D4C1F4D42CEF9F6A00E5A9A8 /* Preview Content */,
+			);
+			path = ScrollSnap;
+			sourceTree = "<group>";
+		};
+		D4C1F4D42CEF9F6A00E5A9A8 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D4C1F4D52CEF9F6A00E5A9A8 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D4C1F4CA2CEF9F6900E5A9A8 /* ScrollSnap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4C1F4DA2CEF9F6A00E5A9A8 /* Build configuration list for PBXNativeTarget "ScrollSnap" */;
+			buildPhases = (
+				D4C1F4C72CEF9F6900E5A9A8 /* Sources */,
+				D4C1F4C82CEF9F6900E5A9A8 /* Frameworks */,
+				D4C1F4C92CEF9F6900E5A9A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScrollSnap;
+			productName = ScrollSnap;
+			productReference = D4C1F4CB2CEF9F6900E5A9A8 /* ScrollSnap.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D4C1F4C32CEF9F6900E5A9A8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1510;
+				LastUpgradeCheck = 1510;
+				TargetAttributes = {
+					D4C1F4CA2CEF9F6900E5A9A8 = {
+						CreatedOnToolsVersion = 15.1;
+					};
+				};
+			};
+			buildConfigurationList = D4C1F4C62CEF9F6900E5A9A8 /* Build configuration list for PBXProject "ScrollSnap" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D4C1F4C22CEF9F6900E5A9A8;
+			productRefGroup = D4C1F4CC2CEF9F6900E5A9A8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4C1F4CA2CEF9F6900E5A9A8 /* ScrollSnap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4C1F4C92CEF9F6900E5A9A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45709EC2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy in Resources */,
+				D4C1F4D62CEF9F6A00E5A9A8 /* Preview Assets.xcassets in Resources */,
+				D4C1F4D32CEF9F6A00E5A9A8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D4C1F4C72CEF9F6900E5A9A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BBCA6F2D5A12600022FF73 /* OverlayView.swift in Sources */,
+				D4BBCA882D7276D20022FF73 /* StitchingManager.swift in Sources */,
+				D4C1F4D12CEF9F6900E5A9A8 /* ContentView.swift in Sources */,
+				D4BBCA8A2D7343CB0022FF73 /* ThumbnailView.swift in Sources */,
+				D4C1F4CF2CEF9F6900E5A9A8 /* ScrollSnapApp.swift in Sources */,
+				D4C1F4E02CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift in Sources */,
+				D4BBCA7C2D708B340022FF73 /* AppDelegate.swift in Sources */,
+				D417112C2D7DD42200DE2390 /* SelectionRectangleView.swift in Sources */,
+				D4BBCA6D2D5A11370022FF73 /* OverlayManager.swift in Sources */,
+				D4BBCA692D5A106B0022FF73 /* Constants.swift in Sources */,
+				D4C253F22DD8CC0A00669C45 /* PermissionRequestView.swift in Sources */,
+				D46B282E2D82437400CEE936 /* SettingsWindowController.swift in Sources */,
+				D417112E2D7DD4BE00DE2390 /* MenuBarView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D4C1F4D82CEF9F6A00E5A9A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrollSnap;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = "ScrollSnap needs access to your Desktop folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "ScrollSnap needs access to your Documents folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "ScrollSnap needs access to your Downloads folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2025 Berker Gungor";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D4C1F4D92CEF9F6A00E5A9A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrollSnap;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = "ScrollSnap needs access to your Desktop folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "ScrollSnap needs access to your Documents folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "ScrollSnap needs access to your Downloads folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2025 Berker Gungor";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		D4C1F4DB2CEF9F6A00E5A9A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ScrollSnap/ScrollSnap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "\"ScrollSnap/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScrollSnap/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrollSnap;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = "ScrollSnap needs access to your Desktop folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "ScrollSnap needs access to your Documents folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "ScrollSnap needs access to your Downloads folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2025 Berker Gungor";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D4C1F4DC2CEF9F6A00E5A9A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ScrollSnap/ScrollSnap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "\"ScrollSnap/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScrollSnap/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrollSnap;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = "ScrollSnap needs access to your Desktop folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "ScrollSnap needs access to your Documents folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "ScrollSnap needs access to your Downloads folder to save screenshots you capture.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2025 Berker Gungor";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D4C1F4C62CEF9F6900E5A9A8 /* Build configuration list for PBXProject "ScrollSnap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4C1F4D82CEF9F6A00E5A9A8 /* Debug */,
+				D4C1F4D92CEF9F6A00E5A9A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4C1F4DA2CEF9F6A00E5A9A8 /* Build configuration list for PBXNativeTarget "ScrollSnap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4C1F4DB2CEF9F6A00E5A9A8 /* Debug */,
+				D4C1F4DC2CEF9F6A00E5A9A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D4C1F4C32CEF9F6900E5A9A8 /* Project object */;
+}
