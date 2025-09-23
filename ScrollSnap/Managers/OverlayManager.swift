@@ -97,6 +97,10 @@ class OverlayManager {
         return isScrollingCaptureActive
     }
     
+    func setOverlayIgnoresMouseEvents(_ ignoresMouseEvents: Bool) {
+        overlayWindows.forEach { $0.ignoresMouseEvents = ignoresMouseEvents }
+    }
+    
     /// Handles mouse down events. Determines if the click was within the rectangle or menu.
     func handleMouseDown(at point: NSPoint) {
         if menuRect.contains(point) {
@@ -164,6 +168,10 @@ class OverlayManager {
         }
         
         await MainActor.run {
+            // Allow mouse events to pass through during capture
+            // so the underlying app can still be scrolled
+            setOverlayIgnoresMouseEvents(true)
+            
             setupCaptureTimer()
             refreshOverlays()
         }
