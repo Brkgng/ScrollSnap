@@ -22,12 +22,6 @@ class ThumbnailView: NSView {
     private var thumbnailTimer: Timer?
     /// Fire date of the timer for drag cancel checks
     private var timerFireDate: Date?
-    /// Precomputed pasteboard item for dragging
-    private var pasteboardItem: NSPasteboardItem?
-    /// Flag to track pasteboard configuration status
-    private var isPasteboardConfigured = false
-    /// Processing queue for pasteboard configuration
-    private let processingQueue = DispatchQueue(label: "com.scrollsnap.pasteboard.processing", qos: .userInitiated)
     
     /// State related to dragging interactions
     private struct DragState {
@@ -47,7 +41,6 @@ class ThumbnailView: NSView {
         self.initialWidth = size.width
         super.init(frame: NSRect(origin: .zero, size: size))
         
-        configurePasteboardItemAsync()
         setupTimer()
     }
     
@@ -257,60 +250,31 @@ class ThumbnailView: NSView {
         overlayManager.thumbnailWindow?.orderOut(nil)
         thumbnailTimer?.invalidate() // Prevent save during drag
         
-        // Create a simple pasteboard item if the full one isn't ready yet
-        let item = getPasteboardItemForDrag()
+        // Create pasteboard item on-demand when drag actually starts
+        let item = NSPasteboardItem()
+        
+        // Add TIFF representation
+        if let tiffData = image.tiffRepresentation {
+            item.setData(tiffData, forType: .tiff)
+        }
+        
+        // Add PNG representation
+        if let pngData = image.pngData {
+            item.setData(pngData, forType: .png)
+        }
+        
+        // Create temp file only when dragging starts
+        if let fileURL = saveImageToTemporaryFile(image) {
+            item.setDataProvider(self, forTypes: [.fileURL])
+            item.setString(fileURL.absoluteString, forType: .fileURL)
+        }
+        
         let draggingItem = NSDraggingItem(pasteboardWriter: item)
         draggingItem.setDraggingFrame(bounds, contents: image)
         
         beginDraggingSession(with: [draggingItem], event: event, source: self)
     }
     
-    /// Gets a pasteboard item for dragging, using either the fully configured one or a fallback
-    private func getPasteboardItemForDrag() -> NSPasteboardItem {
-        if isPasteboardConfigured, let configuredItem = self.pasteboardItem {
-            return configuredItem
-        } else {
-            // Create a minimal pasteboard item with just the image data
-            // This ensures drag can start immediately even if full configuration isn't done
-            let fallbackItem = NSPasteboardItem()
-            if let tiffData = image.tiffRepresentation {
-                fallbackItem.setData(tiffData, forType: .tiff)
-            }
-            return fallbackItem
-        }
-    }
-    
-    /// Configure pasteboard item asynchronously
-    private func configurePasteboardItemAsync() {
-        let newItem = NSPasteboardItem()
-        
-        // Start configuration in background
-        processingQueue.async { [weak self] in
-            guard let self = self else { return }
-            
-            // Configure TIFF representation
-            if let tiffData = self.image.tiffRepresentation {
-                newItem.setData(tiffData, forType: .tiff)
-            }
-            
-            // Configure PNG representation
-            if let pngData = self.image.pngData {
-                newItem.setData(pngData, forType: .png)
-            }
-            
-            // Configure file URL
-            if let fileURL = saveImageToTemporaryFile(self.image) {
-                newItem.setDataProvider(self, forTypes: [.fileURL])
-                newItem.setString(fileURL.absoluteString, forType: .fileURL)
-            }
-            
-            // Update on main thread to avoid race conditions
-            DispatchQueue.main.async {
-                self.pasteboardItem = newItem
-                self.isPasteboardConfigured = true
-            }
-        }
-    }
 }
 
 // MARK: - NSDraggingSource
