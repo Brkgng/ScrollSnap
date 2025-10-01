@@ -13,6 +13,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMainMenu()
         
+        cleanupOldTemporaryFiles()
+        
         Task {
             let hasPermission = await checkScreenRecordingPermission()
             await MainActor.run {
@@ -78,5 +80,48 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         permissionWindow?.title = "Screen Recording Permission"
         permissionWindow?.level = .floating
         permissionWindow?.makeKeyAndOrderFront(nil)
+    }
+    
+    // MARK: - Temporary File Cleanup
+    
+    /// Cleans up ScrollSnap temporary files older than the specified retention period
+    private func cleanupOldTemporaryFiles() {
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let retentionDays = 7 // Files older than this will be deleted
+        
+        do {
+            let tempContents = try FileManager.default.contentsOfDirectory(
+                at: tempDirectory,
+                includingPropertiesForKeys: [.creationDateKey, .isRegularFileKey],
+                options: .skipsHiddenFiles
+            )
+            
+            let cutoffDate = Calendar.current.date(byAdding: .day, value: -retentionDays, to: Date()) ?? Date()
+            
+            for fileURL in tempContents {
+                // Only process files that match ScrollSnap's naming pattern
+                guard fileURL.lastPathComponent.hasPrefix("Screenshot ") &&
+                      fileURL.pathExtension == "png" else {
+                    continue
+                }
+                
+                do {
+                    let resourceValues = try fileURL.resourceValues(forKeys: [.creationDateKey, .isRegularFileKey])
+                    
+                    // Ensure it's a regular file
+                    guard resourceValues.isRegularFile == true else { continue }
+                    
+                    // Check if file is older than cutoff date
+                    if let creationDate = resourceValues.creationDate,
+                       creationDate < cutoffDate {
+                        try FileManager.default.removeItem(at: fileURL)
+                    }
+                } catch {
+                    print("Failed to process temp file \(fileURL.lastPathComponent): \(error.localizedDescription)")
+                }
+            }
+        } catch {
+            print("Failed to clean up temporary files: \(error.localizedDescription)")
+        }
     }
 }
