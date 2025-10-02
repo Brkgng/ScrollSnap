@@ -97,7 +97,7 @@ class SelectionRectangleView: NSView {
         else { return }
         
         if manager.getIsScrollingCaptureActive() {
-            NSCursor.operationNotAllowed.set() // Show "not allowed" cursor during capture
+            NSCursor.arrow.set()
         } else {
             NSCursor.openHand.set() // Show hand cursor on hover when not capturing
         }

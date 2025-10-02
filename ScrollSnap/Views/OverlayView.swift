@@ -16,6 +16,7 @@ class OverlayView: NSView {
     private var menuBarView: MenuBarView?
     private var rectangleTrackingArea: NSTrackingArea?
     private var borderTrackingAreas: [NSTrackingArea] = []
+    private var menuTrackingArea: NSTrackingArea?
     
     // MARK: - Initialization
     
@@ -100,8 +101,13 @@ class OverlayView: NSView {
         borderTrackingAreas.forEach { removeTrackingArea($0) }
         borderTrackingAreas.removeAll()
         
+        if let oldMenuTrackingArea = menuTrackingArea {
+            removeTrackingArea(oldMenuTrackingArea)
+        }
+        
         guard let manager = manager else { return }
         let rectangle = manager.getRectangle()
+        let menuRect = manager.getMenuRectangle()
         
         let options: NSTrackingArea.Options = [.mouseEnteredAndExited, .activeAlways]
         rectangleTrackingArea = NSTrackingArea(rect: rectangle, options: options, owner: self, userInfo: nil)
@@ -114,10 +120,24 @@ class OverlayView: NSView {
             borderTrackingAreas.append(trackingArea)
             addTrackingArea(trackingArea)
         }
+        
+        menuTrackingArea = NSTrackingArea(rect: menuRect, options: options, owner: self, userInfo: ["type": "menu"])
+        addTrackingArea(menuTrackingArea!)
     }
     
     override func mouseEntered(with event: NSEvent) {
-        if let userInfo = event.trackingArea?.userInfo, let zone = userInfo["zone"] as? String {
+        guard let userInfo = event.trackingArea?.userInfo else {
+            selectionRectangleView.handleMouseEntered()
+            return
+        }
+        
+        guard let manager = manager else { return }
+        if let type = userInfo["type"] as? String {
+            if type == "menu" && manager.getIsScrollingCaptureActive() {
+                // Re-enable mouse events so the user can click the menu while scrolling capture is active
+                manager.setOverlayIgnoresMouseEvents(false)
+            }
+        } else if let zone = userInfo["zone"] as? String {
             selectionRectangleView.handleMouseEnteredBorder(zone: zone)
         } else {
             selectionRectangleView.handleMouseEntered()
@@ -125,7 +145,17 @@ class OverlayView: NSView {
     }
     
     override func mouseExited(with event: NSEvent) {
-        if event.trackingArea?.userInfo?["zone"] != nil {
+        guard let userInfo = event.trackingArea?.userInfo else {
+            selectionRectangleView.handleMouseExited()
+            return
+        }
+        
+        guard let manager = manager else { return }
+        if let type = userInfo["type"] as? String {
+            if type == "menu" && manager.getIsScrollingCaptureActive() {
+                manager.setOverlayIgnoresMouseEvents(true)
+            }
+        } else if userInfo["zone"] != nil {
             selectionRectangleView.handleMouseExitedBorder()
         } else {
             selectionRectangleView.handleMouseExited()

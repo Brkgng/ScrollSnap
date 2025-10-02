@@ -22,12 +22,6 @@ class ThumbnailView: NSView {
     private var thumbnailTimer: Timer?
     /// Fire date of the timer for drag cancel checks
     private var timerFireDate: Date?
-    /// Precomputed pasteboard item for dragging
-    private var pasteboardItem: NSPasteboardItem?
-    /// Flag to track pasteboard configuration status
-    private var isPasteboardConfigured = false
-    /// Processing queue for pasteboard configuration
-    private let processingQueue = DispatchQueue(label: "com.scrollsnap.pasteboard.processing", qos: .userInitiated)
     
     /// State related to dragging interactions
     private struct DragState {
@@ -35,8 +29,13 @@ class ThumbnailView: NSView {
         var isDraggingRight: Bool   // Tracks rightward swipe
         var hasDragged: Bool        // Indicates any drag occurred
         var lastXPosition: CGFloat? // Last smoothed X position for swipe
+        var initialMouseX: CGFloat? // Initial X position when mouse down
+        var gestureCommitted: Bool  // Whether gesture type is determined
     }
-    private var dragState = DragState(offset: nil, isDraggingRight: false, hasDragged: false, lastXPosition: nil)
+    private var dragState = DragState(offset: nil, isDraggingRight: false, hasDragged: false, lastXPosition: nil, initialMouseX: nil, gestureCommitted: false)
+    
+    /// Threshold for movement before determining gesture intent (in points)
+    private let gestureThreshold: CGFloat = 10.0
     
     // MARK: - Initialization
     init(image: NSImage, overlayManager: OverlayManager, screen: NSScreen, origin: NSPoint, size: NSSize) {
@@ -47,7 +46,6 @@ class ThumbnailView: NSView {
         self.initialWidth = size.width
         super.init(frame: NSRect(origin: .zero, size: size))
         
-        configurePasteboardItemAsync()
         setupTimer()
     }
     
@@ -84,27 +82,49 @@ class ThumbnailView: NSView {
             y: event.locationInWindow.y - window.frame.origin.y
         )
         dragState.lastXPosition = window.frame.origin.x
+        dragState.initialMouseX = event.locationInWindow.x
+        dragState.gestureCommitted = false
     }
     
     override func mouseDragged(with event: NSEvent) {
-        // Ensure drag offset, window, and screen are available
         guard let dragOffset = dragState.offset,
-              let window = overlayManager.thumbnailWindow else { return }
+              let window = overlayManager.thumbnailWindow,
+              let initialMouseX = dragState.initialMouseX else { return }
         
-        // Mark that dragging has started
         dragState.hasDragged = true
         
-        // Calculate new X position based on mouse movement
-        let newX = event.locationInWindow.x - dragOffset.x
+        let currentMouseX = event.locationInWindow.x
+        let deltaX = currentMouseX - initialMouseX
         
-        // Handle rightward swipe
-        if newX > initialOrigin.x {
-            dragState.isDraggingRight = true
-            handleSwipeRightMovement(window: window, newX: newX)
-            return
+        // If gesture not yet committed, check if we've moved enough to determine intent
+        if !dragState.gestureCommitted {
+            let movementDistance = abs(deltaX)
+            
+            // Not enough movement yet, wait for clearer intent
+            if movementDistance < gestureThreshold {
+                return
+            }
+            
+            // Enough movement - determine gesture type based on direction
+            if deltaX > 0 {
+                // Rightward movement = swipe intent
+                dragState.isDraggingRight = true
+                dragState.gestureCommitted = true
+            } else {
+                // Leftward movement = drag intent
+                dragState.isDraggingRight = false
+                dragState.gestureCommitted = true
+                // Start drag session immediately
+                startDraggingSession(with: event)
+                return
+            }
         }
         
-        startDraggingSession(with: event)
+        // Execute the committed gesture
+        if dragState.isDraggingRight {
+            let newX = currentMouseX - dragOffset.x
+            handleSwipeRightMovement(window: window, newX: newX)
+        }
     }
     
     override func mouseUp(with event: NSEvent) {
@@ -178,7 +198,7 @@ class ThumbnailView: NSView {
     
     /// Resets drag-related state after mouse up
     private func resetDragState() {
-        dragState = DragState(offset: nil, isDraggingRight: false, hasDragged: false, lastXPosition: nil)
+        dragState = DragState(offset: nil, isDraggingRight: false, hasDragged: false, lastXPosition: nil, initialMouseX: nil, gestureCommitted: false)
     }
     
     /// Handles rightward swipe movement, updating position and width
@@ -217,14 +237,14 @@ class ThumbnailView: NSView {
     override func rightMouseDown(with event: NSEvent) {
         let menu = NSMenu()
         
-        menu.addItem(withTitle: "Show in Finder", action: #selector(showInFinder), keyEquivalent: "")
+        menu.addItem(withTitle: "Save", action: #selector(saveImageAction), keyEquivalent: "")
         menu.addItem(withTitle: "Delete", action: #selector(deleteImage), keyEquivalent: "")
         menu.addItem(withTitle: "Close", action: #selector(closeThumbnail), keyEquivalent: "")
         
         NSMenu.popUpContextMenu(menu, with: event, for: self)
     }
     
-    @objc private func showInFinder() {
+    @objc private func saveImageAction() {
         if let url = saveImage(image) {
             NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
         }
@@ -257,59 +277,29 @@ class ThumbnailView: NSView {
         overlayManager.thumbnailWindow?.orderOut(nil)
         thumbnailTimer?.invalidate() // Prevent save during drag
         
-        // Create a simple pasteboard item if the full one isn't ready yet
-        let item = getPasteboardItemForDrag()
+        // Create pasteboard item on-demand when drag actually starts
+        let item = NSPasteboardItem()
+        
+        // Add TIFF representation
+        if let tiffData = image.tiffRepresentation {
+            item.setData(tiffData, forType: .tiff)
+        }
+        
+        // Add PNG representation
+        if let pngData = image.pngData {
+            item.setData(pngData, forType: .png)
+        }
+        
+        // Create temp file only when dragging starts
+        if let fileURL = saveImageToTemporaryFile(image) {
+            item.setDataProvider(self, forTypes: [.fileURL])
+            item.setString(fileURL.absoluteString, forType: .fileURL)
+        }
+        
         let draggingItem = NSDraggingItem(pasteboardWriter: item)
         draggingItem.setDraggingFrame(bounds, contents: image)
         
         beginDraggingSession(with: [draggingItem], event: event, source: self)
-    }
-    
-    /// Gets a pasteboard item for dragging, using either the fully configured one or a fallback
-    private func getPasteboardItemForDrag() -> NSPasteboardItem {
-        if isPasteboardConfigured, let configuredItem = self.pasteboardItem {
-            return configuredItem
-        } else {
-            // Create a minimal pasteboard item with just the image data
-            // This ensures drag can start immediately even if full configuration isn't done
-            let fallbackItem = NSPasteboardItem()
-            if let tiffData = image.tiffRepresentation {
-                fallbackItem.setData(tiffData, forType: .tiff)
-            }
-            return fallbackItem
-        }
-    }
-    
-    /// Configure pasteboard item asynchronously
-    private func configurePasteboardItemAsync() {
-        let newItem = NSPasteboardItem()
-        
-        // Start configuration in background
-        processingQueue.async { [weak self] in
-            guard let self = self else { return }
-            
-            // Configure TIFF representation
-            if let tiffData = self.image.tiffRepresentation {
-                newItem.setData(tiffData, forType: .tiff)
-            }
-            
-            // Configure PNG representation
-            if let pngData = self.image.pngData {
-                newItem.setData(pngData, forType: .png)
-            }
-            
-            // Configure file URL
-            if let fileURL = saveImageToTemporaryFile(self.image) {
-                newItem.setDataProvider(self, forTypes: [.fileURL])
-                newItem.setString(fileURL.absoluteString, forType: .fileURL)
-            }
-            
-            // Update on main thread to avoid race conditions
-            DispatchQueue.main.async {
-                self.pasteboardItem = newItem
-                self.isPasteboardConfigured = true
-            }
-        }
     }
 }
 
