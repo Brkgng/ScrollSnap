@@ -178,7 +178,7 @@ class OverlayManager {
     }
     
     private func setupCaptureTimer() {
-        captureTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { [weak self] _ in
+        captureTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
             guard let self = self, self.isScrollingCaptureActive else { return }
             
             Task {
