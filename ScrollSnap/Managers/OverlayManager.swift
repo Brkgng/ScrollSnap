@@ -163,10 +163,17 @@ class OverlayManager {
     private func stopScrollingCapture() async {
         isScrollingCaptureActive = false
         
+        // Perform UI updates on the main thread first
         await MainActor.run {
             invalidateCaptureTimer()
             hideOverlays()
-            if let finalImage = stitchingManager.stopStitching() {
+        }
+        
+        // Asynchronously wait for the stitching to complete in the background.
+        // This frees up the main thread, keeping the app responsive.
+        if let finalImage = await stitchingManager.stopStitching() {
+            // Once stitching is done, switch back to the main thread to present the result.
+            await MainActor.run {
                 let selectedDestination = UserDefaults.standard.string(forKey: Constants.Menu.Options.selectedDestinationKey) ?? Constants.Menu.Options.defaultDestination
                 
                 switch selectedDestination {

@@ -48,9 +48,14 @@ class StitchingManager {
         }
     }
     
-    func stopStitching() -> NSImage? {
-        stitchingQueue.sync { } // Wait for all queued tasks to complete.
-        return runningStitchedImage
+    func stopStitching() async -> NSImage? {
+        return await withCheckedContinuation { continuation in
+            // Enqueue a task to run after all previous tasks on the serial queue.
+            // This task will then resume the continuation with the final image.
+            stitchingQueue.async { [weak self] in
+                continuation.resume(returning: self?.runningStitchedImage)
+            }
+        }
     }
     
     // MARK: - Private Stitching Methods
