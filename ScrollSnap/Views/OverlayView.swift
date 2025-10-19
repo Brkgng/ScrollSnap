@@ -38,11 +38,18 @@ class OverlayView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Mouse Event Overrides
+    
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
+        return true
+    }
+    
     // MARK: - Mouse Event Handling
     
     override func mouseDown(with event: NSEvent) {
         guard let manager = manager else { return }
-        let globalPoint = convertToGlobal(point: event.locationInWindow)
+        let localPoint = event.locationInWindow
+        let globalPoint = convertToGlobal(point: localPoint)
         
         let menuRect = manager.getMenuRectangle()
         if menuRect.contains(globalPoint) {
@@ -50,13 +57,12 @@ class OverlayView: NSView {
             return
         }
         
-        selectionRectangleView.handleMouseDown(at: globalPoint)
+        selectionRectangleView.handleMouseDown(at: localPoint)
     }
     
     override func mouseDragged(with event: NSEvent) {
         let globalPoint = convertToGlobal(point: event.locationInWindow)
         selectionRectangleView.handleMouseDragged(to: globalPoint)
-        updateTrackingAreas()
     }
     
     override func mouseUp(with event: NSEvent) {
@@ -109,6 +115,14 @@ class OverlayView: NSView {
         let rectangle = manager.getRectangle()
         let menuRect = manager.getMenuRectangle()
         
+        // Convert global menu rect to local coordinates for this view
+        let localMenuRect = NSRect(
+            x: menuRect.origin.x - screenFrame.origin.x,
+            y: menuRect.origin.y - screenFrame.origin.y,
+            width: menuRect.width,
+            height: menuRect.height
+        )
+        
         let options: NSTrackingArea.Options = [.mouseEnteredAndExited, .activeAlways]
         rectangleTrackingArea = NSTrackingArea(rect: rectangle, options: options, owner: self, userInfo: nil)
         addTrackingArea(rectangleTrackingArea!)
@@ -121,7 +135,7 @@ class OverlayView: NSView {
             addTrackingArea(trackingArea)
         }
         
-        menuTrackingArea = NSTrackingArea(rect: menuRect, options: options, owner: self, userInfo: ["type": "menu"])
+        menuTrackingArea = NSTrackingArea(rect: localMenuRect, options: options, owner: self, userInfo: ["type": "menu"])
         addTrackingArea(menuTrackingArea!)
     }
     

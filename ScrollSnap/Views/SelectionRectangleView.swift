@@ -36,7 +36,7 @@ class SelectionRectangleView: NSView {
         }
     }
     
-    func handleMouseDown(at globalPoint: NSPoint) {
+    func handleMouseDown(at localPoint: NSPoint) {
         guard let manager = manager else { return }
         let rectangle = manager.getRectangle()
         
@@ -45,13 +45,15 @@ class SelectionRectangleView: NSView {
             return
         }
         
-        // Check border zones first
-        resizeMode = findBorderZone(at: globalPoint, for: rectangle)
+        // Check border zones first using the local point
+        resizeMode = findBorderZone(at: localPoint, for: rectangle)
         if resizeMode != nil {
             return // Start resizing
         }
         
         // If not in a border zone, allow dragging
+        // Convert to global coordinates for this check
+        let globalPoint = NSPoint(x: localPoint.x + screenFrame.origin.x, y: localPoint.y + screenFrame.origin.y)
         if rectangle.contains(globalPoint) {
             NSCursor.closedHand.push()
             manager.handleMouseDown(at: globalPoint)
