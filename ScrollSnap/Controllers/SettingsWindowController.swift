@@ -10,7 +10,7 @@ class SettingsWindowController: NSWindowController {
     
     convenience init(overlayManager: OverlayManager) {
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 300, height: 60),
+            contentRect: NSRect(x: 0, y: 0, width: 300, height: 80),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
@@ -50,13 +50,25 @@ class SettingsView: NSView {
             target: self,
             action: #selector(resetPositions)
         )
-        resetButton.frame = NSRect(x: 10, y: 20, width: 280, height: 20) // Centered in smaller window
-        resetButton.bezelStyle = .push // Modern macOS button style
+        resetButton.frame = NSRect(x: 10, y: 40, width: 280, height: 20)
+        resetButton.bezelStyle = .push
         resetButton.font = .systemFont(ofSize: 13)
         resetButton.wantsLayer = true
-        resetButton.layer?.cornerRadius = 6 // Soften edges
+        resetButton.layer?.cornerRadius = 6
         
         addSubview(resetButton)
+        
+        let versionLabel = NSTextField(labelWithString: "")
+        versionLabel.frame = NSRect(x: 10, y: 10, width: 280, height: 20)
+        versionLabel.alignment = .center
+        versionLabel.font = .systemFont(ofSize: 11)
+        versionLabel.textColor = .secondaryLabelColor
+        
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            versionLabel.stringValue = "Version \(version)"
+        }
+        
+        addSubview(versionLabel)
     }
     
     @objc private func resetPositions() {
