@@ -53,15 +53,34 @@ class OverlayManager {
             return overlayWindow
         }
         
-        // After creating all overlays, focus the one with the selection rectangle
-        if let primaryOverlay = overlayWindows.first(where: { $0.frame.contains(rectangle.origin) }) {
-            primaryOverlay.makeKeyAndOrderFront(nil)
-            NSApp.activate(ignoringOtherApps: true) // Ensure the app is active
+        // Find the windows for the rectangle and menu bar
+        let rectangleWindow = overlayWindows.first(where: { $0.frame.contains(rectangle.origin) })
+        let menuBarWindow = overlayWindows.first(where: { $0.frame.contains(menuRect.origin) })
+
+        // Use a Set to handle cases where they are in the same window
+        var windowsToShow = Set<NSWindow>()
+        if let rectangleWindow = rectangleWindow {
+            windowsToShow.insert(rectangleWindow)
+        }
+        if let menuBarWindow = menuBarWindow {
+            windowsToShow.insert(menuBarWindow)
+        }
+
+        // Show all unique windows that are needed
+        for window in windowsToShow {
+            window.makeKeyAndOrderFront(nil)
+        }
+
+        // Finally, ensure the app is active and the rectangle's window has focus
+        if let rectangleWindow = rectangleWindow {
+            rectangleWindow.makeKey()
+            NSApp.activate(ignoringOtherApps: true)
         }
     }
     
     /// Updates the rectangle and persists it to UserDefaults. Refreshes all overlays.
     func updateRectangle(to newRect: NSRect) {
+        let oldRect = self.rectangle
         rectangle = clampRectangleToScreens(rect: newRect)
         saveRectangle(rectangle)
         
@@ -71,15 +90,16 @@ class OverlayManager {
             targetOverlay.makeKeyAndOrderFront(nil)
         }
         
-        refreshOverlays()
+        refreshOverlays(oldFrame: oldRect, newFrame: rectangle)
     }
     
     /// Updates the menu rectangle. Refreshes all overlays.
     func updateMenuRect(to newRect: NSRect) {
+        let oldRect = self.menuRect
         let clampedRect = clampRectangleToScreens(rect: newRect)
         menuRect = clampedRect
         saveMenuRect(menuRect)
-        refreshOverlays()
+        refreshOverlays(oldFrame: oldRect, newFrame: menuRect)
     }
     
     /// Returns the current rectangle.
@@ -143,10 +163,17 @@ class OverlayManager {
     private func stopScrollingCapture() async {
         isScrollingCaptureActive = false
         
+        // Perform UI updates on the main thread first
         await MainActor.run {
             invalidateCaptureTimer()
             hideOverlays()
-            if let finalImage = stitchingManager.stopStitching() {
+        }
+        
+        // Asynchronously wait for the stitching to complete in the background.
+        // This frees up the main thread, keeping the app responsive.
+        if let finalImage = await stitchingManager.stopStitching() {
+            // Once stitching is done, switch back to the main thread to present the result.
+            await MainActor.run {
                 let selectedDestination = UserDefaults.standard.string(forKey: Constants.Menu.Options.selectedDestinationKey) ?? Constants.Menu.Options.defaultDestination
                 
                 switch selectedDestination {
@@ -178,7 +205,7 @@ class OverlayManager {
     }
     
     private func setupCaptureTimer() {
-        captureTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { [weak self] _ in
+        captureTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
             guard let self = self, self.isScrollingCaptureActive else { return }
             
             Task {
@@ -240,9 +267,36 @@ class OverlayManager {
         overlayWindows.forEach { $0.orderOut(nil) }
     }
     
-    /// Refreshes the `needsDisplay` flag on all overlay windows to trigger a redraw.
-    private func refreshOverlays() {
-        overlayWindows.forEach { $0.contentView?.needsDisplay = true }
+    /// Refreshes overlays. If oldFrame and newFrame are provided, it invalidates only those regions.
+    /// Otherwise, it falls back to a full redraw.
+    private func refreshOverlays(oldFrame: NSRect? = nil, newFrame: NSRect? = nil) {
+        if let oldFrame = oldFrame, let newFrame = newFrame {
+            // Smart redraw logic
+            let framesToUpdate = [oldFrame, newFrame]
+            for window in overlayWindows {
+                guard let view = window.contentView else { continue }
+                let screenFrame = window.frame
+                
+                for frame in framesToUpdate {
+                    // Check if the frame is on this screen
+                    if screenFrame.intersects(frame) {
+                        // Convert global frame to local coordinates and invalidate
+                        let localRect = NSRect(
+                            x: frame.origin.x - screenFrame.origin.x,
+                            y: frame.origin.y - screenFrame.origin.y,
+                            width: frame.width,
+                            height: frame.height
+                        )
+                        // Add a small buffer for borders/shadows
+                        let dirtyRect = localRect.insetBy(dx: -10, dy: -10)
+                        view.setNeedsDisplay(dirtyRect)
+                    }
+                }
+            }
+        } else {
+            // Fallback to full redraw for operations that affect everything
+            overlayWindows.forEach { $0.contentView?.needsDisplay = true }
+        }
     }
     
     // MARK: - Private Helpers

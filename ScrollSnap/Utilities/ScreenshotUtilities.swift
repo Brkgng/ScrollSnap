@@ -38,7 +38,7 @@ func captureSingleScreenshot(_ rectangle: NSRect) async -> NSImage? {
     
     do {
         let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: config)
-        let nsImage = NSImage(cgImage: image, size: NSSize(width: width, height: height))
+        let nsImage = NSImage(cgImage: image, size: adjustedRect.size)
         return nsImage
     } catch {
         print("Error capturing screenshot: \(error.localizedDescription)")
