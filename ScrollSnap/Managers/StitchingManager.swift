@@ -32,19 +32,41 @@ class StitchingManager {
                 return
             }
             
-            // Calculate the offset by comparing the new image with the *previous* one,
-            // not the entire stitched image. This is critical for performance and memory.
+            // Calculate the offset by comparing the new image with the *previous* one.
+            // This supports both downward scrolling (positive offset) and upward scrolling (negative offset).
             guard let offsetInPoints = self.calculateOffset(from: image, to: prevImage) else {
-                // If we fail to find an offset, we don't add the new image and wait for the next one.
+                // If we fail to find an offset, update previousImage and wait for the next one.
+                self.previousImage = image
                 return
             }
-            
-            // Composite the new image onto the main running stitched image.
-            let newStitchedImage = self.composite(baseImage: baseStitchedImage, newImage: image, offset: offsetInPoints)
-            
-            // Update the state for the next iteration.
-            self.runningStitchedImage = newStitchedImage
-            self.previousImage = image
+
+            if offsetInPoints > 0 {
+                // Downward scroll: composite the new image onto the bottom of the stitched image.
+                guard let newStitchedImage = self.composite(baseImage: baseStitchedImage, newImage: image, offset: offsetInPoints) else {
+                    return
+                }
+
+                self.runningStitchedImage = newStitchedImage
+                self.previousImage = image
+
+            } else if offsetInPoints < 0 {
+                // Upward scroll: crop from the bottom of the stitched image.
+                let cropAmount = abs(offsetInPoints)
+
+                // Validate crop amount is reasonable.
+                guard cropAmount <= baseStitchedImage.size.height,
+                      let croppedImage = self.cropBottomRegion(of: baseStitchedImage, byAmount: cropAmount) else {
+                    self.previousImage = image
+                    return
+                }
+
+                self.runningStitchedImage = croppedImage
+                self.previousImage = image
+
+            } else {
+                // No scroll detected, skip this frame.
+                self.previousImage = image
+            }
         }
     }
     
@@ -65,11 +87,11 @@ class StitchingManager {
               let previousCG = previousImage.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
             return nil
         }
-        
+
         guard let verticalOffsetInPixels = findVerticalOffset(from: currentCG, to: previousCG) else {
             return nil
         }
-        
+
         // Convert the pixel-based offset from Vision to a point-based offset for AppKit drawing.
         guard currentImage.size.height > 0 else { return nil }
         let scale = CGFloat(currentCG.height) / currentImage.size.height
@@ -79,25 +101,21 @@ class StitchingManager {
     private func findVerticalOffset(from image1: CGImage, to image2: CGImage) -> CGFloat? {
         let request = VNTranslationalImageRegistrationRequest(targetedCGImage: image2)
         let handler = VNImageRequestHandler(cgImage: image1, options: [:])
-        
+
         do {
             try handler.perform([request])
         } catch {
-            // This is where the "VNImageSignature" allocation error was happening.
-            print("Failed to perform Vision request: \(error)")
             return nil
         }
-        
+
         guard let observation = request.results?.first as? VNImageTranslationAlignmentObservation else {
             return nil
         }
-        
-        let alignmentTransform = observation.alignmentTransform
-        
+
         // For a downward scroll, the new image (image1) is below the old one (image2).
         // To align image1 with image2, it must be shifted UP, resulting in a positive 'ty' value.
-        // We only proceed if the scroll is downwards.
-        return alignmentTransform.ty > 0 ? alignmentTransform.ty : nil
+        // For an upward scroll, ty will be negative.
+        return observation.alignmentTransform.ty
     }
     
     private func composite(baseImage: NSImage, newImage: NSImage, offset: CGFloat) -> NSImage? {
@@ -122,7 +140,27 @@ class StitchingManager {
         newImage.draw(in: newRect)
         
         outputImage.unlockFocus()
-        
+
         return outputImage
+    }
+
+    private func cropBottomRegion(of image: NSImage, byAmount amount: CGFloat) -> NSImage? {
+        let originalSize = image.size
+        guard amount > 0, amount < originalSize.height else { return image }
+
+        let newHeight = originalSize.height - amount
+        let newSize = NSSize(width: originalSize.width, height: newHeight)
+
+        let croppedImage = NSImage(size: newSize)
+        croppedImage.lockFocus()
+
+        // Keep the top content, crop from the bottom.
+        let sourceRect = NSRect(x: 0, y: amount, width: originalSize.width, height: newHeight)
+        let destRect = NSRect(origin: .zero, size: newSize)
+
+        image.draw(in: destRect, from: sourceRect, operation: .copy, fraction: 1.0)
+
+        croppedImage.unlockFocus()
+        return croppedImage
     }
 }
