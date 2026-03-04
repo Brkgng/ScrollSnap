@@ -32,6 +32,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.showSettingsWindow()
                 return nil
             }
+            if event.keyCode == 36 && !event.isARepeat { // Return / Enter — Start or stop capture (ignore key repeat)
+                self.overlayManager.captureScreenshot()
+                return nil
+            }
             if event.keyCode == 53 { // Escape
                 NSApplication.shared.terminate(self)
                 return nil

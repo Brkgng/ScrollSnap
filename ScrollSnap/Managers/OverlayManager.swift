@@ -42,10 +42,10 @@ class OverlayManager {
                 defer: false
             )
             
-            overlayWindow.level = .statusBar
+            overlayWindow.level = Constants.Overlay.windowLevel
             overlayWindow.isOpaque = false
             overlayWindow.backgroundColor = .clear
-            overlayWindow.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+            overlayWindow.collectionBehavior = Constants.Overlay.collectionBehavior
             
             let overlayView = OverlayView(manager: self, screenFrame: screen.frame)
             overlayWindow.contentView = overlayView
@@ -287,8 +287,8 @@ class OverlayManager {
                             width: frame.width,
                             height: frame.height
                         )
-                        // Add a small buffer for borders/shadows
-                        let dirtyRect = localRect.insetBy(dx: -10, dy: -10)
+                        // Add buffer for borders/shadows and the dimension label below the rectangle
+                        let dirtyRect = localRect.insetBy(dx: -10, dy: -30)
                         view.setNeedsDisplay(dirtyRect)
                     }
                 }

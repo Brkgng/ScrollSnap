@@ -75,7 +75,11 @@ class StitchingManager {
             // Enqueue a task to run after all previous tasks on the serial queue.
             // This task will then resume the continuation with the final image.
             stitchingQueue.async { [weak self] in
-                continuation.resume(returning: self?.runningStitchedImage)
+                let finalImage = self?.runningStitchedImage
+                // Clean up state to free memory after stitching completes
+                self?.runningStitchedImage = nil
+                self?.previousImage = nil
+                continuation.resume(returning: finalImage)
             }
         }
     }

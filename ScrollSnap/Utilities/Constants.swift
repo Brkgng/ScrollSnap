@@ -48,8 +48,8 @@ struct Constants {
     
     struct Overlay {
         static let backgroundColor: NSColor = NSColor.black.withAlphaComponent(0.5)
-        static let windowLevel: NSWindow.Level = .statusBar
-        static let collectionBehavior: NSWindow.CollectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        static let windowLevel: NSWindow.Level = NSWindow.Level(rawValue: Int(CGShieldingWindowLevel()))
+        static let collectionBehavior: NSWindow.CollectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .fullScreenPrimary]
     }
     
     struct Thumbnail {

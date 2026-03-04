@@ -17,7 +17,7 @@ struct PermissionRequestView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity)
             
-            Text("Please enable it in System Preferences > Security & Privacy > Screen Recording, then relaunch the app.")
+            Text("Please enable it in System Settings > Privacy & Security > Screen Recording, then relaunch the app.")
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondary)
                 .fixedSize(horizontal: false, vertical: true)

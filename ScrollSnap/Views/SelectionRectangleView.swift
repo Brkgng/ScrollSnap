@@ -156,6 +156,47 @@ class SelectionRectangleView: NSView {
         drawDashedBorder(for: rectToDraw)
         
         drawHandles(for: rectToDraw)
+        
+        // Show dimensions when not capturing
+        if manager?.getIsScrollingCaptureActive() != true {
+            drawDimensionLabel(for: rectToDraw)
+        }
+    }
+    
+    /// Draws a small label showing the selection dimensions (e.g. "800 × 500") near the bottom-right corner.
+    private func drawDimensionLabel(for rect: NSRect) {
+        let dimensionText = "\(Int(rect.width)) × \(Int(rect.height))"
+        
+        let font = NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .medium)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: NSColor.white,
+            .font: font
+        ]
+        
+        let textSize = dimensionText.size(withAttributes: attributes)
+        let padding: CGFloat = 6
+        let labelWidth = textSize.width + padding * 2
+        let labelHeight = textSize.height + padding
+        
+        // Position below the bottom-right corner of the selection rectangle
+        let labelX = rect.maxX - labelWidth
+        let labelY = rect.minY - labelHeight - 4
+        
+        let labelRect = NSRect(x: labelX, y: labelY, width: labelWidth, height: labelHeight)
+        
+        // Draw background
+        let bgPath = NSBezierPath(roundedRect: labelRect, xRadius: 4, yRadius: 4)
+        NSColor.black.withAlphaComponent(0.7).setFill()
+        bgPath.fill()
+        
+        // Draw text centered within background
+        let textRect = NSRect(
+            x: labelRect.midX - textSize.width / 2,
+            y: labelRect.midY - textSize.height / 2,
+            width: textSize.width,
+            height: textSize.height
+        )
+        dimensionText.draw(in: textRect, withAttributes: attributes)
     }
     
     /// Clears the interior of the rectangle.

@@ -97,7 +97,7 @@ func saveImage(_ image: NSImage, to destination: String? = nil) -> URL? {
         openInPreview(pngData, filename)
         return nil
     default:
-        // Use default destionation if the selected destination is not recognized
+        // Use default destination if the selected destination is not recognized
         let defaultDestination = Constants.Menu.Options.defaultDestination
         fileURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("\(defaultDestination)/\(filename)")
     }

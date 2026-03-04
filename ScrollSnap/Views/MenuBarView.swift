@@ -98,7 +98,7 @@ class MenuBarView: NSView {
         
         drawVerticalBorder(at: cancelRect.maxX, minY: cancelRect.minY, maxY: cancelRect.maxY)
         
-        if let cancelIcon = NSImage(systemSymbolName: "xmark.circle.fill", accessibilityDescription: nil) {
+        if let cancelIcon = NSImage(systemSymbolName: "xmark.circle.fill", accessibilityDescription: "Cancel") {
             drawSymbol(cancelIcon, in: cancelRect)
         }
     }
@@ -116,7 +116,7 @@ class MenuBarView: NSView {
         
         drawVerticalBorder(at: buttonRect.maxX, minY: buttonRect.minY, maxY: buttonRect.maxY)
         
-        if let dragSymbol = NSImage(systemSymbolName: "arrow.up.and.down.and.arrow.left.and.right", accessibilityDescription: nil) {
+        if let dragSymbol = NSImage(systemSymbolName: "arrow.up.and.down.and.arrow.left.and.right", accessibilityDescription: "Move") {
             drawSymbol(dragSymbol, in: buttonRect, size: 12)
         }
     }
