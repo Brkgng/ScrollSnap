@@ -150,6 +150,8 @@ class OverlayManager {
     
     /// Initiates or stops screenshot capture based on current mode.
     func captureScreenshot() {
+        guard !overlayWindows.isEmpty else { return }
+
         Task {
             if isScrollingCaptureActive {
                 await stopScrollingCapture()

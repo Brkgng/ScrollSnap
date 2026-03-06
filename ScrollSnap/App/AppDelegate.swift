@@ -8,22 +8,24 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     let overlayManager = OverlayManager()
     private var settingsWindowController: SettingsWindowController?
-    private var permissionWindow: NSWindow?
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMainMenu()
         
         cleanupOldTemporaryFiles()
         
-        Task {
-            let hasPermission = await checkScreenRecordingPermission()
-            await MainActor.run {
-                if hasPermission {
-                    // Setup overlays only if permission is granted
-                    overlayManager.setupOverlays()
-                } else {
-                    self.showPermissionRequestWindow()
-                }
+        Task { @MainActor in
+            if hasScreenRecordingPermission() {
+                overlayManager.setupOverlays()
+                return
+            }
+
+            _ = requestScreenRecordingPermission()
+
+            if hasScreenRecordingPermission() {
+                overlayManager.setupOverlays()
+            } else {
+                NSApplication.shared.terminate(nil)
             }
         }
         
@@ -66,24 +68,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         settingsWindowController?.showWindow(nil)
         settingsWindowController?.window?.makeKeyAndOrderFront(nil)
-    }
-    
-    private func showPermissionRequestWindow() {
-        let permissionView = PermissionRequestView()
-        let hostingController = NSHostingController(rootView: permissionView)
-        
-        permissionWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 450, height: 400),
-            styleMask: [.titled, .closable],
-            backing: .buffered,
-            defer: false
-        )
-        
-        permissionWindow?.center()
-        permissionWindow?.contentViewController = hostingController
-        permissionWindow?.title = "Screen Recording Permission"
-        permissionWindow?.level = .floating
-        permissionWindow?.makeKeyAndOrderFront(nil)
     }
     
     // MARK: - Temporary File Cleanup

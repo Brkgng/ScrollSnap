@@ -327,21 +327,15 @@ private func getCachedFolderURL(folderName: String, bookmarkKey: String) -> URL?
     }
 }
 
-/// Checks if screen recording permission is granted, and requests it if not.
-/// - Returns: `true` if permission is granted, `false` otherwise.
-func checkScreenRecordingPermission() async -> Bool {
-    let isAuthorized = await withCheckedContinuation { continuation in
-        CGRequestScreenCaptureAccess()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            continuation.resume(returning: CGPreflightScreenCaptureAccess())
-        }
-    }
-    
-    if !isAuthorized {
-        print("Screen recording permission not granted. Prompting user...")
-        CGRequestScreenCaptureAccess()
-        return false
-    }
-    
-    return true
+/// Returns whether screen recording permission is currently granted.
+@MainActor
+func hasScreenRecordingPermission() -> Bool {
+    CGPreflightScreenCaptureAccess()
+}
+
+/// Requests screen recording permission if it is not already granted.
+/// - Returns: `true` if the request API reports access was granted, `false` otherwise.
+@MainActor
+func requestScreenRecordingPermission() -> Bool {
+    CGRequestScreenCaptureAccess()
 }
