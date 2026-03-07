@@ -87,9 +87,8 @@ class MenuBarView: NSView {
     /// Draw the Capture button inside the menu rectangle, toggling between "Capture" and "Save".
     private func drawCaptureButton(for menuRect: NSRect) {
         let buttonRect = getCaptureButtonRect(for: menuRect)
-        let label = manager?.getIsScrollingCaptureActive() == true ? "Save" : "Capture"
-        
-        drawText(label, in: buttonRect)
+        let label = manager?.getIsScrollingCaptureActive() == true ? "Save " : "Capture "
+        drawTextWithSymbol(label, symbol: "return", in: buttonRect)
     }
     
     /// Draw the Cancel button inside the menu rectangle
@@ -98,7 +97,7 @@ class MenuBarView: NSView {
         
         drawVerticalBorder(at: cancelRect.maxX, minY: cancelRect.minY, maxY: cancelRect.maxY)
         
-        if let cancelIcon = NSImage(systemSymbolName: "xmark.circle.fill", accessibilityDescription: nil) {
+        if let cancelIcon = NSImage(systemSymbolName: "xmark.circle.fill", accessibilityDescription: "Cancel") {
             drawSymbol(cancelIcon, in: cancelRect)
         }
     }
@@ -116,7 +115,7 @@ class MenuBarView: NSView {
         
         drawVerticalBorder(at: buttonRect.maxX, minY: buttonRect.minY, maxY: buttonRect.maxY)
         
-        if let dragSymbol = NSImage(systemSymbolName: "arrow.up.and.down.and.arrow.left.and.right", accessibilityDescription: nil) {
+        if let dragSymbol = NSImage(systemSymbolName: "arrow.up.and.down.and.arrow.left.and.right", accessibilityDescription: "Move") {
             drawSymbol(dragSymbol, in: buttonRect, size: 12)
         }
     }

@@ -8,35 +8,34 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     let overlayManager = OverlayManager()
     private var settingsWindowController: SettingsWindowController?
-    private var permissionWindow: NSWindow?
+    private var localKeyEventMonitor: Any?
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMainMenu()
         
         cleanupOldTemporaryFiles()
+        installLocalKeyEventMonitor()
         
-        Task {
-            let hasPermission = await checkScreenRecordingPermission()
-            await MainActor.run {
-                if hasPermission {
-                    // Setup overlays only if permission is granted
-                    overlayManager.setupOverlays()
-                } else {
-                    self.showPermissionRequestWindow()
-                }
+        Task { @MainActor in
+            if hasScreenRecordingPermission() {
+                overlayManager.setupOverlays()
+                return
+            }
+
+            _ = requestScreenRecordingPermission()
+
+            if hasScreenRecordingPermission() {
+                overlayManager.setupOverlays()
+            } else {
+                NSApplication.shared.terminate(nil)
             }
         }
-        
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-            if event.modifierFlags.contains(.command) && event.keyCode == 43 { // Command + ,
-                self.showSettingsWindow()
-                return nil
-            }
-            if event.keyCode == 53 { // Escape
-                NSApplication.shared.terminate(self)
-                return nil
-            }
-            return event
+    }
+    
+    func applicationWillTerminate(_ notification: Notification) {
+        if let localKeyEventMonitor {
+            NSEvent.removeMonitor(localKeyEventMonitor)
+            self.localKeyEventMonitor = nil
         }
     }
     
@@ -64,22 +63,42 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         settingsWindowController?.window?.makeKeyAndOrderFront(nil)
     }
     
-    private func showPermissionRequestWindow() {
-        let permissionView = PermissionRequestView()
-        let hostingController = NSHostingController(rootView: permissionView)
+    private func installLocalKeyEventMonitor() {
+        localKeyEventMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            self?.handleLocalKeyDown(event) ?? event
+        }
+    }
+    
+    private func handleLocalKeyDown(_ event: NSEvent) -> NSEvent? {
+        if isPreferencesShortcut(event) {
+            showSettingsWindow()
+            return nil
+        }
         
-        permissionWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 450, height: 400),
-            styleMask: [.titled, .closable],
-            backing: .buffered,
-            defer: false
-        )
+        if isCaptureToggleEvent(event), event.window is OverlayWindow {
+            overlayManager.captureScreenshot()
+            return nil
+        }
         
-        permissionWindow?.center()
-        permissionWindow?.contentViewController = hostingController
-        permissionWindow?.title = "Screen Recording Permission"
-        permissionWindow?.level = .floating
-        permissionWindow?.makeKeyAndOrderFront(nil)
+        if isEscapeEvent(event) {
+            NSApplication.shared.terminate(self)
+            return nil
+        }
+        
+        return event
+    }
+    
+    private func isPreferencesShortcut(_ event: NSEvent) -> Bool {
+        event.modifierFlags.contains(.command) && event.charactersIgnoringModifiers == ","
+    }
+    
+    private func isCaptureToggleEvent(_ event: NSEvent) -> Bool {
+        guard !event.isARepeat else { return false }
+        return event.charactersIgnoringModifiers == "\r" || event.charactersIgnoringModifiers == "\u{3}"
+    }
+    
+    private func isEscapeEvent(_ event: NSEvent) -> Bool {
+        event.charactersIgnoringModifiers == "\u{1B}"
     }
     
     // MARK: - Temporary File Cleanup

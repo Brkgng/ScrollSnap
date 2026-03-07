@@ -96,6 +96,16 @@ class OverlayView: NSView {
         menu.popUp(positioning: nil, at: location, in: self)
     }
     
+    func dirtyRect(forGlobalRect rect: NSRect, includesDimensionLabel: Bool) -> NSRect {
+        let localRect = rect.offsetBy(dx: -screenFrame.origin.x, dy: -screenFrame.origin.y)
+        
+        if includesDimensionLabel {
+            return selectionRectangleView.dirtyRect(for: localRect, showsDimensionLabel: true)
+        }
+        
+        return localRect.insetBy(dx: -10, dy: -10).intersection(bounds)
+    }
+    
     // MARK: - Tracking Area Handling
     
     override func updateTrackingAreas() {

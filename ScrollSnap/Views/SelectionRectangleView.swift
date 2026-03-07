@@ -8,6 +8,13 @@ import SwiftUI
 /// `SelectionRectangleView` manages the selection rectangle's appearance and resizing.
 class SelectionRectangleView: NSView {
     
+    private struct DimensionLabelLayout {
+        let text: String
+        let attributes: [NSAttributedString.Key: Any]
+        let textSize: NSSize
+        let labelRect: NSRect
+    }
+    
     // MARK: - Properties
     
     private weak var manager: OverlayManager?
@@ -34,6 +41,16 @@ class SelectionRectangleView: NSView {
         if rectangle.intersects(screenFrame) {
             drawSelectionRectangle(in: rectangle)
         }
+    }
+    
+    func dirtyRect(for localRect: NSRect, showsDimensionLabel: Bool) -> NSRect {
+        var dirtyRect = localRect.insetBy(dx: -10, dy: -10)
+        
+        if showsDimensionLabel {
+            dirtyRect = dirtyRect.union(dimensionLabelLayout(for: localRect).labelRect)
+        }
+        
+        return dirtyRect.intersection(bounds)
     }
     
     func handleMouseDown(at localPoint: NSPoint) {
@@ -156,6 +173,55 @@ class SelectionRectangleView: NSView {
         drawDashedBorder(for: rectToDraw)
         
         drawHandles(for: rectToDraw)
+        
+        // Show dimensions when not capturing
+        if manager?.getIsScrollingCaptureActive() != true {
+            drawDimensionLabel(for: rectToDraw)
+        }
+    }
+    
+    /// Draws a small label showing the selection dimensions (e.g. "800 × 500") near the bottom-right corner.
+    private func drawDimensionLabel(for rect: NSRect) {
+        let layout = dimensionLabelLayout(for: rect)
+        
+        // Draw background
+        let bgPath = NSBezierPath(roundedRect: layout.labelRect, xRadius: 4, yRadius: 4)
+        NSColor.black.withAlphaComponent(0.7).setFill()
+        bgPath.fill()
+        
+        // Draw text centered within background
+        let textRect = NSRect(
+            x: layout.labelRect.midX - layout.textSize.width / 2,
+            y: layout.labelRect.midY - layout.textSize.height / 2,
+            width: layout.textSize.width,
+            height: layout.textSize.height
+        )
+        layout.text.draw(in: textRect, withAttributes: layout.attributes)
+    }
+    
+    private func dimensionLabelLayout(for rect: NSRect) -> DimensionLabelLayout {
+        let text = "\(Int(rect.width)) × \(Int(rect.height))"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: NSColor.white,
+            .font: NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .medium)
+        ]
+        
+        let textSize = text.size(withAttributes: attributes)
+        let horizontalPadding: CGFloat = 6
+        let verticalPadding: CGFloat = 3
+        let labelWidth = textSize.width + (horizontalPadding * 2)
+        let labelHeight = textSize.height + (verticalPadding * 2)
+        let spacing: CGFloat = 4
+        
+        let preferredX = rect.maxX - labelWidth
+        let clampedX = min(max(preferredX, bounds.minX), max(bounds.minX, bounds.maxX - labelWidth))
+        
+        let preferredBelowY = rect.minY - labelHeight - spacing
+        let preferredY = preferredBelowY >= bounds.minY ? preferredBelowY : rect.maxY + spacing
+        let clampedY = min(max(preferredY, bounds.minY), max(bounds.minY, bounds.maxY - labelHeight))
+        
+        let labelRect = NSRect(x: clampedX, y: clampedY, width: labelWidth, height: labelHeight)
+        return DimensionLabelLayout(text: text, attributes: attributes, textSize: textSize, labelRect: labelRect)
     }
     
     /// Clears the interior of the rectangle.

@@ -15,6 +15,7 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 
 - **Customizable Selection Area**: Resize and drag a selection rectangle to define the capture region.
 - **Scrolling Capture**: Automatically stitches multiple screenshots into a single image for capturing long content.
+- **Keyboard Shortcut**: Press `Return` while the overlay is active to start or stop scrolling capture.
 - **Interactive Menu**: Includes options to capture, save, reset positions, or cancel, with a draggable interface.
 - **Thumbnail Preview**: Displays a draggable thumbnail of the captured image with swipe-to-save or right-click options.
 - **Save Destinations**: Supports saving to Desktop, Documents, Downloads, Clipboard, or opening in Preview.
@@ -53,7 +54,7 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 
 3. **Capture a Screenshot**:
 
-- For scrolling capture, click "Capture" to start, then "Save" to stop and stitch the images.
+- For scrolling capture, click "Capture" to start, then "Save" to stop and stitch the images, or press Return or keypad Enter when the overlay is focused.
 
 4. **Interact with the Thumbnail**:
 
