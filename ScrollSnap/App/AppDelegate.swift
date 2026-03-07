@@ -8,11 +8,13 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     let overlayManager = OverlayManager()
     private var settingsWindowController: SettingsWindowController?
+    private var localKeyEventMonitor: Any?
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMainMenu()
         
         cleanupOldTemporaryFiles()
+        installLocalKeyEventMonitor()
         
         Task { @MainActor in
             if hasScreenRecordingPermission() {
@@ -28,21 +30,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NSApplication.shared.terminate(nil)
             }
         }
-        
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-            if event.modifierFlags.contains(.command) && event.keyCode == 43 { // Command + ,
-                self.showSettingsWindow()
-                return nil
-            }
-            if event.keyCode == 36 && !event.isARepeat { // Return / Enter — Start or stop capture (ignore key repeat)
-                self.overlayManager.captureScreenshot()
-                return nil
-            }
-            if event.keyCode == 53 { // Escape
-                NSApplication.shared.terminate(self)
-                return nil
-            }
-            return event
+    }
+    
+    func applicationWillTerminate(_ notification: Notification) {
+        if let localKeyEventMonitor {
+            NSEvent.removeMonitor(localKeyEventMonitor)
+            self.localKeyEventMonitor = nil
         }
     }
     
@@ -68,6 +61,44 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         settingsWindowController?.showWindow(nil)
         settingsWindowController?.window?.makeKeyAndOrderFront(nil)
+    }
+    
+    private func installLocalKeyEventMonitor() {
+        localKeyEventMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            self?.handleLocalKeyDown(event) ?? event
+        }
+    }
+    
+    private func handleLocalKeyDown(_ event: NSEvent) -> NSEvent? {
+        if isPreferencesShortcut(event) {
+            showSettingsWindow()
+            return nil
+        }
+        
+        if isCaptureToggleEvent(event), event.window is OverlayWindow {
+            overlayManager.captureScreenshot()
+            return nil
+        }
+        
+        if isEscapeEvent(event) {
+            NSApplication.shared.terminate(self)
+            return nil
+        }
+        
+        return event
+    }
+    
+    private func isPreferencesShortcut(_ event: NSEvent) -> Bool {
+        event.modifierFlags.contains(.command) && event.charactersIgnoringModifiers == ","
+    }
+    
+    private func isCaptureToggleEvent(_ event: NSEvent) -> Bool {
+        guard !event.isARepeat else { return false }
+        return event.charactersIgnoringModifiers == "\r" || event.charactersIgnoringModifiers == "\u{3}"
+    }
+    
+    private func isEscapeEvent(_ event: NSEvent) -> Bool {
+        event.charactersIgnoringModifiers == "\u{1B}"
     }
     
     // MARK: - Temporary File Cleanup

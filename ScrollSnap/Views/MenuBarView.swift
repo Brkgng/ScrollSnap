@@ -87,9 +87,8 @@ class MenuBarView: NSView {
     /// Draw the Capture button inside the menu rectangle, toggling between "Capture" and "Save".
     private func drawCaptureButton(for menuRect: NSRect) {
         let buttonRect = getCaptureButtonRect(for: menuRect)
-        let label = manager?.getIsScrollingCaptureActive() == true ? "Save" : "Capture"
-        
-        drawText(label, in: buttonRect)
+        let label = manager?.getIsScrollingCaptureActive() == true ? "Save " : "Capture "
+        drawTextWithSymbol(label, symbol: "return", in: buttonRect)
     }
     
     /// Draw the Cancel button inside the menu rectangle

@@ -27,7 +27,7 @@ struct Constants {
             static let dragWidth: CGFloat = 35.0
             static let cancelWidth: CGFloat = 40.0
             static let optionsWidth: CGFloat = 90.0
-            static let captureWidth: CGFloat = 70.0
+            static let captureWidth: CGFloat = 84.0
             static let textColor: NSColor = .black
             static let textFont: NSFont = .systemFont(ofSize: 14)
             static let iconColor: NSColor = .black
