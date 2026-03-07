@@ -90,7 +90,7 @@ class OverlayManager {
             targetOverlay.makeKeyAndOrderFront(nil)
         }
         
-        refreshOverlays(oldFrame: oldRect, newFrame: rectangle)
+        refreshOverlays(oldFrame: oldRect, newFrame: rectangle, includesDimensionLabel: true)
     }
     
     /// Updates the menu rectangle. Refreshes all overlays.
@@ -271,7 +271,7 @@ class OverlayManager {
     
     /// Refreshes overlays. If oldFrame and newFrame are provided, it invalidates only those regions.
     /// Otherwise, it falls back to a full redraw.
-    private func refreshOverlays(oldFrame: NSRect? = nil, newFrame: NSRect? = nil) {
+    private func refreshOverlays(oldFrame: NSRect? = nil, newFrame: NSRect? = nil, includesDimensionLabel: Bool = false) {
         if let oldFrame = oldFrame, let newFrame = newFrame {
             // Smart redraw logic
             let framesToUpdate = [oldFrame, newFrame]
@@ -282,16 +282,22 @@ class OverlayManager {
                 for frame in framesToUpdate {
                     // Check if the frame is on this screen
                     if screenFrame.intersects(frame) {
-                        // Convert global frame to local coordinates and invalidate
-                        let localRect = NSRect(
-                            x: frame.origin.x - screenFrame.origin.x,
-                            y: frame.origin.y - screenFrame.origin.y,
-                            width: frame.width,
-                            height: frame.height
-                        )
-                        // Add buffer for borders/shadows and the dimension label below the rectangle
-                        let dirtyRect = localRect.insetBy(dx: -10, dy: -30)
-                        view.setNeedsDisplay(dirtyRect)
+                        let dirtyRect: NSRect
+                        if let overlayView = view as? OverlayView {
+                            dirtyRect = overlayView.dirtyRect(forGlobalRect: frame, includesDimensionLabel: includesDimensionLabel)
+                        } else {
+                            let localRect = NSRect(
+                                x: frame.origin.x - screenFrame.origin.x,
+                                y: frame.origin.y - screenFrame.origin.y,
+                                width: frame.width,
+                                height: frame.height
+                            )
+                            dirtyRect = localRect.insetBy(dx: -10, dy: -10)
+                        }
+                        
+                        if !dirtyRect.isEmpty {
+                            view.setNeedsDisplay(dirtyRect)
+                        }
                     }
                 }
             }
