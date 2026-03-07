@@ -16,7 +16,7 @@ class SettingsWindowController: NSWindowController {
             defer: false
         )
         window.center()
-        window.level = NSWindow.Level(rawValue: Constants.Overlay.windowLevel.rawValue + 1)
+        window.level = .popUpMenu
         window.title = "ScrollSnap Preferences"
         window.backgroundColor = NSColor.windowBackgroundColor // Subtle gray background
         self.init(window: window)
