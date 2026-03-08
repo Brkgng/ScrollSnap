@@ -36,6 +36,6 @@ playground.xcworkspace
 *.p12
 *.cer
 *.mobileprovision
-*.xcconfig
+/Config/Signing.local.xcconfig
 
 /.DS_Store

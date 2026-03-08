@@ -1,0 +1,7 @@
+// Copy this file to Signing.local.xcconfig and keep the real values local.
+// This file is ignored by git so contributors can use their own Apple team.
+
+DEVELOPMENT_TEAM = YOUR_TEAM_ID
+
+// Uncomment this only if Xcode cannot infer the signer from your team locally.
+// CODE_SIGN_IDENTITY = Apple Development

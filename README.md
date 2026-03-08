@@ -41,6 +41,7 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 
 - Press `Cmd + R` to build and run.
 - **Note**: Ensure the app has screen recording permissions enabled in System Settings > Security & Privacy.
+- **Contributor note**: If you are building from source, see `Contributing` for local Xcode signing setup.
 
 ## Usage
 
@@ -105,6 +106,17 @@ ScrollSnap
 ## Contributing
 
 ScrollSnap is an open-source project, and we welcome contributions! If you’d like to improve it:
+
+### Development Signing
+
+If you are contributing locally in Xcode:
+
+1. Copy `Config/Signing.local.xcconfig.example` to `Config/Signing.local.xcconfig`.
+2. Set your local `DEVELOPMENT_TEAM` in that file.
+3. Uncomment `CODE_SIGN_IDENTITY = Apple Development` only if Xcode cannot infer it on your machine.
+4. Reopen the project in Xcode and run normally.
+
+macOS tracks Screen Recording permission by signed app identity. Ad-hoc signing can make a rebuilt app look new after each code change, which causes repeated permission prompts. A real local development signature keeps that permission stable across rebuilds.
 
 - **Report Issues**: Open an issue on the [GitHub repository](https://github.com/brkgng/ScrollSnap/issues) for bugs or feature requests.
 - **Submit Pull Requests**:
