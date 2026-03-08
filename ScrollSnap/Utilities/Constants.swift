@@ -61,6 +61,10 @@ struct Constants {
         static let swipeSmoothingOldFactor: CGFloat = 0.3  // Weight for old position in smoothing
     }
     
+    struct Review {
+        static let hasRequestedInitialReviewKey = "HasRequestedInitialReview"
+    }
+    
     static let rectangleKey = "LastRectangleFrame"
     static let menuRectKey = "LastMenuFrame"
     static let dateFormat = "yyyy-MM-dd 'at' HH.mm.ss"

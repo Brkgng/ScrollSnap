@@ -174,16 +174,21 @@ class OverlayManager {
         // Asynchronously wait for the stitching to complete in the background.
         // This frees up the main thread, keeping the app responsive.
         if let finalImage = await stitchingManager.stopStitching() {
-            // Once stitching is done, switch back to the main thread to present the result.
-            await MainActor.run {
-                let selectedDestination = UserDefaults.standard.string(forKey: Constants.Menu.Options.selectedDestinationKey) ?? Constants.Menu.Options.defaultDestination
-                
-                switch selectedDestination {
-                case "Clipboard", "Preview":
-                    saveImage(finalImage)
-                default:
+            let selectedDestination = await MainActor.run {
+                UserDefaults.standard.string(forKey: Constants.Menu.Options.selectedDestinationKey) ?? Constants.Menu.Options.defaultDestination
+            }
+            
+            switch selectedDestination {
+            case "Clipboard", "Preview":
+                await requestReviewIfEligible()
+                await MainActor.run {
+                    _ = saveImage(finalImage)
+                }
+            default:
+                await MainActor.run {
                     showThumbnail(with: finalImage)
                 }
+                await requestReviewIfEligible()
             }
         }
     }
