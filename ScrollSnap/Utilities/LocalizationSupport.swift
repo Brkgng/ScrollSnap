@@ -8,6 +8,7 @@ import AppKit
 enum AppLanguage: String, CaseIterable {
     case system
     case english = "en"
+    case german = "de"
     case turkish = "tr"
 
     static let storageKey = "SelectedAppLanguage"
@@ -32,6 +33,8 @@ enum AppLanguage: String, CaseIterable {
             return LocalizationResolver.string("System Default", fallback: "System Default")
         case .english:
             return LocalizationResolver.string("English", fallback: "English")
+        case .german:
+            return LocalizationResolver.string("German", fallback: "German")
         case .turkish:
             return LocalizationResolver.string("Turkish", fallback: "Turkish")
         }
@@ -66,7 +69,7 @@ enum LocalizationResolver {
         switch language {
         case .system:
             preferredLocalizations = Bundle.preferredLocalizations(from: availableLocalizations)
-        case .english, .turkish:
+        case .english, .german, .turkish:
             preferredLocalizations = Bundle.preferredLocalizations(
                 from: availableLocalizations,
                 forPreferences: [language.rawValue]

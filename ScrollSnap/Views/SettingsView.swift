@@ -66,7 +66,7 @@ struct SettingsView: View {
             }
         }
         .padding(24)
-        .frame(width: 380)
+        .frame(width: 410)
         .fixedSize()
         .navigationTitle(AppText.settingsWindowTitle)
         .onAppear(perform: onAppear)

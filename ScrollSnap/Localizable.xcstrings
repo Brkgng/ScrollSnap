@@ -14,6 +14,12 @@
             "value" : "About ScrollSnap"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Über ScrollSnap"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -30,6 +36,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
           }
         },
         "tr" : {
@@ -50,6 +62,12 @@
             "value" : "Capture"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnehmen"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -66,6 +84,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clipboard"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zwischenablage"
           }
         },
         "tr" : {
@@ -86,6 +110,12 @@
             "value" : "Close"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schließen"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -102,6 +132,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
           }
         },
         "tr" : {
@@ -122,6 +158,12 @@
             "value" : "Desktop"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schreibtisch"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -140,6 +182,12 @@
             "value" : "Documents"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dokumente"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -153,6 +201,12 @@
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloads"
+          }
+        },
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Downloads"
@@ -176,10 +230,40 @@
             "value" : "English"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Englisch"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "İngilizce"
+          }
+        }
+      }
+    },
+    "German" : {
+      "comment" : "Language picker option for German.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "German"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deutsch"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almanca"
           }
         }
       }
@@ -192,6 +276,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Language"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprache"
           }
         },
         "tr" : {
@@ -212,6 +302,12 @@
             "value" : "Move"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bewegen"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -228,6 +324,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Options"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optionen"
           }
         },
         "tr" : {
@@ -248,6 +350,12 @@
             "value" : "Please select your Desktop folder to grant ScrollSnap permission to save screenshots there."
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle bitte den Ordner „Schreibtisch“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -264,6 +372,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Documents folder to grant ScrollSnap permission to save screenshots there."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle bitte den Ordner „Dokumente“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
           }
         },
         "tr" : {
@@ -284,6 +398,12 @@
             "value" : "Please select your Downloads folder to grant ScrollSnap permission to save screenshots there."
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle bitte den Ordner „Downloads“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -300,6 +420,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preview"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschau"
           }
         },
         "tr" : {
@@ -320,6 +446,12 @@
             "value" : "Quit ScrollSnap"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap beenden"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -336,6 +468,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Relaunch ScrollSnap to apply language changes."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starte ScrollSnap neu, um die Sprachänderungen zu übernehmen."
           }
         },
         "tr" : {
@@ -356,6 +494,12 @@
             "value" : "Reset Selection and Menu Positions"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auswahl und Menüpositionen zurücksetzen"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -372,6 +516,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern"
           }
         },
         "tr" : {
@@ -392,6 +542,12 @@
             "value" : "Save to"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern in"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -408,6 +564,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Screenshot"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildschirmfoto"
           }
         },
         "tr" : {
@@ -428,6 +590,12 @@
             "value" : "ScrollSnap Settings"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap-Einstellungen"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -444,6 +612,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings…"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen…"
           }
         },
         "tr" : {
@@ -464,6 +638,12 @@
             "value" : "System Default"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systemstandard"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -482,6 +662,12 @@
             "value" : "Turkish"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Türkisch"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -495,6 +681,12 @@
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        },
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
