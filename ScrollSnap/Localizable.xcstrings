@@ -14,6 +14,12 @@
             "value" : "About ScrollSnap"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos de ScrollSnap"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -36,6 +42,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
         },
         "de" : {
@@ -62,6 +74,12 @@
             "value" : "Capture"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturer"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -84,6 +102,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clipboard"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presse-papiers"
           }
         },
         "de" : {
@@ -110,6 +134,12 @@
             "value" : "Close"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -132,6 +162,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
           }
         },
         "de" : {
@@ -158,6 +194,12 @@
             "value" : "Desktop"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bureau"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -177,6 +219,12 @@
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Documents"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Documents"
@@ -206,6 +254,12 @@
             "value" : "Downloads"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Téléchargements"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -230,6 +284,12 @@
             "value" : "English"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anglais"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -244,6 +304,36 @@
         }
       }
     },
+    "French" : {
+      "comment" : "Language picker option for French.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "French"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Français"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Französisch"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fransızca"
+          }
+        }
+      }
+    },
     "German" : {
       "comment" : "Language picker option for German.",
       "extractionState" : "stale",
@@ -252,6 +342,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "German"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allemand"
           }
         },
         "de" : {
@@ -278,6 +374,12 @@
             "value" : "Language"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Langue"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -302,6 +404,12 @@
             "value" : "Move"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déplacer"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -321,6 +429,12 @@
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Options"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Options"
@@ -350,6 +464,12 @@
             "value" : "Please select your Desktop folder to grant ScrollSnap permission to save screenshots there."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veuillez sélectionner le dossier Bureau afin d’autoriser ScrollSnap à y enregistrer des captures d’écran."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -372,6 +492,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Documents folder to grant ScrollSnap permission to save screenshots there."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veuillez sélectionner le dossier Documents afin d’autoriser ScrollSnap à y enregistrer des captures d’écran."
           }
         },
         "de" : {
@@ -398,6 +524,12 @@
             "value" : "Please select your Downloads folder to grant ScrollSnap permission to save screenshots there."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veuillez sélectionner le dossier Téléchargements afin d’autoriser ScrollSnap à y enregistrer des captures d’écran."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -420,6 +552,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preview"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aperçu"
           }
         },
         "de" : {
@@ -446,6 +584,12 @@
             "value" : "Quit ScrollSnap"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitter ScrollSnap"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -468,6 +612,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Relaunch ScrollSnap to apply language changes."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relancez ScrollSnap pour appliquer les changements de langue."
           }
         },
         "de" : {
@@ -494,6 +644,12 @@
             "value" : "Reset Selection and Menu Positions"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialiser la sélection et la position du menu"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -516,6 +672,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer"
           }
         },
         "de" : {
@@ -542,6 +704,12 @@
             "value" : "Save to"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer dans"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -564,6 +732,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Screenshot"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capture d’écran"
           }
         },
         "de" : {
@@ -590,6 +764,12 @@
             "value" : "ScrollSnap Settings"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réglages de ScrollSnap"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -612,6 +792,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réglages…"
           }
         },
         "de" : {
@@ -638,6 +824,12 @@
             "value" : "System Default"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Par défaut du système"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -662,6 +854,12 @@
             "value" : "Turkish"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turc"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -681,6 +879,12 @@
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
