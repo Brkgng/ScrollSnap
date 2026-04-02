@@ -14,6 +14,12 @@
             "value" : "About ScrollSnap"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于 ScrollSnap"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -54,6 +60,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
           }
         },
         "ja" : {
@@ -98,6 +110,12 @@
             "value" : "Capture"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "截取"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -140,6 +158,12 @@
             "value" : "Clipboard"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剪贴板"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -172,6 +196,54 @@
         }
       }
     },
+    "Chinese (Simplified)" : {
+      "comment" : "Language picker option for Simplified Chinese.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chinese (Simplified)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "简体中文"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中国語（簡体字）"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chino (simplificado)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chinois (simplifié)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chinesisch (vereinfacht)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çince (Basitleştirilmiş)"
+          }
+        }
+      }
+    },
     "Close" : {
       "comment" : "Context menu item that closes the current thumbnail.",
       "extractionState" : "stale",
@@ -180,6 +252,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
           }
         },
         "ja" : {
@@ -224,6 +302,12 @@
             "value" : "Delete"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -264,6 +348,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Desktop"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "桌面"
           }
         },
         "ja" : {
@@ -308,6 +398,12 @@
             "value" : "Documents"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文稿"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -348,6 +444,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Downloads"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下载"
           }
         },
         "ja" : {
@@ -392,6 +494,12 @@
             "value" : "English"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英语"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -432,6 +540,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "French"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "法语"
           }
         },
         "ja" : {
@@ -476,6 +590,12 @@
             "value" : "German"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "德语"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -516,6 +636,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Japanese"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日语"
           }
         },
         "ja" : {
@@ -560,6 +686,12 @@
             "value" : "Language"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "语言"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -600,6 +732,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Move"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移动"
           }
         },
         "ja" : {
@@ -644,6 +782,12 @@
             "value" : "Options"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选项"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -684,6 +828,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Desktop folder to grant ScrollSnap permission to save screenshots there."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择桌面文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
           }
         },
         "ja" : {
@@ -728,6 +878,12 @@
             "value" : "Please select your Documents folder to grant ScrollSnap permission to save screenshots there."
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择文稿文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -768,6 +924,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Downloads folder to grant ScrollSnap permission to save screenshots there."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择下载文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
           }
         },
         "ja" : {
@@ -812,6 +974,12 @@
             "value" : "Preview"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预览"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -852,6 +1020,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Quit ScrollSnap"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出 ScrollSnap"
           }
         },
         "ja" : {
@@ -896,6 +1070,12 @@
             "value" : "Relaunch ScrollSnap to apply language changes."
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新启动 ScrollSnap 以应用语言更改。"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -936,6 +1116,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset Selection and Menu Positions"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置选区和菜单位置"
           }
         },
         "ja" : {
@@ -980,6 +1166,12 @@
             "value" : "Save"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1020,6 +1212,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save to"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存到"
           }
         },
         "ja" : {
@@ -1064,6 +1262,12 @@
             "value" : "Screenshot"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏幕截图"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1104,6 +1308,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap Settings"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap 设置"
           }
         },
         "ja" : {
@@ -1148,6 +1358,12 @@
             "value" : "Settings…"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置…"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1188,6 +1404,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "System Default"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统默认"
           }
         },
         "ja" : {
@@ -1232,6 +1454,12 @@
             "value" : "Spanish"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "西班牙语"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1274,6 +1502,12 @@
             "value" : "Turkish"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "土耳其语"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1314,6 +1548,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本"
           }
         },
         "ja" : {

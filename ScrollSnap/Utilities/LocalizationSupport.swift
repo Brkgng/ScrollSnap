@@ -7,6 +7,7 @@ import AppKit
 
 enum AppLanguage: String, CaseIterable {
     case system
+    case simplifiedChinese = "zh-Hans"
     case english = "en"
     case french = "fr"
     case german = "de"
@@ -34,6 +35,8 @@ enum AppLanguage: String, CaseIterable {
         switch self {
         case .system:
             return LocalizationResolver.string("System Default", fallback: "System Default")
+        case .simplifiedChinese:
+            return LocalizationResolver.string("Chinese (Simplified)", fallback: "Chinese (Simplified)")
         case .english:
             return LocalizationResolver.string("English", fallback: "English")
         case .french:
@@ -78,7 +81,7 @@ enum LocalizationResolver {
         switch language {
         case .system:
             preferredLocalizations = Bundle.preferredLocalizations(from: availableLocalizations)
-        case .english, .french, .german, .japanese, .spanish, .turkish:
+        case .simplifiedChinese, .english, .french, .german, .japanese, .spanish, .turkish:
             preferredLocalizations = Bundle.preferredLocalizations(
                 from: availableLocalizations,
                 forPreferences: [language.rawValue]
