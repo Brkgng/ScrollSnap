@@ -87,7 +87,7 @@ class MenuBarView: NSView {
     /// Draw the Capture button inside the menu rectangle, toggling between "Capture" and "Save".
     private func drawCaptureButton(for menuRect: NSRect) {
         let buttonRect = getCaptureButtonRect(for: menuRect)
-        let label = manager?.getIsScrollingCaptureActive() == true ? "Save " : "Capture "
+        let label = manager?.getIsScrollingCaptureActive() == true ? AppText.save : AppText.capture
         drawTextWithSymbol(label, symbol: "return", in: buttonRect)
     }
     
@@ -97,7 +97,7 @@ class MenuBarView: NSView {
         
         drawVerticalBorder(at: cancelRect.maxX, minY: cancelRect.minY, maxY: cancelRect.maxY)
         
-        if let cancelIcon = NSImage(systemSymbolName: "xmark.circle.fill", accessibilityDescription: "Cancel") {
+        if let cancelIcon = NSImage(systemSymbolName: "xmark.circle.fill", accessibilityDescription: AppText.cancelAccessibility) {
             drawSymbol(cancelIcon, in: cancelRect)
         }
     }
@@ -106,7 +106,7 @@ class MenuBarView: NSView {
     private func drawOptionsButton(for menuRect: NSRect) {
         let buttonRect = getOptionsButtonRect(for: menuRect)
         drawVerticalBorder(at: buttonRect.maxX, minY: buttonRect.minY, maxY: buttonRect.maxY)
-        drawTextWithSymbol("Options ", symbol: "chevron.down", in: buttonRect)
+        drawTextWithSymbol(AppText.options, symbol: "chevron.down", in: buttonRect)
     }
     
     /// Draws the drag button inside the menu rectangle.
@@ -115,7 +115,7 @@ class MenuBarView: NSView {
         
         drawVerticalBorder(at: buttonRect.maxX, minY: buttonRect.minY, maxY: buttonRect.maxY)
         
-        if let dragSymbol = NSImage(systemSymbolName: "arrow.up.and.down.and.arrow.left.and.right", accessibilityDescription: "Move") {
+        if let dragSymbol = NSImage(systemSymbolName: "arrow.up.and.down.and.arrow.left.and.right", accessibilityDescription: AppText.moveAccessibility) {
             drawSymbol(dragSymbol, in: buttonRect, size: 12)
         }
     }
@@ -144,26 +144,7 @@ class MenuBarView: NSView {
     
     /// Draws text with an SF Symbol attached, centered within a rectangle.
     private func drawTextWithSymbol(_ text: String, symbol: String, in rect: NSRect) {
-        let textStyle = NSMutableParagraphStyle()
-        textStyle.alignment = .center
-        
-        let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: Constants.Menu.Button.textColor,
-            .paragraphStyle: textStyle,
-            .font: Constants.Menu.Button.textFont
-        ]
-        
-        let optionsText = NSAttributedString(string: text, attributes: attributes)
-        let imageAttachment = NSTextAttachment()
-        imageAttachment.image = NSImage(systemSymbolName: symbol, accessibilityDescription: nil)
-        imageAttachment.bounds = CGRect(x: 0, y: 0, width: 12, height: 8)
-        
-        let imageAttributedString = NSAttributedString(attachment: imageAttachment)
-        
-        let finalString = NSMutableAttributedString()
-        finalString.append(optionsText)
-        finalString.append(imageAttributedString)
-        
+        let finalString = MenuBarLayout.attributedLabel(text, symbol: symbol)
         let textSize = finalString.size()
         let textRect = NSRect(
             x: rect.midX - textSize.width / 2,
@@ -204,37 +185,37 @@ class MenuBarView: NSView {
         return NSRect(
             x: menuRect.minX,
             y: menuRect.minY,
-            width: Constants.Menu.Button.dragWidth,
+            width: MenuBarLayout.dragWidth,
             height: menuRect.height
         )
     }
     
     private func getCancelButtonRect(for menuRect: NSRect) -> NSRect {
-        let startX = Constants.Menu.Button.dragWidth
+        let startX = MenuBarLayout.dragWidth
         return NSRect(
             x: menuRect.minX + startX,
             y: menuRect.minY,
-            width: Constants.Menu.Button.cancelWidth,
+            width: MenuBarLayout.cancelWidth,
             height: menuRect.height
         )
     }
     
     private func getOptionsButtonRect(for menuRect: NSRect) -> NSRect {
-        let startX = Constants.Menu.Button.dragWidth + Constants.Menu.Button.cancelWidth
+        let startX = MenuBarLayout.dragWidth + MenuBarLayout.cancelWidth
         return NSRect(
             x: menuRect.minX + startX,
             y: menuRect.minY,
-            width: Constants.Menu.Button.optionsWidth,
+            width: MenuBarLayout.optionsWidth,
             height: menuRect.height
         )
     }
     
     private func getCaptureButtonRect(for menuRect: NSRect) -> NSRect {
-        let startX = Constants.Menu.Button.dragWidth + Constants.Menu.Button.cancelWidth + Constants.Menu.Button.optionsWidth
+        let startX = MenuBarLayout.dragWidth + MenuBarLayout.cancelWidth + MenuBarLayout.optionsWidth
         return NSRect(
             x: menuRect.minX + startX,
             y: menuRect.minY,
-            width: Constants.Menu.Button.captureWidth,
+            width: MenuBarLayout.captureWidth,
             height: menuRect.height
         )
     }
@@ -286,16 +267,16 @@ class MenuBarView: NSView {
     private func createOptionsMenu() -> NSMenu {
         let menu = NSMenu()
         
-        let saveToItem = NSMenuItem(title: "Save to", action: nil, keyEquivalent: "")
+        let saveToItem = NSMenuItem(title: AppText.saveTo, action: nil, keyEquivalent: "")
         saveToItem.isEnabled = false
         menu.addItem(saveToItem)
         
-        let selectedOption = UserDefaults.standard.string(forKey: Constants.Menu.Options.selectedDestinationKey) ?? Constants.Menu.Options.defaultDestination
-        let destinations = Constants.Menu.Options.destinations
+        let selectedOption = SaveDestination.current()
         
-        for destination in destinations {
-            let item = NSMenuItem(title: destination, action: #selector(selectDestination(_:)), keyEquivalent: "")
+        for destination in SaveDestination.allCases {
+            let item = NSMenuItem(title: destination.localizedTitle, action: #selector(selectDestination(_:)), keyEquivalent: "")
             item.target = self
+            item.representedObject = destination.rawValue
             if destination == selectedOption {
                 item.state = .on
             }
@@ -315,7 +296,8 @@ class MenuBarView: NSView {
             item.state = .off
         }
         sender.state = .on
-        
-        UserDefaults.standard.set(sender.title, forKey: Constants.Menu.Options.selectedDestinationKey)
+
+        guard let rawValue = sender.representedObject as? String else { return }
+        SaveDestination.fromStoredValue(rawValue).persist()
     }
 }

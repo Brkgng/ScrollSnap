@@ -48,15 +48,15 @@ func captureSingleScreenshot(_ rectangle: NSRect) async -> NSImage? {
 
 /// Saves the captured image to a specified destination or the default location.
 ///
-/// Supports saving to a file (Desktop, Documents, Downloads), copying to the clipboard, or opening in Preview. The destination is determined by the provided parameter, falling back to UserDefaults or a default ("Downloads").
+/// Supports saving to a file, copying to the clipboard, or opening in Preview. The destination is determined by the provided parameter, falling back to UserDefaults or the default downloads destination.
 ///
 /// - Parameters:
 ///   - image: The `NSImage` to save.
-///   - destination: An optional `String` specifying the save destination (e.g., "Desktop", "Clipboard"). If `nil`, uses UserDefaults or "Downloads".
+///   - destination: An optional save destination. If `nil`, uses the saved user preference or the default destination.
 /// - Returns: A `URL` to the saved file if saved to the file system, or `nil` if saved to Clipboard/Preview or if saving fails.
 /// - Note: Generates a filename with a timestamp (e.g., "Screenshot 2025-03-11 at 14.30.00.png").
 @discardableResult
-func saveImage(_ image: NSImage, to destination: String? = nil) -> URL? {
+func saveImage(_ image: NSImage, to destination: SaveDestination? = nil) -> URL? {
     guard let tiffData = image.tiffRepresentation,
           let bitmapRep = NSBitmapImageRep(data: tiffData),
           let pngData = bitmapRep.representation(using: .png, properties: [:]) else {
@@ -65,51 +65,28 @@ func saveImage(_ image: NSImage, to destination: String? = nil) -> URL? {
     }
     
     let filename = getFileName()
-    let selectedDestination = destination ?? UserDefaults.standard.string(forKey: Constants.Menu.Options.selectedDestinationKey) ?? Constants.Menu.Options.defaultDestination
-    
-    var fileURL: URL
-    
-    switch selectedDestination {
-    case "Desktop":
-        guard let desktopURL = getFolderURL(for: "Desktop", bookmarkKey: "desktopBookmark") else {
-            print("Failed to get Desktop URL.")
-            return nil
-        }
-        fileURL = desktopURL.appendingPathComponent(filename)
-    case "Documents":
-        guard let documentsURL = getFolderURL(for: "Documents", bookmarkKey: "documentsBookmark") else {
-            print("Failed to get Documents URL.")
-            return nil
-        }
-        fileURL = documentsURL.appendingPathComponent(filename)
-    case "Downloads":
-        guard let downloadsURL = getFolderURL(for: "Downloads", bookmarkKey: "downloadsBookmark") else {
-            print("Failed to get Downloads URL.")
-            return nil
-        }
-        fileURL = downloadsURL.appendingPathComponent(filename)
-    case "Clipboard":
-        // Save to clipboard instead of file
+    let selectedDestination = destination ?? SaveDestination.current()
+
+    switch selectedDestination.behavior {
+    case .clipboard:
         saveToClipboard(pngData)
         return nil
-    case "Preview":
-        //Open in Preview app
+    case .preview:
         openInPreview(pngData, filename)
         return nil
-    default:
-        // Use default destination if the selected destination is not recognized
-        let defaultDestination = Constants.Menu.Options.defaultDestination
-        fileURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("\(defaultDestination)/\(filename)")
+    case .file:
+        guard let fileURL = fileURL(for: selectedDestination, filename: filename) else {
+            return nil
+        }
+
+        do {
+            try pngData.write(to: fileURL)
+            return fileURL
+        } catch {
+            print("Failed to save image: \(error.localizedDescription)")
+            return nil
+        }
     }
-    
-    do {
-        try pngData.write(to: fileURL)
-        return fileURL
-    } catch {
-        print("Failed to save image: \(error.localizedDescription)")
-    }
-    
-    return nil
 }
 
 /// Saves an image to a temporary file for use in drag-and-drop or Preview.
@@ -234,29 +211,40 @@ private func openInPreview(_ pngData: Data, _ filename: String = "Screenshot.png
     }
 }
 
-/// Gets the URL for a folder, prompting for access if necessary.
-/// - Parameters:
-///   - folderName: The name of the folder (e.g., "Desktop", "Documents").
-///   - bookmarkKey: The UserDefaults key for the bookmark.
-/// - Returns: The folder URL, or nil if permission is denied or unavailable.
-private func getFolderURL(for folderName: String, bookmarkKey: String) -> URL? {
-    if let cachedURL = getCachedFolderURL(folderName: folderName, bookmarkKey: bookmarkKey) {
-        return cachedURL
-    } else {
-        // Prompt user and cache the result
-        guard let chosenURL = promptForFolderAccess(folderName: folderName, bookmarkKey: bookmarkKey) else {
-            print("User cancelled \(folderName) access.")
-            return nil
-        }
-        return chosenURL
+private func fileURL(for destination: SaveDestination, filename: String) -> URL? {
+    guard let folderURL = getFolderURL(for: destination) else {
+        print("Failed to get \(destination.rawValue) URL.")
+        return nil
     }
+
+    return folderURL.appendingPathComponent(filename)
+}
+
+/// Gets the URL for a folder, prompting for access if necessary.
+/// - Parameter destination: The file-system backed destination.
+/// - Returns: The folder URL, or nil if permission is denied or unavailable.
+private func getFolderURL(for destination: SaveDestination) -> URL? {
+    guard let bookmarkKey = destination.bookmarkKey else {
+        return nil
+    }
+
+    if let cachedURL = getCachedFolderURL(for: destination, bookmarkKey: bookmarkKey) {
+        return cachedURL
+    }
+
+    guard let chosenURL = promptForFolderAccess(for: destination, bookmarkKey: bookmarkKey) else {
+        print("User cancelled \(destination.rawValue) access.")
+        return nil
+    }
+
+    return chosenURL
 }
 
 private func getFileName() -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = Constants.dateFormat
     let timestamp = dateFormatter.string(from: Date())
-    let filename = "Screenshot \(timestamp).png"
+    let filename = "\(AppText.screenshotFilenamePrefix) \(timestamp).png"
     return filename
 }
 
@@ -264,17 +252,17 @@ private func getFileName() -> String {
 
 /// Prompts the user to select a folder and caches the result as a security-scoped bookmark.
 /// - Parameters:
-///   - folderName: The name of the folder (e.g., "Desktop", "Documents").
+///   - destination: The destination that requires file-system access.
 ///   - bookmarkKey: The UserDefaults key to store the bookmark.
 /// - Returns: The selected folder URL, or nil if cancelled.
-private func promptForFolderAccess(folderName: String, bookmarkKey: String) -> URL? {
+private func promptForFolderAccess(for destination: SaveDestination, bookmarkKey: String) -> URL? {
     let openPanel = NSOpenPanel()
     openPanel.allowsMultipleSelection = false
     openPanel.canChooseDirectories = true
     openPanel.canChooseFiles = false
     openPanel.canCreateDirectories = false
-    openPanel.message = "Please select your \(folderName) folder to grant ScrollSnap permission to save screenshots there."
-    openPanel.directoryURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(folderName)
+    openPanel.message = destination.folderAccessMessage ?? ""
+    openPanel.directoryURL = defaultDirectoryURL(for: destination)
     
     let response = openPanel.runModal()
     guard response == .OK, let selectedURL = openPanel.url else {
@@ -285,20 +273,20 @@ private func promptForFolderAccess(folderName: String, bookmarkKey: String) -> U
     do {
         let bookmarkData = try selectedURL.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
         UserDefaults.standard.set(bookmarkData, forKey: bookmarkKey)
-        print("\(folderName) permission cached.")
+        print("\(destination.rawValue) permission cached.")
         return selectedURL
     } catch {
-        print("Failed to create bookmark for \(folderName): \(error)")
+        print("Failed to create bookmark for \(destination.rawValue): \(error)")
         return nil
     }
 }
 
 /// Retrieves the cached folder URL from UserDefaults, starting access if necessary.
 /// - Parameters:
-///   - folderName: The name of the folder (e.g., "Desktop", "Documents").
+///   - destination: The destination that requires file-system access.
 ///   - bookmarkKey: The UserDefaults key where the bookmark is stored.
 /// - Returns: The folder URL if available, or nil if not cached or inaccessible.
-private func getCachedFolderURL(folderName: String, bookmarkKey: String) -> URL? {
+private func getCachedFolderURL(for destination: SaveDestination, bookmarkKey: String) -> URL? {
     guard let bookmarkData = UserDefaults.standard.data(forKey: bookmarkKey) else {
         return nil
     }
@@ -309,7 +297,7 @@ private func getCachedFolderURL(folderName: String, bookmarkKey: String) -> URL?
         
         // Start accessing the security-scoped resource
         guard url.startAccessingSecurityScopedResource() else {
-            print("Failed to start accessing \(folderName) URL.")
+            print("Failed to start accessing \(destination.rawValue) URL.")
             return nil
         }
         
@@ -317,14 +305,22 @@ private func getCachedFolderURL(folderName: String, bookmarkKey: String) -> URL?
         if isStale {
             let newBookmarkData = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             UserDefaults.standard.set(newBookmarkData, forKey: bookmarkKey)
-            print("Refreshed stale \(folderName) bookmark.")
+            print("Refreshed stale \(destination.rawValue) bookmark.")
         }
         
         return url
     } catch {
-        print("Failed to resolve \(folderName) bookmark: \(error)")
+        print("Failed to resolve \(destination.rawValue) bookmark: \(error)")
         return nil
     }
+}
+
+private func defaultDirectoryURL(for destination: SaveDestination) -> URL? {
+    guard let directory = destination.searchPathDirectory else {
+        return nil
+    }
+
+    return FileManager.default.urls(for: directory, in: .userDomainMask).first
 }
 
 /// Returns whether screen recording permission is currently granted.

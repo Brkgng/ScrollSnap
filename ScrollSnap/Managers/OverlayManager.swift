@@ -175,16 +175,16 @@ class OverlayManager {
         // This frees up the main thread, keeping the app responsive.
         if let finalImage = await stitchingManager.stopStitching() {
             let selectedDestination = await MainActor.run {
-                UserDefaults.standard.string(forKey: Constants.Menu.Options.selectedDestinationKey) ?? Constants.Menu.Options.defaultDestination
+                SaveDestination.current()
             }
             
-            switch selectedDestination {
-            case "Clipboard", "Preview":
+            switch selectedDestination.behavior {
+            case .clipboard, .preview:
                 await requestReviewIfEligible()
                 await MainActor.run {
                     _ = saveImage(finalImage)
                 }
-            default:
+            case .file:
                 await MainActor.run {
                     showThumbnail(with: finalImage)
                 }
@@ -386,8 +386,8 @@ class OverlayManager {
     
     /// Loads the menu rectangle's position from UserDefaults, falling back to 20px below the selection rectangle.
     private static func loadMenuRect(for rectangle: NSRect) -> NSRect {
-        let menuWidth = Constants.Menu.Button.dragWidth + Constants.Menu.Button.cancelWidth + Constants.Menu.Button.optionsWidth + Constants.Menu.Button.captureWidth
-        let menuHeight: CGFloat = 50
+        let menuWidth = MenuBarLayout.totalWidth
+        let menuHeight = MenuBarLayout.height
         let size = (menuWidth, menuHeight)
         
         if let frameDict = UserDefaults.standard.dictionary(forKey: Constants.menuRectKey) as? [String: CGFloat],

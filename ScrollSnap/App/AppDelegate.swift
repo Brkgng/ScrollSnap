@@ -44,11 +44,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let appMenuItem = NSMenuItem(title: "ScrollSnap", action: nil, keyEquivalent: "")
         let appMenu = NSMenu(title: "ScrollSnap")
-        appMenu.addItem(withTitle: "About ScrollSnap", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
+        appMenu.addItem(withTitle: AppText.aboutApp, action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
         appMenu.addItem(NSMenuItem.separator())
-        appMenu.addItem(withTitle: "Preferences…", action: #selector(showSettingsWindow), keyEquivalent: ",")
+        appMenu.addItem(withTitle: AppText.preferences, action: #selector(showSettingsWindow), keyEquivalent: ",")
         appMenu.addItem(NSMenuItem.separator())
-        appMenu.addItem(withTitle: "Quit ScrollSnap", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        appMenu.addItem(withTitle: AppText.quitApp, action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         appMenuItem.submenu = appMenu
         mainMenu.addItem(appMenuItem)
         
@@ -119,7 +119,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             for fileURL in tempContents {
                 // Only process files that match ScrollSnap's naming pattern
-                guard fileURL.lastPathComponent.hasPrefix("Screenshot ") &&
+                guard AppText.supportedScreenshotFilenamePrefixes.contains(where: {
+                    fileURL.lastPathComponent.hasPrefix("\($0) ")
+                }) &&
                       fileURL.pathExtension == "png" else {
                     continue
                 }
