@@ -19,7 +19,7 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 - **Interactive Menu**: Includes options to capture, save, reset positions, or cancel, with a draggable interface.
 - **Thumbnail Preview**: Displays a draggable thumbnail of the captured image with swipe-to-save or right-click options.
 - **Save Destinations**: Supports saving to Desktop, Documents, Downloads, Clipboard, or opening in Preview.
-- **Preferences**: Reset selection and menu positions via a settings window (Command + ,).
+- **Settings**: Adjust language and reset selection and menu positions via the native settings window (Command + ,).
 
 ## Requirements
 
@@ -65,9 +65,9 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 
 - Use the "Options" menu to set the save destination (Desktop, Clipboard, etc.).
 
-6. **Preferences**:
+6. **Settings**:
 
-- Press `Cmd + ,` to open the settings window and reset positions if needed.
+- Press `Cmd + ,` to open the settings window, change language, or reset positions if needed.
 
 7. **Quit**:
 
@@ -80,14 +80,13 @@ ScrollSnap
 │── App
 │   │── ScrollSnapApp.swift         # App entry point (SwiftUI)
 │   │── AppDelegate.swift          # Menu and settings setup
-│── Controllers
-│   │── SettingsWindowController.swift  # Preferences window
 │── Utilities
 │   │── Constants.swift            # App-wide constants
 │   │── ScreenshotUtilities.swift  # Screenshot capture and save logic
 │── Views
 │   │── OverlayView.swift          # Main overlay coordinator
-│   │── ContentView.swift          # SwiftUI entry point
+│   │── SettingsView.swift         # Native SwiftUI settings pane
+│   │── ContentView.swift          # Placeholder SwiftUI view
 │   │── SelectionRectangleView.swift  # Selection area UI
 │   │── MenuBarView.swift          # Menu bar UI
 │   │── ThumbnailView.swift        # Thumbnail preview UI

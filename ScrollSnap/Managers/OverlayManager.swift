@@ -6,6 +6,10 @@
 import SwiftUI
 
 class OverlayManager {
+    private struct SuspendedWindowsState {
+        let visibleOverlayIndexes: Set<Int>
+        let wasThumbnailVisible: Bool
+    }
     
     // MARK: - Properties
     
@@ -19,6 +23,7 @@ class OverlayManager {
     private var captureTimer: Timer?
     private let stitchingManager = StitchingManager()
     var thumbnailWindow: NSWindow?
+    private var suspendedWindowsState: SuspendedWindowsState?
     
     // MARK: - Initialization
     
@@ -119,6 +124,44 @@ class OverlayManager {
     
     func setOverlayIgnoresMouseEvents(_ ignoresMouseEvents: Bool) {
         overlayWindows.forEach { $0.ignoresMouseEvents = ignoresMouseEvents }
+    }
+
+    func suspendFloatingWindowsForSettings() {
+        guard suspendedWindowsState == nil else { return }
+
+        let visibleOverlayIndexes = Set(
+            overlayWindows.enumerated().compactMap { index, window in
+                window.isVisible ? index : nil
+            }
+        )
+        let wasThumbnailVisible = thumbnailWindow?.isVisible == true
+
+        suspendedWindowsState = SuspendedWindowsState(
+            visibleOverlayIndexes: visibleOverlayIndexes,
+            wasThumbnailVisible: wasThumbnailVisible
+        )
+
+        for index in visibleOverlayIndexes {
+            overlayWindows[index].orderOut(nil)
+        }
+
+        if wasThumbnailVisible {
+            thumbnailWindow?.orderOut(nil)
+        }
+    }
+
+    func resumeFloatingWindowsAfterSettings() {
+        guard let suspendedWindowsState else { return }
+
+        for index in suspendedWindowsState.visibleOverlayIndexes where overlayWindows.indices.contains(index) {
+            overlayWindows[index].makeKeyAndOrderFront(nil)
+        }
+
+        if suspendedWindowsState.wasThumbnailVisible {
+            thumbnailWindow?.orderFront(nil)
+        }
+
+        self.suspendedWindowsState = nil
     }
     
     /// Handles mouse down events. Determines if the click was within the rectangle or menu.
@@ -265,6 +308,7 @@ class OverlayManager {
         if let window = thumbnailWindow {
             window.orderOut(nil)
             thumbnailWindow = nil
+            suspendedWindowsState = nil
             NSApplication.shared.terminate(nil) // Close app after save or delete
         }
     }

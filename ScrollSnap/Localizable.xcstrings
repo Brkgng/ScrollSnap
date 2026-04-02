@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@:" : {
+
+    },
     "About ScrollSnap" : {
       "comment" : "Main menu item that opens the app's About panel.",
       "extractionState" : "stale",
@@ -289,24 +292,6 @@
         }
       }
     },
-    "Preferences…" : {
-      "comment" : "Main menu item that opens the preferences window.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preferences…"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ayarlar…"
-          }
-        }
-      }
-    },
     "Preview" : {
       "comment" : "Save destination label for opening the image in Preview.",
       "extractionState" : "stale",
@@ -433,20 +418,38 @@
         }
       }
     },
-    "ScrollSnap Preferences" : {
-      "comment" : "Title of the app preferences window.",
+    "ScrollSnap Settings" : {
+      "comment" : "Title of the app settings window.",
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ScrollSnap Preferences"
+            "value" : "ScrollSnap Settings"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap Ayarları"
+          }
+        }
+      }
+    },
+    "Settings…" : {
+      "comment" : "Main menu item that opens the settings window.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings…"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayarlar…"
           }
         }
       }

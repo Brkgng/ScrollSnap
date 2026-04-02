@@ -91,8 +91,8 @@ enum AppText {
         text("About ScrollSnap")
     }
 
-    static var preferences: String {
-        text("Preferences…")
+    static var settings: String {
+        text("Settings…")
     }
 
     static var quitApp: String {
@@ -115,8 +115,8 @@ enum AppText {
         text("Save to")
     }
 
-    static var preferencesWindowTitle: String {
-        text("ScrollSnap Preferences")
+    static var settingsWindowTitle: String {
+        text("ScrollSnap Settings")
     }
 
     static var resetSelectionAndMenuPositions: String {
