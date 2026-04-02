@@ -208,6 +208,7 @@
 				en,
 				fr,
 				de,
+				es,
 				tr,
 				Base,
 			);

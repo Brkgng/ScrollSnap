@@ -14,6 +14,12 @@
             "value" : "About ScrollSnap"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acerca de ScrollSnap"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -42,6 +48,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         },
         "fr" : {
@@ -74,6 +86,12 @@
             "value" : "Capture"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturar"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -102,6 +120,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clipboard"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portapapeles"
           }
         },
         "fr" : {
@@ -134,6 +158,12 @@
             "value" : "Close"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -162,6 +192,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
           }
         },
         "fr" : {
@@ -194,6 +230,12 @@
             "value" : "Desktop"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escritorio"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -222,6 +264,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Documents"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Documentos"
           }
         },
         "fr" : {
@@ -254,6 +302,12 @@
             "value" : "Downloads"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descargas"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -282,6 +336,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "English"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inglés"
           }
         },
         "fr" : {
@@ -314,6 +374,12 @@
             "value" : "French"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Francés"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -342,6 +408,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "German"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alemán"
           }
         },
         "fr" : {
@@ -374,6 +446,12 @@
             "value" : "Language"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idioma"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -402,6 +480,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Move"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mover"
           }
         },
         "fr" : {
@@ -434,6 +518,12 @@
             "value" : "Options"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opciones"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -462,6 +552,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Desktop folder to grant ScrollSnap permission to save screenshots there."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona la carpeta Escritorio para permitir que ScrollSnap guarde allí las capturas de pantalla."
           }
         },
         "fr" : {
@@ -494,6 +590,12 @@
             "value" : "Please select your Documents folder to grant ScrollSnap permission to save screenshots there."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona la carpeta Documentos para permitir que ScrollSnap guarde allí las capturas de pantalla."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -522,6 +624,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Downloads folder to grant ScrollSnap permission to save screenshots there."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona la carpeta Descargas para permitir que ScrollSnap guarde allí las capturas de pantalla."
           }
         },
         "fr" : {
@@ -554,6 +662,12 @@
             "value" : "Preview"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vista Previa"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -582,6 +696,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Quit ScrollSnap"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salir de ScrollSnap"
           }
         },
         "fr" : {
@@ -614,6 +734,12 @@
             "value" : "Relaunch ScrollSnap to apply language changes."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuelve a abrir ScrollSnap para aplicar los cambios de idioma."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -642,6 +768,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset Selection and Menu Positions"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restablecer la selección y la posición del menú"
           }
         },
         "fr" : {
@@ -674,6 +806,12 @@
             "value" : "Save"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -702,6 +840,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save to"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar en"
           }
         },
         "fr" : {
@@ -734,6 +878,12 @@
             "value" : "Screenshot"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captura de pantalla"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -762,6 +912,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes de ScrollSnap"
           }
         },
         "fr" : {
@@ -794,6 +950,12 @@
             "value" : "Settings…"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes…"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -824,6 +986,12 @@
             "value" : "System Default"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Predeterminado del sistema"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -844,6 +1012,42 @@
         }
       }
     },
+    "Spanish" : {
+      "comment" : "Language picker option for Spanish.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spanish"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Español"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Espagnol"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spanisch"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İspanyolca"
+          }
+        }
+      }
+    },
     "Turkish" : {
       "comment" : "Language picker option for Turkish.",
       "extractionState" : "stale",
@@ -852,6 +1056,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turkish"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turco"
           }
         },
         "fr" : {
@@ -882,6 +1092,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versión"
           }
         },
         "fr" : {
