@@ -14,6 +14,12 @@
             "value" : "About ScrollSnap"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnapについて"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -48,6 +54,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
           }
         },
         "es" : {
@@ -86,6 +98,12 @@
             "value" : "Capture"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャプチャ"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -120,6 +138,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clipboard"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリップボード"
           }
         },
         "es" : {
@@ -158,6 +182,12 @@
             "value" : "Close"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "閉じる"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -192,6 +222,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
           }
         },
         "es" : {
@@ -230,6 +266,12 @@
             "value" : "Desktop"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デスクトップ"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -264,6 +306,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Documents"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "書類"
           }
         },
         "es" : {
@@ -302,6 +350,12 @@
             "value" : "Downloads"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ダウンロード"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -336,6 +390,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "English"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英語"
           }
         },
         "es" : {
@@ -374,6 +434,12 @@
             "value" : "French"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フランス語"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -410,6 +476,12 @@
             "value" : "German"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ドイツ語"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -436,6 +508,48 @@
         }
       }
     },
+    "Japanese" : {
+      "comment" : "Language picker option for Japanese.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japanese"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日本語"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japonés"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japonais"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japanisch"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japonca"
+          }
+        }
+      }
+    },
     "Language" : {
       "comment" : "Label shown next to the in-app language picker in settings.",
       "extractionState" : "stale",
@@ -444,6 +558,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Language"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語"
           }
         },
         "es" : {
@@ -482,6 +602,12 @@
             "value" : "Move"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移動"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -516,6 +642,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Options"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オプション"
           }
         },
         "es" : {
@@ -554,6 +686,12 @@
             "value" : "Please select your Desktop folder to grant ScrollSnap permission to save screenshots there."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、デスクトップフォルダを選択してください。"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -588,6 +726,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Documents folder to grant ScrollSnap permission to save screenshots there."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、書類フォルダを選択してください。"
           }
         },
         "es" : {
@@ -626,6 +770,12 @@
             "value" : "Please select your Downloads folder to grant ScrollSnap permission to save screenshots there."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、ダウンロードフォルダを選択してください。"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -660,6 +810,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preview"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プレビュー"
           }
         },
         "es" : {
@@ -698,6 +854,12 @@
             "value" : "Quit ScrollSnap"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnapを終了"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -732,6 +894,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Relaunch ScrollSnap to apply language changes."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語の変更を適用するには、ScrollSnapを再起動してください。"
           }
         },
         "es" : {
@@ -770,6 +938,12 @@
             "value" : "Reset Selection and Menu Positions"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択範囲とメニューの位置をリセット"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -804,6 +978,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
           }
         },
         "es" : {
@@ -842,6 +1022,12 @@
             "value" : "Save to"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存先"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -876,6 +1062,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Screenshot"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スクリーンショット"
           }
         },
         "es" : {
@@ -914,6 +1106,12 @@
             "value" : "ScrollSnap Settings"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap設定"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -948,6 +1146,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定…"
           }
         },
         "es" : {
@@ -986,6 +1190,12 @@
             "value" : "System Default"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "システムのデフォルト"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1020,6 +1230,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spanish"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スペイン語"
           }
         },
         "es" : {
@@ -1058,6 +1274,12 @@
             "value" : "Turkish"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "トルコ語"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1092,6 +1314,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン"
           }
         },
         "es" : {
