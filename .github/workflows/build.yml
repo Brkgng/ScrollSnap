@@ -1,0 +1,94 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build:
+    name: Build (ad-hoc signed)
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build
+        run: |
+          xcodebuild \
+            -project ScrollSnap.xcodeproj \
+            -scheme ScrollSnap \
+            -configuration Release \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            SYMROOT=build/products \
+            build
+
+      - name: Ad-hoc sign app bundle
+        run: |
+          APP_PATH="build/products/Release/ScrollSnap.app"
+          codesign --force --deep --sign - --timestamp=none "$APP_PATH"
+          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
+
+      - name: Package app bundle
+        run: |
+          mkdir -p dist
+          cp -R build/products/Release/ScrollSnap.app dist/
+          hdiutil create \
+            -volname "ScrollSnap Build" \
+            -srcfolder dist \
+            -ov \
+            -format UDZO \
+            ScrollSnap-adhoc-signed.dmg
+
+      - name: Upload artifact
+        id: upload-artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ScrollSnap-adhoc-signed
+          path: ScrollSnap-adhoc-signed.dmg
+          retention-days: 14
+
+      - name: Comment on PR with artifact link
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8
+        with:
+          script: |
+            const artifactUrl = '${{ steps.upload-artifact.outputs.artifact-url }}';
+            const body = [
+              'Ad-hoc signed build artifact is ready.',
+              '',
+              `Download: ${artifactUrl}`,
+              '',
+              'If macOS blocks launch after download, remove quarantine and open:',
+              '```bash',
+              'xattr -dr com.apple.quarantine ScrollSnap.app',
+              '```',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
