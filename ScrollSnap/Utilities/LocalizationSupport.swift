@@ -102,8 +102,16 @@ enum LocalizationResolver {
 }
 
 enum AppText {
+    static var about: String {
+        text("About")
+    }
+
     static var aboutApp: String {
         text("About ScrollSnap")
+    }
+
+    static var general: String {
+        text("General")
     }
 
     static var settings: String {
@@ -138,6 +146,18 @@ enum AppText {
         text("Reset Selection and Menu Positions")
     }
 
+    static var supportAndFeedback: String {
+        text("Support & Feedback")
+    }
+
+    static var contactSupport: String {
+        text("Contact Support")
+    }
+
+    static var rateOnTheAppStore: String {
+        text("Rate on the App Store")
+    }
+
     static var version: String {
         text("Version")
     }
@@ -147,7 +167,7 @@ enum AppText {
     }
 
     static var relaunchToApplyLanguageChanges: String {
-        text("Relaunch ScrollSnap to apply language changes.")
+        text("Relaunch now to apply language changes")
     }
 
     static var moveAccessibility: String {

@@ -4,26 +4,68 @@
     "%@:" : {
 
     },
-    "About ScrollSnap" : {
-      "comment" : "Main menu item that opens the app's About panel.",
+    "About" : {
+      "comment" : "Tab title for the settings about screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Über"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "About ScrollSnap"
+            "value" : "About"
           }
         },
-        "zh-Hans" : {
+        "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "关于 ScrollSnap"
+            "value" : "Acerca de"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ScrollSnapについて"
+            "value" : "このAppについて"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakkında"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于"
+          }
+        }
+      }
+    },
+    "About ScrollSnap" : {
+      "comment" : "Main menu item that opens the app's About panel.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Über ScrollSnap"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About ScrollSnap"
           }
         },
         "es" : {
@@ -38,16 +80,22 @@
             "value" : "À propos de ScrollSnap"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Über ScrollSnap"
+            "value" : "ScrollSnapについて"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap Hakkında"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于 ScrollSnap"
           }
         }
       }
@@ -56,22 +104,16 @@
       "comment" : "Accessibility label for the cancel button in the overlay menu.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "取消"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "キャンセル"
           }
         },
         "es" : {
@@ -86,16 +128,22 @@
             "value" : "Annuler"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abbrechen"
+            "value" : "キャンセル"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "İptal"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
           }
         }
       }
@@ -104,22 +152,16 @@
       "comment" : "Label for the overlay button that starts scrolling capture.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnehmen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Capture"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "截取"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "キャプチャ"
           }
         },
         "es" : {
@@ -134,10 +176,10 @@
             "value" : "Capturer"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aufnehmen"
+            "value" : "キャプチャ"
           }
         },
         "tr" : {
@@ -145,53 +187,11 @@
             "state" : "translated",
             "value" : "Yakala"
           }
-        }
-      }
-    },
-    "Clipboard" : {
-      "comment" : "Save destination label for copying an image to the clipboard.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Clipboard"
-          }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "剪贴板"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "クリップボード"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portapapeles"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Presse-papiers"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zwischenablage"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pano"
+            "value" : "截取"
           }
         }
       }
@@ -200,22 +200,16 @@
       "comment" : "Language picker option for Simplified Chinese.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chinesisch (vereinfacht)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chinese (Simplified)"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "简体中文"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中国語（簡体字）"
           }
         },
         "es" : {
@@ -230,16 +224,70 @@
             "value" : "Chinois (simplifié)"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chinesisch (vereinfacht)"
+            "value" : "中国語（簡体字）"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Çince (Basitleştirilmiş)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "简体中文"
+          }
+        }
+      }
+    },
+    "Clipboard" : {
+      "comment" : "Save destination label for copying an image to the clipboard.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zwischenablage"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clipboard"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portapapeles"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presse-papiers"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリップボード"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pano"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剪贴板"
           }
         }
       }
@@ -248,22 +296,16 @@
       "comment" : "Context menu item that closes the current thumbnail.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schließen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "关闭"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "閉じる"
           }
         },
         "es" : {
@@ -278,16 +320,70 @@
             "value" : "Fermer"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schließen"
+            "value" : "閉じる"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kapat"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        }
+      }
+    },
+    "Contact Support" : {
+      "comment" : "Button label in settings that opens the user's mail client for support.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support kontaktieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact Support"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contactar con soporte"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacter l’assistance"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サポートに連絡"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destek ile iletişime geç"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "联系支持"
           }
         }
       }
@@ -296,22 +392,16 @@
       "comment" : "Context menu item that deletes the current thumbnail result.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "删除"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "削除"
           }
         },
         "es" : {
@@ -326,16 +416,22 @@
             "value" : "Supprimer"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Löschen"
+            "value" : "削除"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sil"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
           }
         }
       }
@@ -344,22 +440,16 @@
       "comment" : "Save destination label for the Desktop folder.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schreibtisch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Desktop"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "桌面"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "デスクトップ"
           }
         },
         "es" : {
@@ -374,16 +464,22 @@
             "value" : "Bureau"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schreibtisch"
+            "value" : "デスクトップ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Masaüstü"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "桌面"
           }
         }
       }
@@ -392,22 +488,16 @@
       "comment" : "Save destination label for the Documents folder.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dokumente"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Documents"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "文稿"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "書類"
           }
         },
         "es" : {
@@ -422,16 +512,22 @@
             "value" : "Documents"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dokumente"
+            "value" : "書類"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Belgeler"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文稿"
           }
         }
       }
@@ -440,22 +536,16 @@
       "comment" : "Save destination label for the Downloads folder.",
       "extractionState" : "stale",
       "localizations" : {
-        "en" : {
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Downloads"
           }
         },
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "下载"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ダウンロード"
+            "value" : "Downloads"
           }
         },
         "es" : {
@@ -470,16 +560,22 @@
             "value" : "Téléchargements"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Downloads"
+            "value" : "ダウンロード"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "İndirilenler"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下载"
           }
         }
       }
@@ -488,22 +584,16 @@
       "comment" : "Language picker option for English.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Englisch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "English"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "英语"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "英語"
           }
         },
         "es" : {
@@ -518,16 +608,22 @@
             "value" : "Anglais"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Englisch"
+            "value" : "英語"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "İngilizce"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英语"
           }
         }
       }
@@ -536,22 +632,16 @@
       "comment" : "Language picker option for French.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Französisch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "French"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "法语"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "フランス語"
           }
         },
         "es" : {
@@ -566,16 +656,70 @@
             "value" : "Français"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Französisch"
+            "value" : "フランス語"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fransızca"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "法语"
+          }
+        }
+      }
+    },
+    "General" : {
+      "comment" : "Tab title for the settings general screen.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allgemein"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Général"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一般"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通用"
           }
         }
       }
@@ -584,22 +728,16 @@
       "comment" : "Language picker option for German.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deutsch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "German"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "德语"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ドイツ語"
           }
         },
         "es" : {
@@ -614,16 +752,22 @@
             "value" : "Allemand"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deutsch"
+            "value" : "ドイツ語"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Almanca"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "德语"
           }
         }
       }
@@ -632,22 +776,16 @@
       "comment" : "Language picker option for Japanese.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japanisch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Japanese"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日语"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日本語"
           }
         },
         "es" : {
@@ -662,16 +800,22 @@
             "value" : "Japonais"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Japanisch"
+            "value" : "日本語"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Japonca"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日语"
           }
         }
       }
@@ -680,22 +824,16 @@
       "comment" : "Label shown next to the in-app language picker in settings.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprache"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Language"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "语言"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "言語"
           }
         },
         "es" : {
@@ -710,16 +848,22 @@
             "value" : "Langue"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sprache"
+            "value" : "言語"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dil"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "语言"
           }
         }
       }
@@ -728,22 +872,16 @@
       "comment" : "Accessibility label for the drag handle in the overlay menu.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bewegen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Move"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "移动"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "移動"
           }
         },
         "es" : {
@@ -758,16 +896,22 @@
             "value" : "Déplacer"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bewegen"
+            "value" : "移動"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Taşı"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移动"
           }
         }
       }
@@ -776,22 +920,16 @@
       "comment" : "Label for the overlay button that opens destination options.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optionen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Options"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选项"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "オプション"
           }
         },
         "es" : {
@@ -806,16 +944,22 @@
             "value" : "Options"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Optionen"
+            "value" : "オプション"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Seçenekler"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选项"
           }
         }
       }
@@ -824,22 +968,16 @@
       "comment" : "Prompt asking the user to choose the Desktop folder for screenshot save access.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle bitte den Ordner „Schreibtisch“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Desktop folder to grant ScrollSnap permission to save screenshots there."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "请选择桌面文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、デスクトップフォルダを選択してください。"
           }
         },
         "es" : {
@@ -854,16 +992,22 @@
             "value" : "Veuillez sélectionner le dossier Bureau afin d’autoriser ScrollSnap à y enregistrer des captures d’écran."
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wähle bitte den Ordner „Schreibtisch“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
+            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、デスクトップフォルダを選択してください。"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap'in ekran görüntülerini oraya kaydetme izni alabilmesi için lütfen Masaüstü klasörünüzü seçin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择桌面文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
           }
         }
       }
@@ -872,22 +1016,16 @@
       "comment" : "Prompt asking the user to choose the Documents folder for screenshot save access.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle bitte den Ordner „Dokumente“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Documents folder to grant ScrollSnap permission to save screenshots there."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "请选择文稿文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、書類フォルダを選択してください。"
           }
         },
         "es" : {
@@ -902,16 +1040,22 @@
             "value" : "Veuillez sélectionner le dossier Documents afin d’autoriser ScrollSnap à y enregistrer des captures d’écran."
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wähle bitte den Ordner „Dokumente“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
+            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、書類フォルダを選択してください。"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap'in ekran görüntülerini oraya kaydetme izni alabilmesi için lütfen Belgeler klasörünüzü seçin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择文稿文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
           }
         }
       }
@@ -920,22 +1064,16 @@
       "comment" : "Prompt asking the user to choose the Downloads folder for screenshot save access.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle bitte den Ordner „Downloads“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select your Downloads folder to grant ScrollSnap permission to save screenshots there."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "请选择下载文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、ダウンロードフォルダを選択してください。"
           }
         },
         "es" : {
@@ -950,16 +1088,22 @@
             "value" : "Veuillez sélectionner le dossier Téléchargements afin d’autoriser ScrollSnap à y enregistrer des captures d’écran."
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wähle bitte den Ordner „Downloads“ aus, damit ScrollSnap dort Bildschirmfotos speichern darf."
+            "value" : "ScrollSnapがそこにスクリーンショットを保存できるように、ダウンロードフォルダを選択してください。"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap'in ekran görüntülerini oraya kaydetme izni alabilmesi için lütfen İndirilenler klasörünüzü seçin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择下载文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
           }
         }
       }
@@ -968,22 +1112,16 @@
       "comment" : "Save destination label for opening the image in Preview.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschau"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preview"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "预览"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "プレビュー"
           }
         },
         "es" : {
@@ -998,16 +1136,22 @@
             "value" : "Aperçu"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vorschau"
+            "value" : "プレビュー"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Önizleme"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预览"
           }
         }
       }
@@ -1016,22 +1160,16 @@
       "comment" : "Main menu item that quits the app.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap beenden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Quit ScrollSnap"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "退出 ScrollSnap"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnapを終了"
           }
         },
         "es" : {
@@ -1046,10 +1184,10 @@
             "value" : "Quitter ScrollSnap"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ScrollSnap beenden"
+            "value" : "ScrollSnapを終了"
           }
         },
         "tr" : {
@@ -1057,53 +1195,107 @@
             "state" : "translated",
             "value" : "ScrollSnap'ten Çık"
           }
-        }
-      }
-    },
-    "Relaunch ScrollSnap to apply language changes." : {
-      "comment" : "Note shown in settings after the language picker to explain that changes apply on next launch.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Relaunch ScrollSnap to apply language changes."
-          }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "重新启动 ScrollSnap 以应用语言更改。"
+            "value" : "退出 ScrollSnap"
           }
-        },
-        "ja" : {
+        }
+      }
+    },
+    "Rate on the App Store" : {
+      "comment" : "Button label in settings that opens the Mac App Store review page.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "言語の変更を適用するには、ScrollSnapを再起動してください。"
+            "value" : "Im App Store bewerten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rate on the App Store"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vuelve a abrir ScrollSnap para aplicar los cambios de idioma."
+            "value" : "Valorar en el App Store"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Relancez ScrollSnap pour appliquer les changements de langue."
+            "value" : "Noter sur l’App Store"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Starte ScrollSnap neu, um die Sprachänderungen zu übernehmen."
+            "value" : "App Storeで評価"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dil değişikliklerini uygulamak için ScrollSnap'i yeniden başlatın."
+            "value" : "App Store'da puan ver"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 App Store 上评分"
+          }
+        }
+      }
+    },
+    "Relaunch now to apply language changes" : {
+      "comment" : "Button label in settings that relaunches the app so language changes take effect.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jetzt neu starten, um die Sprachänderungen zu übernehmen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relaunch now to apply language changes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reiniciar ahora para aplicar los cambios de idioma"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relancez maintenant pour appliquer les changements de langue"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今すぐ再起動して言語の変更を適用"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dil değişikliklerini uygulamak için şimdi yeniden başlat"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即重新启动以应用语言更改"
           }
         }
       }
@@ -1112,22 +1304,16 @@
       "comment" : "Button title that restores the default selection and menu locations.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auswahl und Menüpositionen zurücksetzen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset Selection and Menu Positions"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重置选区和菜单位置"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "選択範囲とメニューの位置をリセット"
           }
         },
         "es" : {
@@ -1142,16 +1328,22 @@
             "value" : "Réinitialiser la sélection et la position du menu"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Auswahl und Menüpositionen zurücksetzen"
+            "value" : "選択範囲とメニューの位置をリセット"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Seçim ve menü konumlarını sıfırla"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置选区和菜单位置"
           }
         }
       }
@@ -1160,22 +1352,16 @@
       "comment" : "Label for the overlay button that stops capture and saves the result.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存"
           }
         },
         "es" : {
@@ -1190,16 +1376,22 @@
             "value" : "Enregistrer"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Speichern"
+            "value" : "保存"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kaydet"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
           }
         }
       }
@@ -1208,22 +1400,16 @@
       "comment" : "Disabled heading above the save destination menu choices.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern in"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save to"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存到"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存先"
           }
         },
         "es" : {
@@ -1238,16 +1424,22 @@
             "value" : "Enregistrer dans"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Speichern in"
+            "value" : "保存先"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Şuraya kaydet"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存到"
           }
         }
       }
@@ -1256,22 +1448,16 @@
       "comment" : "Filename prefix used when saving screenshots.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildschirmfoto"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Screenshot"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "屏幕截图"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スクリーンショット"
           }
         },
         "es" : {
@@ -1286,16 +1472,22 @@
             "value" : "Capture d’écran"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bildschirmfoto"
+            "value" : "スクリーンショット"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ekran Görüntüsü"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏幕截图"
           }
         }
       }
@@ -1304,22 +1496,16 @@
       "comment" : "Title of the app settings window.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap-Einstellungen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap Settings"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap 设置"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap設定"
           }
         },
         "es" : {
@@ -1334,16 +1520,22 @@
             "value" : "Réglages de ScrollSnap"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ScrollSnap-Einstellungen"
+            "value" : "ScrollSnap設定"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap Ayarları"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap 设置"
           }
         }
       }
@@ -1352,22 +1544,16 @@
       "comment" : "Main menu item that opens the settings window.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen…"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings…"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置…"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設定…"
           }
         },
         "es" : {
@@ -1382,10 +1568,10 @@
             "value" : "Réglages…"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Einstellungen…"
+            "value" : "設定…"
           }
         },
         "tr" : {
@@ -1393,53 +1579,11 @@
             "state" : "translated",
             "value" : "Ayarlar…"
           }
-        }
-      }
-    },
-    "System Default" : {
-      "comment" : "Language picker option that follows the system language preferences.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "System Default"
-          }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "系统默认"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "システムのデフォルト"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Predeterminado del sistema"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Par défaut du système"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Systemstandard"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sistem Varsayılanı"
+            "value" : "设置…"
           }
         }
       }
@@ -1448,22 +1592,16 @@
       "comment" : "Language picker option for Spanish.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spanisch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spanish"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "西班牙语"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スペイン語"
           }
         },
         "es" : {
@@ -1478,16 +1616,118 @@
             "value" : "Espagnol"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spanisch"
+            "value" : "スペイン語"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "İspanyolca"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "西班牙语"
+          }
+        }
+      }
+    },
+    "Support & Feedback" : {
+      "comment" : "Section header in settings for support and review actions.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support und Feedback"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support & Feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soporte y comentarios"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assistance et commentaires"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サポートとフィードバック"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destek ve Geri Bildirim"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "支持与反馈"
+          }
+        }
+      }
+    },
+    "System Default" : {
+      "comment" : "Language picker option that follows the system language preferences.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systemstandard"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System Default"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Predeterminado del sistema"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Par défaut du système"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "システムのデフォルト"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sistem Varsayılanı"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统默认"
           }
         }
       }
@@ -1496,22 +1736,16 @@
       "comment" : "Language picker option for Turkish.",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Türkisch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turkish"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "土耳其语"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "トルコ語"
           }
         },
         "es" : {
@@ -1526,16 +1760,22 @@
             "value" : "Turc"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Türkisch"
+            "value" : "トルコ語"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Türkçe"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "土耳其语"
           }
         }
       }
@@ -1544,22 +1784,16 @@
       "comment" : "Prefix shown before the app version number.",
       "extractionState" : "stale",
       "localizations" : {
-        "en" : {
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
           }
         },
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "版本"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "バージョン"
+            "value" : "Version"
           }
         },
         "es" : {
@@ -1574,16 +1808,22 @@
             "value" : "Version"
           }
         },
-        "de" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Version"
+            "value" : "バージョン"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sürüm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本"
           }
         }
       }
