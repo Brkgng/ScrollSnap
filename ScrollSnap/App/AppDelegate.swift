@@ -48,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return nil
         }
         
-        if isEscapeEvent(event) {
+        if isEscapeEvent(event), event.window is OverlayWindow {
             NSApplication.shared.terminate(self)
             return nil
         }

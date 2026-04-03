@@ -6,6 +6,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.dismissWindow) private var dismissWindow
+
     let onResetPositions: () -> Void
     let onAppear: () -> Void
     let onDisappear: () -> Void
@@ -71,6 +73,9 @@ struct SettingsView: View {
         .navigationTitle(AppText.settingsWindowTitle)
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
+        .onExitCommand {
+            dismissWindow()
+        }
     }
 }
 
