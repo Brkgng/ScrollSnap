@@ -67,6 +67,8 @@ func saveImage(_ image: NSImage, to destination: String? = nil) -> URL? {
     let filename = getFileName()
     let selectedDestination = destination ?? UserDefaults.standard.string(forKey: Constants.Menu.Options.selectedDestinationKey) ?? Constants.Menu.Options.defaultDestination
     
+    var folderURL: URL? = nil
+    defer { folderURL?.stopAccessingSecurityScopedResource() }
     var fileURL: URL
     
     switch selectedDestination {
@@ -75,18 +77,21 @@ func saveImage(_ image: NSImage, to destination: String? = nil) -> URL? {
             print("Failed to get Desktop URL.")
             return nil
         }
+        folderURL = desktopURL
         fileURL = desktopURL.appendingPathComponent(filename)
     case "Documents":
         guard let documentsURL = getFolderURL(for: "Documents", bookmarkKey: "documentsBookmark") else {
             print("Failed to get Documents URL.")
             return nil
         }
+        folderURL = documentsURL
         fileURL = documentsURL.appendingPathComponent(filename)
     case "Downloads":
         guard let downloadsURL = getFolderURL(for: "Downloads", bookmarkKey: "downloadsBookmark") else {
             print("Failed to get Downloads URL.")
             return nil
         }
+        folderURL = downloadsURL
         fileURL = downloadsURL.appendingPathComponent(filename)
     case "Clipboard":
         // Save to clipboard instead of file
