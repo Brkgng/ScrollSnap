@@ -75,9 +75,13 @@ func saveImage(_ image: NSImage, to destination: SaveDestination? = nil) -> URL?
         openInPreview(pngData, filename)
         return nil
     case .file:
-        guard let fileURL = fileURL(for: selectedDestination, filename: filename) else {
+        guard let folderURL = getFolderURL(for: selectedDestination) else {
+            print("Failed to get \(selectedDestination.rawValue) URL.")
             return nil
         }
+        defer { folderURL.stopAccessingSecurityScopedResource() }
+
+        let fileURL = folderURL.appendingPathComponent(filename)
 
         do {
             try pngData.write(to: fileURL)
@@ -209,15 +213,6 @@ private func openInPreview(_ pngData: Data, _ filename: String = "Screenshot.png
     } catch {
         print("Failed to write temporary file for Preview: \(error.localizedDescription)")
     }
-}
-
-private func fileURL(for destination: SaveDestination, filename: String) -> URL? {
-    guard let folderURL = getFolderURL(for: destination) else {
-        print("Failed to get \(destination.rawValue) URL.")
-        return nil
-    }
-
-    return folderURL.appendingPathComponent(filename)
 }
 
 /// Gets the URL for a folder, prompting for access if necessary.
