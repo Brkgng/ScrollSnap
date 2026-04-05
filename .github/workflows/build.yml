@@ -14,11 +14,10 @@ concurrency:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   build:
-    name: Build (ad-hoc signed)
+    name: Build
     runs-on: macos-latest
 
     steps:
@@ -43,20 +42,3 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             SYMROOT=build/products \
             build
-
-      - name: Ad-hoc sign app bundle
-        run: |
-          APP_PATH="build/products/Release/ScrollSnap.app"
-          codesign --force --deep --sign - --timestamp=none "$APP_PATH"
-          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
-
-      - name: Package app bundle
-        run: |
-          mkdir -p dist
-          cp -R build/products/Release/ScrollSnap.app dist/
-          hdiutil create \
-            -volname "ScrollSnap Build" \
-            -srcfolder dist \
-            -ov \
-            -format UDZO \
-            ScrollSnap-adhoc-signed.dmg
