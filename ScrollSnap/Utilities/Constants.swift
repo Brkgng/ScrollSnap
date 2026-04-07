@@ -18,16 +18,10 @@ struct Constants {
         static let borderWidth: CGFloat = 1.0
         
         struct Options {
-            static let destinations: [String] = ["Desktop", "Documents", "Downloads", "Clipboard", "Preview"]
-            static let defaultDestination: String = "Downloads"
             static let selectedDestinationKey: String = "SelectedDestination"
         }
         
         struct Button {
-            static let dragWidth: CGFloat = 35.0
-            static let cancelWidth: CGFloat = 40.0
-            static let optionsWidth: CGFloat = 90.0
-            static let captureWidth: CGFloat = 84.0
             static let textColor: NSColor = .black
             static let textFont: NSFont = .systemFont(ofSize: 14)
             static let iconColor: NSColor = .black

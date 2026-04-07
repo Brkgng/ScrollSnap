@@ -160,7 +160,7 @@ class ThumbnailView: NSView {
     private func handleClick() {
         // Stop timer, open image in Preview, and close app
         thumbnailTimer?.invalidate()
-        saveImage(image, to: "Preview")
+        saveImage(image, to: .preview)
         overlayManager.thumbnailWindow?.orderOut(nil)
         NSApplication.shared.terminate(nil)
     }
@@ -237,9 +237,9 @@ class ThumbnailView: NSView {
     override func rightMouseDown(with event: NSEvent) {
         let menu = NSMenu()
         
-        menu.addItem(withTitle: "Save", action: #selector(saveImageAction), keyEquivalent: "")
-        menu.addItem(withTitle: "Delete", action: #selector(deleteImage), keyEquivalent: "")
-        menu.addItem(withTitle: "Close", action: #selector(closeThumbnail), keyEquivalent: "")
+        menu.addItem(withTitle: AppText.save, action: #selector(saveImageAction), keyEquivalent: "")
+        menu.addItem(withTitle: AppText.delete, action: #selector(deleteImage), keyEquivalent: "")
+        menu.addItem(withTitle: AppText.close, action: #selector(closeThumbnail), keyEquivalent: "")
         
         NSMenu.popUpContextMenu(menu, with: event, for: self)
     }

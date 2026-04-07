@@ -7,12 +7,9 @@ import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     let overlayManager = OverlayManager()
-    private var settingsWindowController: SettingsWindowController?
     private var localKeyEventMonitor: Any?
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        setupMainMenu()
-        
         cleanupOldTemporaryFiles()
         installLocalKeyEventMonitor()
         
@@ -39,30 +36,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    private func setupMainMenu() {
-        let mainMenu = NSMenu()
-        
-        let appMenuItem = NSMenuItem(title: "ScrollSnap", action: nil, keyEquivalent: "")
-        let appMenu = NSMenu(title: "ScrollSnap")
-        appMenu.addItem(withTitle: "About ScrollSnap", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
-        appMenu.addItem(NSMenuItem.separator())
-        appMenu.addItem(withTitle: "Preferences…", action: #selector(showSettingsWindow), keyEquivalent: ",")
-        appMenu.addItem(NSMenuItem.separator())
-        appMenu.addItem(withTitle: "Quit ScrollSnap", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
-        appMenuItem.submenu = appMenu
-        mainMenu.addItem(appMenuItem)
-        
-        NSApplication.shared.mainMenu = mainMenu
-    }
-    
-    @objc private func showSettingsWindow() {
-        if settingsWindowController == nil {
-            settingsWindowController = SettingsWindowController(overlayManager: overlayManager)
-        }
-        settingsWindowController?.showWindow(nil)
-        settingsWindowController?.window?.makeKeyAndOrderFront(nil)
-    }
-    
     private func installLocalKeyEventMonitor() {
         localKeyEventMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             self?.handleLocalKeyDown(event) ?? event
@@ -70,26 +43,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func handleLocalKeyDown(_ event: NSEvent) -> NSEvent? {
-        if isPreferencesShortcut(event) {
-            showSettingsWindow()
-            return nil
-        }
-        
         if isCaptureToggleEvent(event), event.window is OverlayWindow {
             overlayManager.captureScreenshot()
             return nil
         }
         
-        if isEscapeEvent(event) {
+        if isEscapeEvent(event), event.window is OverlayWindow {
             NSApplication.shared.terminate(self)
             return nil
         }
         
         return event
-    }
-    
-    private func isPreferencesShortcut(_ event: NSEvent) -> Bool {
-        event.modifierFlags.contains(.command) && event.charactersIgnoringModifiers == ","
     }
     
     private func isCaptureToggleEvent(_ event: NSEvent) -> Bool {
@@ -119,7 +83,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             for fileURL in tempContents {
                 // Only process files that match ScrollSnap's naming pattern
-                guard fileURL.lastPathComponent.hasPrefix("Screenshot ") &&
+                guard AppText.supportedScreenshotFilenamePrefixes.contains(where: {
+                    fileURL.lastPathComponent.hasPrefix("\($0) ")
+                }) &&
                       fileURL.pathExtension == "png" else {
                     continue
                 }

@@ -1,5 +1,9 @@
 # ScrollSnap
 
+![macOS](https://img.shields.io/badge/macOS-black?style=flat-square)
+[![License: MIT](https://img.shields.io/badge/License-MIT-black?style=flat-square)](#license)
+[![App Store](https://img.shields.io/badge/App%20Store-Download-black?style=flat-square&logo=appstore)](https://apps.apple.com/app/scrollsnap/id6744903723)
+
 ScrollSnap is an open-source macOS application designed to capture scrolling screenshots with a customizable selection area and menu interface. It allows users to define a capture region, take stitched scrolling screenshots, and save them to various destinations (e.g., Desktop, Clipboard, Preview). Built with Swift and leveraging AppKit and ScreenCaptureKit, ScrollSnap provides a sleek overlay-based UI for precise control.
 
 <div style="text-align: center;">
@@ -8,8 +12,8 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 
 ## Download
 
-- 📦 [Download ZIP from GitHub Releases](https://github.com/brkgng/ScrollSnap/releases/latest) - **Free**
-- 🍎 [Download on the App Store](https://apps.apple.com/app/scrollsnap/id6744903723) – Paid version for users who prefer App Store convenience
+- 🍎 [Download on the App Store](https://apps.apple.com/app/scrollsnap/id6744903723) – _Supports App Store-managed installation and updates._
+- 📦 [Download ZIP from GitHub Releases](https://github.com/brkgng/ScrollSnap/releases/latest) - _The free, compiled binary. Requires manual downloads to install future updates._
 
 ## Features
 
@@ -19,12 +23,15 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 - **Interactive Menu**: Includes options to capture, save, reset positions, or cancel, with a draggable interface.
 - **Thumbnail Preview**: Displays a draggable thumbnail of the captured image with swipe-to-save or right-click options.
 - **Save Destinations**: Supports saving to Desktop, Documents, Downloads, Clipboard, or opening in Preview.
-- **Preferences**: Reset selection and menu positions via a settings window (Command + ,).
+- **Settings**: Adjust language and reset selection and menu positions via the native settings window (Command + ,).
 
-## Requirements
+## 🌍 Multi-Language Support
 
-- macOS 12.0 or later (requires ScreenCaptureKit framework).
-- Xcode 14.0 or later for development.
+ScrollSnap currently supports **English, Simplified Chinese, French, German, Japanese, Spanish, and Turkish**.
+
+**Notice a typo or want ScrollSnap in your language?** Contributions are incredibly welcome! As a solo developer, I rely on the community to help make ScrollSnap accessible to everyone.
+
+Whether you want to add a completely new language or improve an existing translation, see [Contributing](#contributing) and feel free to open a Pull Request.
 
 ## Installation
 
@@ -65,9 +72,9 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 
 - Use the "Options" menu to set the save destination (Desktop, Clipboard, etc.).
 
-6. **Preferences**:
+6. **Settings**:
 
-- Press `Cmd + ,` to open the settings window and reset positions if needed.
+- Press `Cmd + ,` to open the settings window, change language, or reset positions if needed.
 
 7. **Quit**:
 
@@ -80,14 +87,13 @@ ScrollSnap
 │── App
 │   │── ScrollSnapApp.swift         # App entry point (SwiftUI)
 │   │── AppDelegate.swift          # Menu and settings setup
-│── Controllers
-│   │── SettingsWindowController.swift  # Preferences window
 │── Utilities
 │   │── Constants.swift            # App-wide constants
 │   │── ScreenshotUtilities.swift  # Screenshot capture and save logic
 │── Views
 │   │── OverlayView.swift          # Main overlay coordinator
-│   │── ContentView.swift          # SwiftUI entry point
+│   │── SettingsView.swift         # Native SwiftUI settings pane
+│   │── ContentView.swift          # Placeholder SwiftUI view
 │   │── SelectionRectangleView.swift  # Selection area UI
 │   │── MenuBarView.swift          # Menu bar UI
 │   │── ThumbnailView.swift        # Thumbnail preview UI
@@ -127,4 +133,4 @@ macOS tracks Screen Recording permission by signed app identity. Ad-hoc signing 
 
 ## License
 
-MIT Licensed.
+Licensed under the MIT License. See [LICENSE](LICENSE).
