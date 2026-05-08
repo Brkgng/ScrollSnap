@@ -125,9 +125,11 @@ class StitchingManager {
     private func composite(baseImage: NSImage, newImage: NSImage, offset: CGFloat) -> NSImage? {
         let baseSize = baseImage.size
         let newSize = newImage.size
+        let newContentHeight = min(offset, newSize.height)
+        guard newContentHeight > 0 else { return nil }
         
         // The total height is the base height plus the new, non-overlapping area (the scroll amount).
-        let totalHeight = baseSize.height + offset
+        let totalHeight = baseSize.height + newContentHeight
         let outputSize = NSSize(width: baseSize.width, height: totalHeight)
         
         let outputImage = NSImage(size: outputSize)
@@ -135,13 +137,13 @@ class StitchingManager {
         
         // Using a standard bottom-up coordinate system for drawing.
         
-        // 1. Draw the base image (the stitched result so far) at the TOP of the canvas.
-        let baseRect = CGRect(x: 0, y: totalHeight - baseSize.height, width: baseSize.width, height: baseSize.height)
+        // 1. Draw the base image above the newly revealed content.
+        let baseRect = CGRect(x: 0, y: newContentHeight, width: baseSize.width, height: baseSize.height)
         baseImage.draw(in: baseRect)
         
-        // 2. Draw the new image at the BOTTOM of the canvas.
-        let newRect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        newImage.draw(in: newRect)
+        // 2. Draw only the newly exposed bottom strip from the latest screenshot.
+        let newContentRect = CGRect(x: 0, y: 0, width: newSize.width, height: newContentHeight)
+        newImage.draw(in: newContentRect, from: newContentRect, operation: .copy, fraction: 1.0)
         
         outputImage.unlockFocus()
 
