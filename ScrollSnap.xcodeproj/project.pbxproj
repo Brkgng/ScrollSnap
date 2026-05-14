@@ -10,6 +10,7 @@
 		D40200032F00000100AA0001 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D40200022F00000100AA0001 /* Localizable.xcstrings */; };
 		D40200052F00000100AA0001 /* LocalizationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40200042F00000100AA0001 /* LocalizationSupport.swift */; };
 		D40200112F00000100AA0001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40200102F00000100AA0001 /* SettingsView.swift */; };
+		D40200212F00000100AA0001 /* ScreenRecordingPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40200202F00000100AA0001 /* ScreenRecordingPermissionView.swift */; };
 		D417112C2D7DD42200DE2390 /* SelectionRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417112B2D7DD42200DE2390 /* SelectionRectangleView.swift */; };
 		D417112E2D7DD4BE00DE2390 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417112D2D7DD4BE00DE2390 /* MenuBarView.swift */; };
 		D45709EC2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D45709EB2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy */; };
@@ -31,6 +32,7 @@
 		D40200022F00000100AA0001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D40200042F00000100AA0001 /* LocalizationSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationSupport.swift; sourceTree = "<group>"; };
 		D40200102F00000100AA0001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D40200202F00000100AA0001 /* ScreenRecordingPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingPermissionView.swift; sourceTree = "<group>"; };
 		D417112B2D7DD42200DE2390 /* SelectionRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionRectangleView.swift; sourceTree = "<group>"; };
 		D417112D2D7DD4BE00DE2390 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		D43010012E0D000100A0A001 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				D4BBCA6E2D5A12600022FF73 /* OverlayView.swift */,
 				D4C1F4D02CEF9F6900E5A9A8 /* ContentView.swift */,
 				D40200102F00000100AA0001 /* SettingsView.swift */,
+				D40200202F00000100AA0001 /* ScreenRecordingPermissionView.swift */,
 				D4BBCA892D7343CB0022FF73 /* ThumbnailView.swift */,
 				D417112B2D7DD42200DE2390 /* SelectionRectangleView.swift */,
 				D417112D2D7DD4BE00DE2390 /* MenuBarView.swift */,
@@ -237,6 +240,7 @@
 			files = (
 				D40200052F00000100AA0001 /* LocalizationSupport.swift in Sources */,
 				D40200112F00000100AA0001 /* SettingsView.swift in Sources */,
+				D40200212F00000100AA0001 /* ScreenRecordingPermissionView.swift in Sources */,
 				D4BBCA6F2D5A12600022FF73 /* OverlayView.swift in Sources */,
 				D4BBCA882D7276D20022FF73 /* StitchingManager.swift in Sources */,
 				D4C1F4D12CEF9F6900E5A9A8 /* ContentView.swift in Sources */,
@@ -394,7 +398,7 @@
 				CODE_SIGN_ENTITLEMENTS = ScrollSnap/ScrollSnap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"ScrollSnap/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -411,7 +415,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnap.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -428,7 +432,7 @@
 				CODE_SIGN_ENTITLEMENTS = ScrollSnap/ScrollSnap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"ScrollSnap/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -445,7 +449,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

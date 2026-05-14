@@ -170,6 +170,26 @@ enum AppText {
         text("Relaunch now to apply language changes")
     }
 
+    static var screenRecordingPermissionTitle: String {
+        text("Screen Recording Required")
+    }
+
+    static var screenRecordingPermissionMessage: String {
+        text("ScrollSnap needs Screen Recording permission to show the capture overlay and capture your screen. After granting access, return here and check again.")
+    }
+
+    static var openSystemSettings: String {
+        text("Open System Settings")
+    }
+
+    static var checkAgain: String {
+        text("Check Again")
+    }
+
+    static var quit: String {
+        text("Quit")
+    }
+
     static var moveAccessibility: String {
         text("Move")
     }
