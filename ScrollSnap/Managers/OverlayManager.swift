@@ -51,7 +51,7 @@ class OverlayManager {
         overlayWindows = NSScreen.screens.map { screen in
             let overlayWindow = OverlayWindow(
                 contentRect: screen.frame,
-                styleMask: [.borderless],
+                styleMask: [.borderless, .nonactivatingPanel],
                 backing: .buffered,
                 defer: false
             )
@@ -60,6 +60,8 @@ class OverlayManager {
             overlayWindow.isOpaque = false
             overlayWindow.backgroundColor = .clear
             overlayWindow.collectionBehavior = Constants.Overlay.collectionBehavior
+            overlayWindow.hidesOnDeactivate = false
+            overlayWindow.hasShadow = false
             
             let overlayView = OverlayView(manager: self, screenFrame: screen.frame)
             overlayWindow.contentView = overlayView
@@ -531,19 +533,17 @@ class OverlayManager {
     private func syncOverlayWindows() {
         guard !overlayWindows.isEmpty else { return }
 
-        overlayWindows.forEach { $0.orderFront(nil) }
+        overlayWindows.forEach { $0.orderFrontRegardless() }
 
         if let rectangleWindow = overlayWindows.first(where: { $0.frame.contains(rectangle.origin) }) {
-            rectangleWindow.makeKeyAndOrderFront(nil)
+            rectangleWindow.makeKey()
         }
-
-        NSApp.activate(ignoringOtherApps: true)
     }
 }
 
-// Custom NSWindow subclass to allow borderless window to become key
-class OverlayWindow: NSWindow {
+// Custom NSPanel subclass to allow the borderless overlay to become key without activating the app.
+class OverlayWindow: NSPanel {
     override var canBecomeKey: Bool {
-        return true // Allow this window to become the key window
+        return true
     }
 }

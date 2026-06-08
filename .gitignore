@@ -38,6 +38,6 @@ playground.xcworkspace
 *.mobileprovision
 /Config/Signing.local.xcconfig
 
-/.DS_Store
+.DS_Store
 
 notes.md
