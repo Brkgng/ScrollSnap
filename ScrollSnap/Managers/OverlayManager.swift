@@ -143,7 +143,8 @@ class OverlayManager {
         }
 
         if suspendedWindowsState.wasThumbnailVisible {
-            thumbnailWindow?.orderFront(nil)
+            thumbnailWindow?.orderFrontRegardless()
+            thumbnailWindow?.makeKey()
         }
 
         self.suspendedWindowsState = nil
@@ -286,17 +287,20 @@ class OverlayManager {
         )
         
         let thumbnailView = ThumbnailView(image: image, overlayManager: self, screen: screen, origin: thumbnailOrigin, size: thumbnailSize)
-        thumbnailWindow = NSWindow(
+        thumbnailWindow = OverlayWindow(
             contentRect: NSRect(origin: thumbnailOrigin, size: thumbnailSize),
-            styleMask: [.borderless],
+            styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
             defer: false
         )
         thumbnailWindow?.level = .statusBar
         thumbnailWindow?.isOpaque = false
         thumbnailWindow?.backgroundColor = .clear
+        thumbnailWindow?.collectionBehavior = Constants.Overlay.collectionBehavior
+        thumbnailWindow?.hidesOnDeactivate = false
         thumbnailWindow?.contentView = thumbnailView
-        thumbnailWindow?.makeKeyAndOrderFront(nil)
+        thumbnailWindow?.orderFrontRegardless()
+        thumbnailWindow?.makeKey()
     }
     
     func hideThumbnail() {
