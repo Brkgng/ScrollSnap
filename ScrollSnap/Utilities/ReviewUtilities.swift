@@ -12,7 +12,7 @@ func recordSuccessfulCaptureForReview() {
     guard hasAppStoreReceipt() else { return }
 
     let defaults = UserDefaults.standard
-    let version = currentAppVersion()
+    let version = UpdateFeedbackManager.currentAppVersion
 
     synchronizeReviewState(for: version, defaults: defaults)
 
@@ -23,9 +23,10 @@ func recordSuccessfulCaptureForReview() {
 @MainActor
 func requestReviewIfEligible() async {
     guard hasAppStoreReceipt() else { return }
+    guard !UpdateFeedbackManager().hasPendingUpgradeUI else { return }
 
     let defaults = UserDefaults.standard
-    let version = currentAppVersion()
+    let version = UpdateFeedbackManager.currentAppVersion
 
     synchronizeReviewState(for: version, defaults: defaults)
 
@@ -49,10 +50,6 @@ private func hasAppStoreReceipt() -> Bool {
 
     return ["receipt", "sandboxReceipt"].contains(receiptURL.lastPathComponent) &&
         FileManager.default.fileExists(atPath: receiptURL.path)
-}
-
-private func currentAppVersion() -> String {
-    Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0"
 }
 
 private func synchronizeReviewState(for version: String, defaults: UserDefaults) {

@@ -5,6 +5,11 @@
 
 import SwiftUI
 
+enum FloatingWindowSuspensionReason: Hashable {
+    case settings
+    case whatsNew
+}
+
 class OverlayManager {
     private struct RestoredRect {
         let rect: NSRect
@@ -31,6 +36,7 @@ class OverlayManager {
     private let stitchingManager = StitchingManager()
     var thumbnailWindow: NSWindow?
     private var suspendedWindowsState: SuspendedWindowsState?
+    private var activeSuspensionReasons = Set<FloatingWindowSuspensionReason>()
     
     // MARK: - Initialization
     
@@ -111,8 +117,9 @@ class OverlayManager {
         overlayWindows.forEach { $0.ignoresMouseEvents = ignoresMouseEvents }
     }
 
-    func suspendFloatingWindowsForSettings() {
-        guard suspendedWindowsState == nil else { return }
+    func suspendFloatingWindows(for reason: FloatingWindowSuspensionReason) {
+        let insertedReason = activeSuspensionReasons.insert(reason).inserted
+        guard insertedReason, activeSuspensionReasons.count == 1 else { return }
 
         let visibleOverlayIndexes = Set(
             overlayWindows.enumerated().compactMap { index, window in
@@ -135,7 +142,9 @@ class OverlayManager {
         }
     }
 
-    func resumeFloatingWindowsAfterSettings() {
+    func resumeFloatingWindows(for reason: FloatingWindowSuspensionReason) {
+        guard activeSuspensionReasons.remove(reason) != nil else { return }
+        guard activeSuspensionReasons.isEmpty else { return }
         guard let suspendedWindowsState else { return }
 
         if !suspendedWindowsState.visibleOverlayIndexes.isEmpty {
@@ -308,6 +317,7 @@ class OverlayManager {
             window.orderOut(nil)
             thumbnailWindow = nil
             suspendedWindowsState = nil
+            activeSuspensionReasons.removeAll()
             NSApplication.shared.terminate(nil) // Close app after save or delete
         }
     }

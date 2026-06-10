@@ -5,13 +5,17 @@
 
 import SwiftUI
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let overlayManager = OverlayManager()
+    private let updateFeedbackManager = UpdateFeedbackManager()
     private var localKeyEventMonitor: Any?
     private var screenRecordingPermissionWindow: NSWindow?
+    private var whatsNewWindow: NSWindow?
+    private var whatsNewWindowVersion: String?
     private var didSetupOverlays = false
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+        updateFeedbackManager.recordLaunch(currentVersion: UpdateFeedbackManager.currentAppVersion)
         cleanupOldTemporaryFiles()
         installLocalKeyEventMonitor()
         
@@ -25,6 +29,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSEvent.removeMonitor(localKeyEventMonitor)
             self.localKeyEventMonitor = nil
         }
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        guard notification.object as? NSWindow === whatsNewWindow else { return }
+
+        if let whatsNewWindowVersion {
+            updateFeedbackManager.markHandled(version: whatsNewWindowVersion)
+        }
+
+        whatsNewWindow = nil
+        whatsNewWindowVersion = nil
+        overlayManager.resumeFloatingWindows(for: .whatsNew)
     }
     
     private func installLocalKeyEventMonitor() {
@@ -60,12 +76,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @MainActor
     private func handleScreenRecordingPermissionOnLaunch() {
-        guard !setupOverlaysIfScreenRecordingIsAllowed() else { return }
+        if setupOverlaysIfScreenRecordingIsAllowed() {
+            showWhatsNewWindowIfNeeded()
+            return
+        }
 
         _ = requestScreenRecordingPermission()
 
         if !setupOverlaysIfScreenRecordingIsAllowed() {
             showScreenRecordingPermissionWindow()
+        } else {
+            showWhatsNewWindowIfNeeded()
         }
     }
 
@@ -130,10 +151,109 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @MainActor
     private func checkScreenRecordingPermissionAgain() {
-        if !setupOverlaysIfScreenRecordingIsAllowed() {
+        if setupOverlaysIfScreenRecordingIsAllowed() {
+            showWhatsNewWindowIfNeeded()
+        } else {
             _ = requestScreenRecordingPermission()
-            _ = setupOverlaysIfScreenRecordingIsAllowed()
+            if setupOverlaysIfScreenRecordingIsAllowed() {
+                showWhatsNewWindowIfNeeded()
+            }
         }
+    }
+
+    // MARK: - What's New
+
+    @MainActor
+    private func showWhatsNewWindowIfNeeded() {
+        guard let version = updateFeedbackManager.pendingVersionToShow else { return }
+
+        let highlights = WhatsNewContent.currentHighlights
+        guard !highlights.isEmpty else {
+            updateFeedbackManager.markHandled(version: version)
+            return
+        }
+
+        if let whatsNewWindow {
+            whatsNewWindow.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
+            return
+        }
+
+        let whatsNewView = WhatsNewView(
+            version: version,
+            highlights: highlights,
+            reportProblem: { [weak self] in
+                self?.handleWhatsNewEmailAction(
+                    version: version,
+                    subject: String(
+                        format: LocalizationResolver.string(
+                            "whatsNew.problemReportSubject",
+                            fallback: "ScrollSnap Problem Report (v%@)"
+                        ),
+                        version
+                    )
+                )
+            },
+            sendFeedback: { [weak self] in
+                self?.handleWhatsNewEmailAction(
+                    version: version,
+                    subject: String(
+                        format: LocalizationResolver.string(
+                            "whatsNew.feedbackSubject",
+                            fallback: "ScrollSnap Feedback (v%@)"
+                        ),
+                        version
+                    )
+                )
+            },
+            dismiss: { [weak self] in
+                self?.handleWhatsNewDismiss(version: version)
+            }
+        )
+
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 576, height: 390),
+            styleMask: [.titled, .closable],
+            backing: .buffered,
+            defer: false
+        )
+        window.title = LocalizationResolver.string(
+            "whatsNew.windowTitle",
+            fallback: "What's New"
+        )
+        window.isReleasedWhenClosed = false
+        window.delegate = self
+        window.contentView = NSHostingView(rootView: whatsNewView)
+        window.center()
+        overlayManager.suspendFloatingWindows(for: .whatsNew)
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+
+        whatsNewWindow = window
+        whatsNewWindowVersion = version
+    }
+
+    @MainActor
+    private func handleWhatsNewDismiss(version: String) {
+        updateFeedbackManager.markHandled(version: version)
+        whatsNewWindow?.close()
+    }
+
+    @MainActor
+    private func handleWhatsNewEmailAction(version: String, subject: String) {
+        openSupportEmail(subject: subject)
+    }
+
+    private func openSupportEmail(subject: String) {
+        var components = URLComponents()
+        components.scheme = "mailto"
+        components.path = "yasarberkergungor@gmail.com"
+        components.queryItems = [
+            URLQueryItem(name: "subject", value: subject)
+        ]
+
+        guard let url = components.url else { return }
+        NSWorkspace.shared.open(url)
     }
     
     // MARK: - Temporary File Cleanup

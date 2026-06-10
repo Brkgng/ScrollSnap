@@ -60,6 +60,12 @@ struct Constants {
         static let captureCountVersionKey = "ReviewCaptureCountVersion"
         static let lastReviewAttemptVersionKey = "ReviewLastAttemptVersion"
     }
+
+    struct UpdateFeedback {
+        static let lastSeenAppVersionKey = "UpdateFeedbackLastSeenAppVersion"
+        static let pendingFeedbackVersionKey = "UpdateFeedbackPendingFeedbackVersion"
+        static let handledFeedbackVersionKey = "UpdateFeedbackHandledFeedbackVersion"
+    }
     
     static let rectangleKey = "LastRectangleFrame"
     static let menuRectKey = "LastMenuFrame"
