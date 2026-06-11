@@ -7,6 +7,7 @@ import Foundation
 
 struct UpdateFeedbackManager {
     private let defaults: UserDefaults
+    private let firstTrackedUpgradeVersion = "3.0.0"
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -32,6 +33,12 @@ struct UpdateFeedbackManager {
 
     func recordLaunch(currentVersion: String) {
         guard let lastSeenVersion = defaults.string(forKey: Constants.UpdateFeedback.lastSeenAppVersionKey) else {
+            if currentVersion == firstTrackedUpgradeVersion,
+               hasLegacyAppState,
+               defaults.string(forKey: Constants.UpdateFeedback.handledFeedbackVersionKey) != currentVersion {
+                defaults.set(currentVersion, forKey: Constants.UpdateFeedback.pendingFeedbackVersionKey)
+            }
+
             defaults.set(currentVersion, forKey: Constants.UpdateFeedback.lastSeenAppVersionKey)
             return
         }
@@ -51,6 +58,19 @@ struct UpdateFeedbackManager {
         }
 
         defaults.set(currentVersion, forKey: Constants.UpdateFeedback.lastSeenAppVersionKey)
+    }
+
+    private var hasLegacyAppState: Bool {
+        let legacyKeys = [
+            Constants.rectangleKey,
+            Constants.menuRectKey,
+            Constants.Menu.Options.selectedDestinationKey,
+            Constants.Review.successfulCaptureCountKey,
+            Constants.Review.captureCountVersionKey,
+            Constants.Review.lastReviewAttemptVersionKey
+        ]
+
+        return legacyKeys.contains { defaults.object(forKey: $0) != nil }
     }
 
     func markHandled(version: String) {
