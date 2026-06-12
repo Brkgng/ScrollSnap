@@ -11,6 +11,9 @@ class StitchingManager {
     private var runningStitchedImage: NSImage?
     private var previousImage: NSImage? // The most recent screenshot to use for comparison.
     private let stitchingQueue = DispatchQueue(label: "com.scrollsnap.stitching", qos: .userInitiated)
+    private let comparisonBandCount = 5
+    private let minimumComparisonBandHeight = 80
+    private let offsetAgreementTolerance: CGFloat = 3
     
     // MARK: - Public API
     
@@ -35,8 +38,7 @@ class StitchingManager {
             // Calculate the offset by comparing the new image with the *previous* one.
             // This supports both downward scrolling (positive offset) and upward scrolling (negative offset).
             guard let offsetInPoints = self.calculateOffset(from: image, to: prevImage) else {
-                // If we fail to find an offset, update previousImage and wait for the next one.
-                self.previousImage = image
+                // Keep the last reliable reference so the next accepted frame can catch up.
                 return
             }
 
@@ -92,7 +94,7 @@ class StitchingManager {
             return nil
         }
 
-        guard let verticalOffsetInPixels = findVerticalOffset(from: currentCG, to: previousCG) else {
+        guard let verticalOffsetInPixels = findReliableVerticalOffset(from: currentCG, to: previousCG) else {
             return nil
         }
 
@@ -100,6 +102,67 @@ class StitchingManager {
         guard currentImage.size.height > 0 else { return nil }
         let scale = CGFloat(currentCG.height) / currentImage.size.height
         return verticalOffsetInPixels / (scale > 0 ? scale : 1.0)
+    }
+
+    private func findReliableVerticalOffset(from image1: CGImage, to image2: CGImage) -> CGFloat? {
+        guard image1.width == image2.width, image1.height == image2.height else {
+            return nil
+        }
+
+        let offsets: [CGFloat] = comparisonBands(for: image1).compactMap { band in
+            guard let band1 = image1.cropping(to: band),
+                  let band2 = image2.cropping(to: band) else {
+                return nil
+            }
+
+            return findVerticalOffset(from: band1, to: band2)
+        }
+
+        return agreedOffset(from: offsets)
+    }
+
+    private func comparisonBands(for image: CGImage) -> [CGRect] {
+        let imageHeight = image.height
+        guard image.width > 0, imageHeight > 0 else { return [] }
+
+        let bandHeight = min(imageHeight, max(minimumComparisonBandHeight, imageHeight / 3))
+        let maxOriginY = max(0, imageHeight - bandHeight)
+
+        let origins: [Int]
+        if maxOriginY == 0 {
+            origins = [0]
+        } else {
+            origins = (0..<comparisonBandCount).map { index in
+                let denominator = max(1, comparisonBandCount - 1)
+                return Int((CGFloat(maxOriginY) * CGFloat(index) / CGFloat(denominator)).rounded())
+            }
+        }
+
+        return Array(Set(origins)).sorted().map { originY in
+            CGRect(x: 0, y: originY, width: image.width, height: bandHeight)
+        }
+    }
+
+    private func agreedOffset(from offsets: [CGFloat]) -> CGFloat? {
+        guard let firstOffset = offsets.first else { return nil }
+        guard offsets.count > 1 else { return firstOffset }
+
+        let sortedOffsets = offsets.sorted()
+        let requiredAgreementCount = max(2, Int((CGFloat(offsets.count) * 0.75).rounded(.up)))
+        var bestGroup: [CGFloat] = []
+
+        for offset in sortedOffsets {
+            let matchingOffsets = sortedOffsets.filter { abs($0 - offset) <= offsetAgreementTolerance }
+            if matchingOffsets.count > bestGroup.count {
+                bestGroup = matchingOffsets
+            }
+        }
+
+        guard bestGroup.count >= requiredAgreementCount else {
+            return nil
+        }
+
+        return bestGroup.reduce(0, +) / CGFloat(bestGroup.count)
     }
     
     private func findVerticalOffset(from image1: CGImage, to image2: CGImage) -> CGFloat? {
@@ -125,9 +188,11 @@ class StitchingManager {
     private func composite(baseImage: NSImage, newImage: NSImage, offset: CGFloat) -> NSImage? {
         let baseSize = baseImage.size
         let newSize = newImage.size
+        let newContentHeight = min(offset, newSize.height)
+        guard newContentHeight > 0 else { return nil }
         
         // The total height is the base height plus the new, non-overlapping area (the scroll amount).
-        let totalHeight = baseSize.height + offset
+        let totalHeight = baseSize.height + newContentHeight
         let outputSize = NSSize(width: baseSize.width, height: totalHeight)
         
         let outputImage = NSImage(size: outputSize)
@@ -135,13 +200,13 @@ class StitchingManager {
         
         // Using a standard bottom-up coordinate system for drawing.
         
-        // 1. Draw the base image (the stitched result so far) at the TOP of the canvas.
-        let baseRect = CGRect(x: 0, y: totalHeight - baseSize.height, width: baseSize.width, height: baseSize.height)
+        // 1. Draw the base image above the newly revealed content.
+        let baseRect = CGRect(x: 0, y: newContentHeight, width: baseSize.width, height: baseSize.height)
         baseImage.draw(in: baseRect)
         
-        // 2. Draw the new image at the BOTTOM of the canvas.
-        let newRect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        newImage.draw(in: newRect)
+        // 2. Draw only the newly exposed bottom strip from the latest screenshot.
+        let newContentRect = CGRect(x: 0, y: 0, width: newSize.width, height: newContentHeight)
+        newImage.draw(in: newContentRect, from: newContentRect, operation: .copy, fraction: 1.0)
         
         outputImage.unlockFocus()
 

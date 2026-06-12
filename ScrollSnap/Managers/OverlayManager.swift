@@ -5,6 +5,11 @@
 
 import SwiftUI
 
+enum FloatingWindowSuspensionReason: Hashable {
+    case settings
+    case whatsNew
+}
+
 class OverlayManager {
     private struct RestoredRect {
         let rect: NSRect
@@ -31,6 +36,7 @@ class OverlayManager {
     private let stitchingManager = StitchingManager()
     var thumbnailWindow: NSWindow?
     private var suspendedWindowsState: SuspendedWindowsState?
+    private var activeSuspensionReasons = Set<FloatingWindowSuspensionReason>()
     
     // MARK: - Initialization
     
@@ -51,7 +57,7 @@ class OverlayManager {
         overlayWindows = NSScreen.screens.map { screen in
             let overlayWindow = OverlayWindow(
                 contentRect: screen.frame,
-                styleMask: [.borderless],
+                styleMask: [.borderless, .nonactivatingPanel],
                 backing: .buffered,
                 defer: false
             )
@@ -60,6 +66,8 @@ class OverlayManager {
             overlayWindow.isOpaque = false
             overlayWindow.backgroundColor = .clear
             overlayWindow.collectionBehavior = Constants.Overlay.collectionBehavior
+            overlayWindow.hidesOnDeactivate = false
+            overlayWindow.hasShadow = false
             
             let overlayView = OverlayView(manager: self, screenFrame: screen.frame)
             overlayWindow.contentView = overlayView
@@ -109,8 +117,9 @@ class OverlayManager {
         overlayWindows.forEach { $0.ignoresMouseEvents = ignoresMouseEvents }
     }
 
-    func suspendFloatingWindowsForSettings() {
-        guard suspendedWindowsState == nil else { return }
+    func suspendFloatingWindows(for reason: FloatingWindowSuspensionReason) {
+        let insertedReason = activeSuspensionReasons.insert(reason).inserted
+        guard insertedReason, activeSuspensionReasons.count == 1 else { return }
 
         let visibleOverlayIndexes = Set(
             overlayWindows.enumerated().compactMap { index, window in
@@ -133,7 +142,9 @@ class OverlayManager {
         }
     }
 
-    func resumeFloatingWindowsAfterSettings() {
+    func resumeFloatingWindows(for reason: FloatingWindowSuspensionReason) {
+        guard activeSuspensionReasons.remove(reason) != nil else { return }
+        guard activeSuspensionReasons.isEmpty else { return }
         guard let suspendedWindowsState else { return }
 
         if !suspendedWindowsState.visibleOverlayIndexes.isEmpty {
@@ -141,7 +152,8 @@ class OverlayManager {
         }
 
         if suspendedWindowsState.wasThumbnailVisible {
-            thumbnailWindow?.orderFront(nil)
+            thumbnailWindow?.orderFrontRegardless()
+            thumbnailWindow?.makeKey()
         }
 
         self.suspendedWindowsState = nil
@@ -284,17 +296,20 @@ class OverlayManager {
         )
         
         let thumbnailView = ThumbnailView(image: image, overlayManager: self, screen: screen, origin: thumbnailOrigin, size: thumbnailSize)
-        thumbnailWindow = NSWindow(
+        thumbnailWindow = OverlayWindow(
             contentRect: NSRect(origin: thumbnailOrigin, size: thumbnailSize),
-            styleMask: [.borderless],
+            styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
             defer: false
         )
         thumbnailWindow?.level = .statusBar
         thumbnailWindow?.isOpaque = false
         thumbnailWindow?.backgroundColor = .clear
+        thumbnailWindow?.collectionBehavior = Constants.Overlay.collectionBehavior
+        thumbnailWindow?.hidesOnDeactivate = false
         thumbnailWindow?.contentView = thumbnailView
-        thumbnailWindow?.makeKeyAndOrderFront(nil)
+        thumbnailWindow?.orderFrontRegardless()
+        thumbnailWindow?.makeKey()
     }
     
     func hideThumbnail() {
@@ -302,6 +317,7 @@ class OverlayManager {
             window.orderOut(nil)
             thumbnailWindow = nil
             suspendedWindowsState = nil
+            activeSuspensionReasons.removeAll()
             NSApplication.shared.terminate(nil) // Close app after save or delete
         }
     }
@@ -531,19 +547,17 @@ class OverlayManager {
     private func syncOverlayWindows() {
         guard !overlayWindows.isEmpty else { return }
 
-        overlayWindows.forEach { $0.orderFront(nil) }
+        overlayWindows.forEach { $0.orderFrontRegardless() }
 
         if let rectangleWindow = overlayWindows.first(where: { $0.frame.contains(rectangle.origin) }) {
-            rectangleWindow.makeKeyAndOrderFront(nil)
+            rectangleWindow.makeKey()
         }
-
-        NSApp.activate(ignoringOtherApps: true)
     }
 }
 
-// Custom NSWindow subclass to allow borderless window to become key
-class OverlayWindow: NSWindow {
+// Custom NSPanel subclass to allow the borderless overlay to become key without activating the app.
+class OverlayWindow: NSPanel {
     override var canBecomeKey: Bool {
-        return true // Allow this window to become the key window
+        return true
     }
 }

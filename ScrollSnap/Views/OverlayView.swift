@@ -14,6 +14,7 @@ class OverlayView: NSView {
     private var screenFrame: NSRect
     private let selectionRectangleView: SelectionRectangleView
     private var menuBarView: MenuBarView?
+    private var hoverTrackingArea: NSTrackingArea?
     private var rectangleTrackingArea: NSTrackingArea?
     private var borderTrackingAreas: [NSTrackingArea] = []
     private var menuTrackingArea: NSTrackingArea?
@@ -50,6 +51,10 @@ class OverlayView: NSView {
         guard let manager = manager else { return }
         let localPoint = convertWindowToLocal(point: event.locationInWindow)
         let globalPoint = convertToGlobal(point: localPoint)
+
+        if menuBarView?.handleOpenPopupMouseDown(at: globalPoint) == true {
+            return
+        }
         
         let menuRect = manager.getMenuRectangle()
         if menuRect.contains(globalPoint) {
@@ -64,6 +69,12 @@ class OverlayView: NSView {
         let localPoint = convertWindowToLocal(point: event.locationInWindow)
         let globalPoint = convertToGlobal(point: localPoint)
         selectionRectangleView.handleMouseDragged(to: globalPoint)
+    }
+
+    override func mouseMoved(with event: NSEvent) {
+        let localPoint = convertWindowToLocal(point: event.locationInWindow)
+        let globalPoint = convertToGlobal(point: localPoint)
+        menuBarView?.handleMouseMoved(at: globalPoint)
     }
     
     override func mouseUp(with event: NSEvent) {
@@ -91,13 +102,6 @@ class OverlayView: NSView {
         menuBarView?.draw(in: dirtyRect)
     }
     
-    // MARK: - Menu Handling
-    
-    /// Shows the options menu at the specified location.
-    func showOptionsMenu(_ menu: NSMenu, at location: NSPoint) {
-        menu.popUp(positioning: nil, at: location, in: self)
-    }
-    
     func dirtyRect(forGlobalRect rect: NSRect, includesDimensionLabel: Bool) -> NSRect {
         let localRect = convertToLocal(rect: rect)
         
@@ -122,6 +126,13 @@ class OverlayView: NSView {
         if let oldMenuTrackingArea = menuTrackingArea {
             removeTrackingArea(oldMenuTrackingArea)
         }
+        if let oldHoverTrackingArea = hoverTrackingArea {
+            removeTrackingArea(oldHoverTrackingArea)
+        }
+
+        let hoverOptions: NSTrackingArea.Options = [.mouseMoved, .activeAlways, .inVisibleRect]
+        hoverTrackingArea = NSTrackingArea(rect: bounds, options: hoverOptions, owner: self, userInfo: ["type": "overlayHover"])
+        addTrackingArea(hoverTrackingArea!)
         
         guard let manager = manager else { return }
         let rectangle = manager.getRectangle()
@@ -173,6 +184,7 @@ class OverlayView: NSView {
     
     override func mouseExited(with event: NSEvent) {
         guard let userInfo = event.trackingArea?.userInfo else {
+            menuBarView?.clearHoverState()
             selectionRectangleView.handleMouseExited()
             return
         }

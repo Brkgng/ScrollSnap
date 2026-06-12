@@ -13,6 +13,33 @@ class MenuBarView: NSView {
     private weak var manager: OverlayManager?
     private weak var overlayView: OverlayView?
     private let screenFrame: NSRect
+    private var isOptionsPopupVisible = false
+    private var hoveredMenuControl: MenuControl?
+    private var hoveredOptionsPopupTarget: OptionsPopupTarget?
+
+    private enum MenuControl {
+        case drag
+        case cancel
+        case options
+        case capture
+    }
+
+    private enum OptionsPopupTarget: Equatable {
+        case destination(SaveDestination)
+        case reset
+    }
+
+    private enum OptionsPopupLayout {
+        static let margin: CGFloat = 8
+        static let gap: CGFloat = 6
+        static let padding: CGFloat = 6
+        static let headingHeight: CGFloat = 20
+        static let rowHeight: CGFloat = 28
+        static let separatorHeight: CGFloat = 9
+        static let resetHeight: CGFloat = 30
+        static let cornerRadius: CGFloat = 8
+        static let checkmarkWidth: CGFloat = 24
+    }
     
     // MARK: - Initialization
     
@@ -33,12 +60,55 @@ class MenuBarView: NSView {
         guard let manager = manager else { return }
         let menuRect = manager.getMenuRectangle()
         drawMenuBar(in: menuRect)
+        drawOptionsPopupIfNeeded(for: menuRect)
     }
     
     func handleMouseDown(at globalPoint: NSPoint) {
         guard let manager = manager else { return }
         let menuRect = manager.getMenuRectangle()
         handleMenuMouseDown(at: globalPoint, in: menuRect)
+    }
+
+    func handleOpenPopupMouseDown(at globalPoint: NSPoint) -> Bool {
+        guard isOptionsPopupVisible, let manager = manager else { return false }
+
+        let menuRect = manager.getMenuRectangle()
+        if handleOptionsPopupMouseDown(at: globalPoint, menuRect: menuRect) {
+            return true
+        }
+
+        if menuRect.contains(globalPoint) {
+            return false
+        }
+
+        hideOptionsPopup()
+        return true
+    }
+
+    func handleMouseMoved(at globalPoint: NSPoint) {
+        guard let manager = manager else { return }
+
+        let menuRect = manager.getMenuRectangle()
+        let nextHoveredMenuControl = getMenuControl(at: globalPoint, in: menuRect)
+        let nextPopupTarget: OptionsPopupTarget?
+
+        if isOptionsPopupVisible {
+            let popupRect = getOptionsPopupRect(for: menuRect)
+            nextPopupTarget = popupRect.contains(globalPoint)
+                ? getOptionsPopupTarget(at: globalPoint, in: popupRect)
+                : nil
+        } else {
+            nextPopupTarget = nil
+        }
+
+        updateHoverState(
+            menuControl: nextHoveredMenuControl,
+            popupTarget: nextPopupTarget
+        )
+    }
+
+    func clearHoverState() {
+        updateHoverState(menuControl: nil, popupTarget: nil)
     }
     
     func handleMouseUp(at globalPoint: NSPoint) {
@@ -88,6 +158,9 @@ class MenuBarView: NSView {
     private func drawCaptureButton(for menuRect: NSRect) {
         let buttonRect = getCaptureButtonRect(for: menuRect)
         let label = manager?.getIsScrollingCaptureActive() == true ? AppText.save : AppText.capture
+        if hoveredMenuControl == .capture {
+            drawMenuButtonHoverBackground(in: buttonRect)
+        }
         drawTextWithSymbol(label, symbol: "return", in: buttonRect)
     }
     
@@ -96,9 +169,12 @@ class MenuBarView: NSView {
         let cancelRect = getCancelButtonRect(for: menuRect)
         
         drawVerticalBorder(at: cancelRect.maxX, minY: cancelRect.minY, maxY: cancelRect.maxY)
+        if hoveredMenuControl == .cancel {
+            drawMenuButtonHoverBackground(in: cancelRect)
+        }
         
-        if let cancelIcon = NSImage(systemSymbolName: "xmark.circle.fill", accessibilityDescription: AppText.cancelAccessibility) {
-            drawSymbol(cancelIcon, in: cancelRect)
+        if let cancelIcon = configuredSymbol("xmark", accessibilityDescription: AppText.cancelAccessibility) {
+            drawSymbol(cancelIcon, in: cancelRect, size: 15)
         }
     }
     
@@ -106,6 +182,9 @@ class MenuBarView: NSView {
     private func drawOptionsButton(for menuRect: NSRect) {
         let buttonRect = getOptionsButtonRect(for: menuRect)
         drawVerticalBorder(at: buttonRect.maxX, minY: buttonRect.minY, maxY: buttonRect.maxY)
+        if hoveredMenuControl == .options || isOptionsPopupVisible {
+            drawMenuButtonHoverBackground(in: buttonRect)
+        }
         drawTextWithSymbol(AppText.options, symbol: "chevron.down", in: buttonRect)
     }
     
@@ -114,8 +193,11 @@ class MenuBarView: NSView {
         let buttonRect = getDragButtonRect(for: menuRect)
         
         drawVerticalBorder(at: buttonRect.maxX, minY: buttonRect.minY, maxY: buttonRect.maxY)
+        if hoveredMenuControl == .drag {
+            drawMenuButtonHoverBackground(in: buttonRect)
+        }
         
-        if let dragSymbol = NSImage(systemSymbolName: "arrow.up.and.down.and.arrow.left.and.right", accessibilityDescription: AppText.moveAccessibility) {
+        if let dragSymbol = configuredSymbol("arrow.up.and.down.and.arrow.left.and.right", accessibilityDescription: AppText.moveAccessibility) {
             drawSymbol(dragSymbol, in: buttonRect, size: 12)
         }
     }
@@ -168,6 +250,12 @@ class MenuBarView: NSView {
         )
         symbol.draw(in: iconRect)
     }
+
+    private func configuredSymbol(_ symbolName: String, accessibilityDescription: String?) -> NSImage? {
+        let configuration = NSImage.SymbolConfiguration(pointSize: 14, weight: .medium)
+        let symbol = NSImage(systemSymbolName: symbolName, accessibilityDescription: accessibilityDescription)
+        return symbol?.withSymbolConfiguration(configuration) ?? symbol
+    }
     
     /// Draws a vertical border at the specified X coordinate within the given Y range.
     private func drawVerticalBorder(at x: CGFloat, minY: CGFloat, maxY: CGFloat) {
@@ -177,6 +265,11 @@ class MenuBarView: NSView {
         Constants.Menu.borderColor.setStroke()
         borderPath.lineWidth = 1
         borderPath.stroke()
+    }
+
+    private func drawMenuButtonHoverBackground(in rect: NSRect) {
+        NSColor.black.withAlphaComponent(0.08).setFill()
+        rect.fill()
     }
     
     // MARK: - Menu Button Rectangles
@@ -219,6 +312,22 @@ class MenuBarView: NSView {
             height: menuRect.height
         )
     }
+
+    private func getMenuControl(at point: NSPoint, in menuRect: NSRect) -> MenuControl? {
+        if getDragButtonRect(for: menuRect).contains(point) {
+            return .drag
+        }
+        if getCancelButtonRect(for: menuRect).contains(point) {
+            return .cancel
+        }
+        if getOptionsButtonRect(for: menuRect).contains(point) {
+            return .options
+        }
+        if getCaptureButtonRect(for: menuRect).contains(point) {
+            return .capture
+        }
+        return nil
+    }
     
     // MARK: - Menu Interaction Handling
     
@@ -229,17 +338,17 @@ class MenuBarView: NSView {
         let optionsRect = getOptionsButtonRect(for: menuRect)
         
         if buttonRect.contains(point) || cancelRect.contains(point) {
+            hideOptionsPopup()
             return // Prevent dragging menu if button clicked
         }
         
         if optionsRect.contains(point) {
-            let localOptionsRect = NSRect(
-                x: optionsRect.minX - screenFrame.origin.x,
-                y: optionsRect.minY - screenFrame.origin.y,
-                width: optionsRect.width,
-                height: optionsRect.height
-            )
-            showOptionsMenu(localOptionsRect)
+            toggleOptionsPopup()
+            return
+        }
+
+        if isOptionsPopupVisible {
+            hideOptionsPopup()
             return
         }
         
@@ -262,56 +371,289 @@ class MenuBarView: NSView {
         }
     }
     
-    // MARK: - Options Menu
-    
-    private func createOptionsMenu() -> NSMenu {
-        let menu = NSMenu()
-        
-        let saveToItem = NSMenuItem(title: AppText.saveTo, action: nil, keyEquivalent: "")
-        saveToItem.isEnabled = false
-        menu.addItem(saveToItem)
-        
-        let selectedOption = SaveDestination.current()
-        
-        for destination in SaveDestination.allCases {
-            let item = NSMenuItem(title: destination.localizedTitle, action: #selector(selectDestination(_:)), keyEquivalent: "")
-            item.target = self
-            item.representedObject = destination.rawValue
-            if destination == selectedOption {
-                item.state = .on
-            }
-            menu.addItem(item)
+    // MARK: - Options Popup
+
+    private func toggleOptionsPopup() {
+        isOptionsPopupVisible.toggle()
+        if !isOptionsPopupVisible {
+            hoveredOptionsPopupTarget = nil
         }
+        invalidateOverlay()
+    }
 
-        menu.addItem(.separator())
+    private func hideOptionsPopup() {
+        guard isOptionsPopupVisible else { return }
+        isOptionsPopupVisible = false
+        hoveredOptionsPopupTarget = nil
+        invalidateOverlay()
+    }
 
-        let resetItem = NSMenuItem(
-            title: AppText.resetSelectionAndMenuPositions,
-            action: #selector(resetPositions),
-            keyEquivalent: ""
+    private func drawOptionsPopupIfNeeded(for menuRect: NSRect) {
+        guard isOptionsPopupVisible else { return }
+
+        let popupRect = getOptionsPopupRect(for: menuRect)
+        let localPopupRect = popupRect.offsetBy(dx: -screenFrame.origin.x, dy: -screenFrame.origin.y)
+        let popupPath = NSBezierPath(
+            roundedRect: localPopupRect,
+            xRadius: OptionsPopupLayout.cornerRadius,
+            yRadius: OptionsPopupLayout.cornerRadius
         )
-        resetItem.target = self
-        menu.addItem(resetItem)
-        
-        return menu
+
+        NSGraphicsContext.saveGraphicsState()
+        let shadow = NSShadow()
+        shadow.shadowOffset = NSSize(width: 0, height: -2)
+        shadow.shadowBlurRadius = 10
+        shadow.shadowColor = NSColor.black.withAlphaComponent(0.35)
+        shadow.set()
+        Constants.Menu.backgroundColor.setFill()
+        popupPath.fill()
+        NSGraphicsContext.restoreGraphicsState()
+
+        Constants.Menu.borderColor.withAlphaComponent(0.35).setStroke()
+        popupPath.lineWidth = 1
+        popupPath.stroke()
+
+        drawOptionsPopupRows(in: popupRect)
     }
-    
-    @objc private func showOptionsMenu(_ optionsRect: CGRect) {
-        let menu = createOptionsMenu()
-        overlayView?.showOptionsMenu(menu, at: NSPoint(x: optionsRect.minX, y: optionsRect.minY))
-    }
-    
-    @objc private func selectDestination(_ sender: NSMenuItem) {
-        for item in sender.menu?.items ?? [] {
-            item.state = .off
+
+    private func drawOptionsPopupRows(in popupRect: NSRect) {
+        drawOptionsPopupText(
+            AppText.saveTo,
+            in: getOptionsPopupHeadingRect(in: popupRect),
+            color: NSColor.black.withAlphaComponent(0.62),
+            font: NSFont.systemFont(ofSize: 12, weight: .semibold)
+        )
+
+        let selectedDestination = SaveDestination.current()
+        for destination in SaveDestination.allCases {
+            let target = OptionsPopupTarget.destination(destination)
+            guard let rowRect = getOptionsPopupRect(for: target, in: popupRect) else { continue }
+            if target == hoveredOptionsPopupTarget {
+                drawHoveredOptionsPopupRow(rowRect)
+            } else if destination == selectedDestination {
+                drawSelectedOptionsPopupRow(rowRect)
+            }
+            if destination == selectedDestination {
+                drawCheckmark(in: rowRect)
+            }
+            drawOptionsPopupText(destination.localizedTitle, in: rowRect)
         }
-        sender.state = .on
 
-        guard let rawValue = sender.representedObject as? String else { return }
-        SaveDestination.fromStoredValue(rawValue).persist()
+        if let fileDestinationSeparatorRect = getOptionsPopupFileDestinationSeparatorRect(in: popupRect) {
+            drawOptionsPopupSeparator(in: fileDestinationSeparatorRect)
+        }
+        drawOptionsPopupSeparator(in: getOptionsPopupSeparatorRect(in: popupRect))
+
+        let resetTarget = OptionsPopupTarget.reset
+        if let resetRect = getOptionsPopupRect(for: resetTarget, in: popupRect) {
+            if resetTarget == hoveredOptionsPopupTarget {
+                drawHoveredOptionsPopupRow(resetRect)
+            }
+            drawOptionsPopupText(AppText.resetSelectionAndMenuPositions, in: resetRect)
+        }
     }
 
-    @objc private func resetPositions() {
-        manager?.resetPositions()
+    private func drawHoveredOptionsPopupRow(_ globalRect: NSRect) {
+        drawOptionsPopupRowBackground(globalRect, alpha: 0.12)
+    }
+
+    private func drawSelectedOptionsPopupRow(_ globalRect: NSRect) {
+        drawOptionsPopupRowBackground(globalRect, alpha: 0.08)
+    }
+
+    private func drawOptionsPopupRowBackground(_ globalRect: NSRect, alpha: CGFloat) {
+        let localRect = globalRect.offsetBy(dx: -screenFrame.origin.x, dy: -screenFrame.origin.y)
+        NSColor.black.withAlphaComponent(alpha).setFill()
+        NSBezierPath(roundedRect: localRect.insetBy(dx: 4, dy: 2), xRadius: 5, yRadius: 5).fill()
+    }
+
+    private func drawCheckmark(in globalRect: NSRect) {
+        guard let checkmark = NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil) else { return }
+
+        checkmark.isTemplate = true
+        Constants.Menu.Button.textColor.set()
+        let iconSize = NSSize(width: 12, height: 12)
+        let localRect = globalRect.offsetBy(dx: -screenFrame.origin.x, dy: -screenFrame.origin.y)
+        let iconRect = NSRect(
+            x: localRect.minX + OptionsPopupLayout.padding + 4,
+            y: localRect.midY - iconSize.height / 2,
+            width: iconSize.width,
+            height: iconSize.height
+        )
+        checkmark.draw(in: iconRect)
+    }
+
+    private func drawOptionsPopupSeparator(in globalRect: NSRect) {
+        let localRect = globalRect.offsetBy(dx: -screenFrame.origin.x, dy: -screenFrame.origin.y)
+        let lineY = localRect.midY
+        let path = NSBezierPath()
+        path.move(to: NSPoint(x: localRect.minX + OptionsPopupLayout.padding, y: lineY))
+        path.line(to: NSPoint(x: localRect.maxX - OptionsPopupLayout.padding, y: lineY))
+        Constants.Menu.borderColor.withAlphaComponent(0.18).setStroke()
+        path.lineWidth = 1
+        path.stroke()
+    }
+
+    private func drawOptionsPopupText(
+        _ text: String,
+        in globalRect: NSRect,
+        color: NSColor = Constants.Menu.Button.textColor,
+        font: NSFont = Constants.Menu.Button.textFont
+    ) {
+        let localRect = globalRect.offsetBy(dx: -screenFrame.origin.x, dy: -screenFrame.origin.y)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: color,
+            .font: font
+        ]
+        let textSize = text.size(withAttributes: attributes)
+        let textRect = NSRect(
+            x: localRect.minX + OptionsPopupLayout.padding + OptionsPopupLayout.checkmarkWidth,
+            y: localRect.midY - textSize.height / 2,
+            width: localRect.width - OptionsPopupLayout.padding * 2 - OptionsPopupLayout.checkmarkWidth,
+            height: textSize.height
+        )
+        text.draw(in: textRect, withAttributes: attributes)
+    }
+
+    private func handleOptionsPopupMouseDown(at point: NSPoint, menuRect: NSRect) -> Bool {
+        let popupRect = getOptionsPopupRect(for: menuRect)
+        guard popupRect.contains(point) else { return false }
+
+        if let target = getOptionsPopupTarget(at: point, in: popupRect) {
+            switch target {
+            case .destination(let destination):
+                destination.persist()
+            case .reset:
+                manager?.resetPositions()
+            }
+            hideOptionsPopup()
+        }
+
+        return true
+    }
+
+    private func getOptionsPopupTarget(at point: NSPoint, in popupRect: NSRect) -> OptionsPopupTarget? {
+        for destination in SaveDestination.allCases {
+            if let rowRect = getOptionsPopupRect(for: .destination(destination), in: popupRect),
+               rowRect.contains(point) {
+                return .destination(destination)
+            }
+        }
+
+        if let resetRect = getOptionsPopupRect(for: .reset, in: popupRect),
+           resetRect.contains(point) {
+            return .reset
+        }
+
+        return nil
+    }
+
+    private func getOptionsPopupRect(for menuRect: NSRect) -> NSRect {
+        let optionsRect = getOptionsButtonRect(for: menuRect)
+        let width = getOptionsPopupWidth()
+        let height = getOptionsPopupHeight()
+        let x = min(
+            max(optionsRect.minX, screenFrame.minX + OptionsPopupLayout.margin),
+            screenFrame.maxX - OptionsPopupLayout.margin - width
+        )
+        var y = optionsRect.minY - OptionsPopupLayout.gap - height
+
+        if y < screenFrame.minY + OptionsPopupLayout.margin {
+            y = optionsRect.maxY + OptionsPopupLayout.gap
+        }
+
+        y = min(
+            max(y, screenFrame.minY + OptionsPopupLayout.margin),
+            screenFrame.maxY - OptionsPopupLayout.margin - height
+        )
+
+        return NSRect(x: x, y: y, width: width, height: height)
+    }
+
+    private func getOptionsPopupHeight() -> CGFloat {
+        OptionsPopupLayout.padding * 2
+            + OptionsPopupLayout.headingHeight
+            + CGFloat(SaveDestination.allCases.count) * OptionsPopupLayout.rowHeight
+            + OptionsPopupLayout.separatorHeight
+            + OptionsPopupLayout.separatorHeight
+            + OptionsPopupLayout.resetHeight
+    }
+
+    private func getOptionsPopupWidth() -> CGFloat {
+        let attributes: [NSAttributedString.Key: Any] = [.font: Constants.Menu.Button.textFont]
+        let titles = SaveDestination.allCases.map(\.localizedTitle) + [AppText.resetSelectionAndMenuPositions]
+        let textWidth = titles.map { $0.size(withAttributes: attributes).width }.max() ?? 0
+        let preferredWidth = textWidth + OptionsPopupLayout.padding * 2 + OptionsPopupLayout.checkmarkWidth + 24
+        return min(max(220, preferredWidth), screenFrame.width - OptionsPopupLayout.margin * 2)
+    }
+
+    private func getOptionsPopupHeadingRect(in popupRect: NSRect) -> NSRect {
+        NSRect(
+            x: popupRect.minX,
+            y: popupRect.maxY - OptionsPopupLayout.padding - OptionsPopupLayout.headingHeight,
+            width: popupRect.width,
+            height: OptionsPopupLayout.headingHeight
+        )
+    }
+
+    private func getOptionsPopupFileDestinationSeparatorRect(in popupRect: NSRect) -> NSRect? {
+        guard let downloadsIndex = SaveDestination.allCases.firstIndex(of: .downloads) else {
+            return nil
+        }
+
+        let y = popupRect.maxY
+            - OptionsPopupLayout.padding
+            - OptionsPopupLayout.headingHeight
+            - CGFloat(downloadsIndex + 1) * OptionsPopupLayout.rowHeight
+            - OptionsPopupLayout.separatorHeight
+        return NSRect(x: popupRect.minX, y: y, width: popupRect.width, height: OptionsPopupLayout.separatorHeight)
+    }
+
+    private func getOptionsPopupSeparatorRect(in popupRect: NSRect) -> NSRect {
+        let y = popupRect.maxY
+            - OptionsPopupLayout.padding
+            - OptionsPopupLayout.headingHeight
+            - CGFloat(SaveDestination.allCases.count) * OptionsPopupLayout.rowHeight
+            - OptionsPopupLayout.separatorHeight
+            - OptionsPopupLayout.separatorHeight
+        return NSRect(x: popupRect.minX, y: y, width: popupRect.width, height: OptionsPopupLayout.separatorHeight)
+    }
+
+    private func getOptionsPopupRect(for target: OptionsPopupTarget, in popupRect: NSRect) -> NSRect? {
+        let firstRowMaxY = popupRect.maxY - OptionsPopupLayout.padding - OptionsPopupLayout.headingHeight
+
+        switch target {
+        case .destination(let destination):
+            guard let index = SaveDestination.allCases.firstIndex(of: destination) else { return nil }
+            let separatorOffset = index > (SaveDestination.allCases.firstIndex(of: .downloads) ?? .max)
+                ? OptionsPopupLayout.separatorHeight
+                : 0
+            return NSRect(
+                x: popupRect.minX,
+                y: firstRowMaxY - CGFloat(index + 1) * OptionsPopupLayout.rowHeight - separatorOffset,
+                width: popupRect.width,
+                height: OptionsPopupLayout.rowHeight
+            )
+        case .reset:
+            return NSRect(
+                x: popupRect.minX,
+                y: popupRect.minY + OptionsPopupLayout.padding,
+                width: popupRect.width,
+                height: OptionsPopupLayout.resetHeight
+            )
+        }
+    }
+
+    private func invalidateOverlay() {
+        guard let overlayView else { return }
+        overlayView.setNeedsDisplay(overlayView.bounds)
+    }
+
+    private func updateHoverState(menuControl: MenuControl?, popupTarget: OptionsPopupTarget?) {
+        guard hoveredMenuControl != menuControl || hoveredOptionsPopupTarget != popupTarget else { return }
+
+        hoveredMenuControl = menuControl
+        hoveredOptionsPopupTarget = popupTarget
+        invalidateOverlay()
     }
 }

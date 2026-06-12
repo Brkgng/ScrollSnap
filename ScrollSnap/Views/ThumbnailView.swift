@@ -22,6 +22,46 @@ class ThumbnailView: NSView {
     private var thumbnailTimer: Timer?
     /// Fire date of the timer for drag cancel checks
     private var timerFireDate: Date?
+    private var hoverTrackingArea: NSTrackingArea?
+    private var isMouseInsideThumbnail = false
+    private var hoveredAction: ThumbnailAction?
+    private var actionStripAlpha: CGFloat = 0.0
+    private var actionStripFadeTimer: Timer?
+
+    private enum ThumbnailAction: CaseIterable {
+        case save
+        case delete
+        case close
+
+        var title: String {
+            switch self {
+            case .save:
+                return AppText.save
+            case .delete:
+                return AppText.delete
+            case .close:
+                return AppText.close
+            }
+        }
+
+        var symbolNames: [String] {
+            switch self {
+            case .save:
+                return ["arrow.down.to.line", "square.and.arrow.down"]
+            case .delete:
+                return ["trash"]
+            case .close:
+                return ["xmark"]
+            }
+        }
+    }
+
+    private let actionButtonSize: CGFloat = 26
+    private let actionButtonSpacing: CGFloat = 4
+    private let actionStripPadding: CGFloat = 4
+    private let actionStripMargin: CGFloat = 8
+    private let actionStripFadeDuration: TimeInterval = 0.2
+    private let actionSymbolConfiguration = NSImage.SymbolConfiguration(pointSize: 13, weight: .regular)
     
     /// State related to dragging interactions
     private struct DragState {
@@ -52,6 +92,27 @@ class ThumbnailView: NSView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    deinit {
+        thumbnailTimer?.invalidate()
+        actionStripFadeTimer?.invalidate()
+    }
+
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
+        return true
+    }
+
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+
+        if let hoverTrackingArea {
+            removeTrackingArea(hoverTrackingArea)
+        }
+
+        let options: NSTrackingArea.Options = [.activeAlways, .mouseEnteredAndExited, .mouseMoved, .inVisibleRect]
+        hoverTrackingArea = NSTrackingArea(rect: bounds, options: options, owner: self, userInfo: nil)
+        addTrackingArea(hoverTrackingArea!)
+    }
     
     // MARK: - Drawing
     override func draw(_ dirtyRect: NSRect) {
@@ -65,6 +126,8 @@ class ThumbnailView: NSView {
         let borderPath = NSBezierPath(roundedRect: bounds, xRadius: 5, yRadius: 5)
         context.addPath(borderPath.cgPath)
         context.strokePath()
+
+        drawActionStrip()
         
         let shadow = NSShadow()
         shadow.shadowOffset = NSSize(width: 0, height: -2)
@@ -74,8 +137,32 @@ class ThumbnailView: NSView {
     }
     
     // MARK: - Mouse Events
+    override func mouseEntered(with event: NSEvent) {
+        isMouseInsideThumbnail = true
+        animateActionStripAlpha(to: 1.0)
+        updateHoveredAction(with: event)
+        setNeedsDisplay(bounds)
+    }
+
+    override func mouseMoved(with event: NSEvent) {
+        updateHoveredAction(with: event)
+    }
+
+    override func mouseExited(with event: NSEvent) {
+        isMouseInsideThumbnail = false
+        hoveredAction = nil
+        animateActionStripAlpha(to: 0.0)
+        setNeedsDisplay(bounds)
+    }
+
     /// Starts a drag by setting initial offset and position
     override func mouseDown(with event: NSEvent) {
+        let localPoint = convert(event.locationInWindow, from: nil)
+        if let action = thumbnailAction(at: localPoint) {
+            performThumbnailAction(action)
+            return
+        }
+
         guard let window = overlayManager.thumbnailWindow else { return }
         dragState.offset = NSPoint(
             x: event.locationInWindow.x - window.frame.origin.x,
@@ -232,16 +319,204 @@ class ThumbnailView: NSView {
     private func updateSwipeRightPosition(window: NSWindow, x: CGFloat, width: CGFloat) {
         window.setFrame(NSRect(x: x, y: initialOrigin.y, width: width, height: window.frame.height), display: true)
     }
+
+    // MARK: - Inline Actions
+    private var actionStripRect: NSRect {
+        let actionCount = CGFloat(ThumbnailAction.allCases.count)
+        let width = actionCount * actionButtonSize + (actionCount - 1) * actionButtonSpacing + actionStripPadding * 2
+        let height = actionButtonSize + actionStripPadding * 2
+
+        return NSRect(
+            x: bounds.maxX - actionStripMargin - width,
+            y: bounds.maxY - actionStripMargin - height,
+            width: width,
+            height: height
+        )
+    }
+
+    private var actionButtonRects: [(ThumbnailAction, NSRect)] {
+        let stripRect = actionStripRect
+        return ThumbnailAction.allCases.enumerated().map { index, action in
+            let x = stripRect.minX + actionStripPadding + CGFloat(index) * (actionButtonSize + actionButtonSpacing)
+            let rect = NSRect(x: x, y: stripRect.minY + actionStripPadding, width: actionButtonSize, height: actionButtonSize)
+            return (action, rect)
+        }
+    }
+
+    private func drawActionStrip() {
+        guard actionStripAlpha > 0.01 else { return }
+
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current?.cgContext.setAlpha(actionStripAlpha)
+        defer { NSGraphicsContext.restoreGraphicsState() }
+
+        let stripPath = NSBezierPath(roundedRect: actionStripRect, xRadius: 8, yRadius: 8)
+
+        NSGraphicsContext.saveGraphicsState()
+        let shadow = NSShadow()
+        shadow.shadowOffset = NSSize(width: 0, height: -1)
+        shadow.shadowBlurRadius = 8
+        shadow.shadowColor = NSColor.black.withAlphaComponent(0.45)
+        shadow.set()
+        NSColor.white.withAlphaComponent(0.9).setFill()
+        stripPath.fill()
+        NSGraphicsContext.restoreGraphicsState()
+
+        NSColor.black.withAlphaComponent(0.35).setStroke()
+        stripPath.lineWidth = 1
+        stripPath.stroke()
+
+        for (action, rect) in actionButtonRects {
+            let buttonPath = NSBezierPath(roundedRect: rect, xRadius: 6, yRadius: 6)
+            let buttonColor = action == hoveredAction
+                ? NSColor.black.withAlphaComponent(0.16)
+                : NSColor.black.withAlphaComponent(0.06)
+            buttonColor.setFill()
+            buttonPath.fill()
+
+            let color = action == .delete ? NSColor.systemRed : NSColor.black.withAlphaComponent(0.82)
+            drawActionIcon(action, in: rect.insetBy(dx: 6, dy: 6), color: color)
+        }
+
+        if let hoveredAction {
+            drawActionLabel(hoveredAction)
+        }
+    }
+
+    private func drawActionIcon(_ action: ThumbnailAction, in rect: NSRect, color: NSColor) {
+        drawSymbol(action.symbolNames, in: rect, color: color)
+    }
+
+    private func drawSymbol(_ symbolNames: [String], in rect: NSRect, color: NSColor) {
+        let symbol = symbolNames.lazy.compactMap { symbolName in
+            NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
+        }.first
+        guard let symbol else { return }
+
+        let configuredSymbol = symbol.withSymbolConfiguration(actionSymbolConfiguration) ?? symbol
+        configuredSymbol.isTemplate = true
+        color.set()
+        configuredSymbol.draw(in: rect)
+    }
+
+    private func drawActionLabel(_ action: ThumbnailAction) {
+        guard let buttonRect = actionButtonRects.first(where: { $0.0 == action })?.1 else { return }
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: NSFont.systemFont(ofSize: 12, weight: .semibold),
+            .foregroundColor: NSColor.white
+        ]
+        let textSize = action.title.size(withAttributes: attributes)
+        let labelSize = NSSize(width: textSize.width + 16, height: textSize.height + 8)
+        let labelRect = NSRect(
+            x: min(max(buttonRect.midX - labelSize.width / 2, actionStripMargin), bounds.maxX - actionStripMargin - labelSize.width),
+            y: actionStripRect.minY - labelSize.height - 6,
+            width: labelSize.width,
+            height: labelSize.height
+        )
+
+        let labelColor = NSColor.black.withAlphaComponent(0.72)
+        labelColor.setFill()
+
+        let caretCenterX = min(max(buttonRect.midX, labelRect.minX + 8), labelRect.maxX - 8)
+        let caretPath = NSBezierPath()
+        caretPath.move(to: NSPoint(x: caretCenterX, y: labelRect.maxY + 5))
+        caretPath.line(to: NSPoint(x: caretCenterX - 5, y: labelRect.maxY))
+        caretPath.line(to: NSPoint(x: caretCenterX + 5, y: labelRect.maxY))
+        caretPath.close()
+        caretPath.fill()
+
+        NSBezierPath(roundedRect: labelRect, xRadius: 6, yRadius: 6).fill()
+
+        let textRect = NSRect(
+            x: labelRect.midX - textSize.width / 2,
+            y: labelRect.midY - textSize.height / 2,
+            width: textSize.width,
+            height: textSize.height
+        )
+        action.title.draw(in: textRect, withAttributes: attributes)
+    }
+
+    private func thumbnailAction(at point: NSPoint) -> ThumbnailAction? {
+        guard isMouseInsideThumbnail || actionStripAlpha > 0.05 else { return nil }
+
+        return actionButtonRects.first { _, rect in rect.contains(point) }?.0
+    }
+
+    private func animateActionStripAlpha(to targetAlpha: CGFloat) {
+        actionStripFadeTimer?.invalidate()
+
+        let startAlpha = actionStripAlpha
+        guard abs(startAlpha - targetAlpha) > 0.01 else {
+            actionStripAlpha = targetAlpha
+            setNeedsDisplay(bounds)
+            return
+        }
+
+        let startDate = Date()
+        let timer = Timer(timeInterval: 1.0 / 60.0, repeats: true) { [weak self] timer in
+            guard let self else {
+                timer.invalidate()
+                return
+            }
+
+            let progress = min(1.0, Date().timeIntervalSince(startDate) / actionStripFadeDuration)
+            let easedProgress = progress * progress * (3.0 - 2.0 * progress)
+            actionStripAlpha = startAlpha + (targetAlpha - startAlpha) * easedProgress
+            setNeedsDisplay(bounds)
+
+            if progress >= 1.0 {
+                actionStripAlpha = targetAlpha
+                timer.invalidate()
+                actionStripFadeTimer = nil
+                setNeedsDisplay(bounds)
+            }
+        }
+
+        actionStripFadeTimer = timer
+        RunLoop.main.add(timer, forMode: .common)
+    }
+
+    private func updateHoveredAction(with event: NSEvent) {
+        let localPoint = convert(event.locationInWindow, from: nil)
+        let newHoveredAction = actionButtonRects.first { _, rect in rect.contains(localPoint) }?.0
+
+        if hoveredAction != newHoveredAction {
+            hoveredAction = newHoveredAction
+            setNeedsDisplay(bounds)
+        } else if !isMouseInsideThumbnail {
+            setNeedsDisplay(bounds)
+        }
+    }
+
+    private func performThumbnailAction(_ action: ThumbnailAction) {
+        switch action {
+        case .save:
+            saveImageAction()
+        case .delete:
+            deleteImage()
+        case .close:
+            closeThumbnail()
+        }
+    }
     
     // MARK: - Right-Click Context Menu
     override func rightMouseDown(with event: NSEvent) {
         let menu = NSMenu()
-        
-        menu.addItem(withTitle: AppText.save, action: #selector(saveImageAction), keyEquivalent: "")
-        menu.addItem(withTitle: AppText.delete, action: #selector(deleteImage), keyEquivalent: "")
-        menu.addItem(withTitle: AppText.close, action: #selector(closeThumbnail), keyEquivalent: "")
-        
-        NSMenu.popUpContextMenu(menu, with: event, for: self)
+
+        let saveItem = NSMenuItem(title: AppText.save, action: #selector(saveImageAction), keyEquivalent: "")
+        saveItem.target = self
+        menu.addItem(saveItem)
+
+        let deleteItem = NSMenuItem(title: AppText.delete, action: #selector(deleteImage), keyEquivalent: "")
+        deleteItem.target = self
+        menu.addItem(deleteItem)
+
+        let closeItem = NSMenuItem(title: AppText.close, action: #selector(closeThumbnail), keyEquivalent: "")
+        closeItem.target = self
+        menu.addItem(closeItem)
+
+        menu.popUp(positioning: nil, at: event.locationInWindow, in: self)
     }
     
     @objc private func saveImageAction() {
@@ -323,7 +598,8 @@ extension ThumbnailView: NSDraggingSource, NSPasteboardItemDataProvider {
         if let fireDate = timerFireDate, fireDate < now {
             saveAndClose()
         } else {
-            overlayManager.thumbnailWindow?.makeKeyAndOrderFront(nil)
+            overlayManager.thumbnailWindow?.orderFrontRegardless()
+            overlayManager.thumbnailWindow?.makeKey()
             overlayManager.thumbnailWindow?.setFrame(NSRect(x: initialOrigin.x, y: initialOrigin.y, width: initialWidth, height: frame.height), display: true)
             overlayManager.thumbnailWindow?.alphaValue = 1.0
             if let fireDate = timerFireDate {

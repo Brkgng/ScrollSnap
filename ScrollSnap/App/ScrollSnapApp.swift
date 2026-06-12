@@ -13,8 +13,12 @@ struct ScrollSnapApp: App {
         Settings {
             SettingsView(
                 onResetPositions: appDelegate.overlayManager.resetPositions,
-                onAppear: appDelegate.overlayManager.suspendFloatingWindowsForSettings,
-                onDisappear: appDelegate.overlayManager.resumeFloatingWindowsAfterSettings
+                onAppear: {
+                    appDelegate.overlayManager.suspendFloatingWindows(for: .settings)
+                },
+                onDisappear: {
+                    appDelegate.overlayManager.resumeFloatingWindows(for: .settings)
+                }
             )
         }
         .windowResizability(.contentSize)
