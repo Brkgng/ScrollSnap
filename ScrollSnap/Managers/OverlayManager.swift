@@ -44,6 +44,10 @@ class OverlayManager {
     private var thumbnailSessionID: UUID?
     private var captureTimer: Timer?
     private var scrollingCaptureSession: ScrollingCaptureSession?
+    private var pointerMonitors: [Any] = []
+    private var pointerPollTimer: Timer?
+    private var isOverlayIgnoringMouseEvents = false
+    private var optionsPopupRect: NSRect?
     var thumbnailWindow: NSWindow?
     private var suspendedWindowsState: SuspendedWindowsState?
     private var activeSuspensionReasons = Set<FloatingWindowSuspensionReason>()
@@ -77,6 +81,8 @@ class OverlayManager {
         rebuildOverlayWindows()
         sessionState = .selecting
         syncOverlayWindows()
+        installPointerMonitors()
+        updatePointerTransparency()
         return true
     }
 
@@ -152,6 +158,8 @@ class OverlayManager {
     }
     
     func setOverlayIgnoresMouseEvents(_ ignoresMouseEvents: Bool) {
+        guard isOverlayIgnoringMouseEvents != ignoresMouseEvents else { return }
+        isOverlayIgnoringMouseEvents = ignoresMouseEvents
         overlayWindows.forEach { $0.ignoresMouseEvents = ignoresMouseEvents }
     }
 
@@ -436,7 +444,96 @@ class OverlayManager {
     
     // MARK: - Overlay Visibility
     private func hideOverlays() {
-        overlayWindows.forEach { $0.orderOut(nil) }
+        removePointerMonitors()
+        optionsPopupRect = nil
+        isOverlayIgnoringMouseEvents = false
+        overlayWindows.forEach {
+            $0.ignoresMouseEvents = false
+            $0.orderOut(nil)
+        }
+    }
+
+    // MARK: - Pointer Pass-Through
+
+    /// Tracks the pointer so the overlay only intercepts clicks that belong to its own chrome.
+    /// Everything else — the app being captured, the Dock, the menu bar — stays clickable.
+    private func installPointerMonitors() {
+        guard pointerMonitors.isEmpty else { return }
+
+        // Event monitors react instantly; the poll is a safety net for pointer movement they miss.
+        let pollTimer = Timer(timeInterval: Constants.Overlay.pointerPollInterval, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.updatePointerTransparency()
+            }
+        }
+        RunLoop.main.add(pollTimer, forMode: .common)
+        pointerPollTimer = pollTimer
+
+        let mask: NSEvent.EventTypeMask = [.mouseMoved, .leftMouseUp, .rightMouseUp, .otherMouseUp]
+
+        if let globalMonitor = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: { [weak self] _ in
+            Task { @MainActor in
+                self?.updatePointerTransparency()
+            }
+        }) {
+            pointerMonitors.append(globalMonitor)
+        }
+
+        if let localMonitor = NSEvent.addLocalMonitorForEvents(matching: mask, handler: { [weak self] event in
+            self?.updatePointerTransparency()
+            return event
+        }) {
+            pointerMonitors.append(localMonitor)
+        }
+    }
+
+    private func removePointerMonitors() {
+        pointerPollTimer?.invalidate()
+        pointerPollTimer = nil
+        pointerMonitors.forEach { NSEvent.removeMonitor($0) }
+        pointerMonitors.removeAll()
+    }
+
+    /// Lets the overlay window swallow the pointer only while it is over overlay chrome.
+    private func updatePointerTransparency() {
+        guard !overlayWindows.isEmpty,
+              sessionState == .selecting || sessionState == .capturing else { return }
+
+        // Never flip mid-gesture: a drag that started on the overlay has to keep receiving events.
+        guard NSEvent.pressedMouseButtons == 0 else { return }
+
+        let isOverChrome = isPointOverOverlayChrome(NSEvent.mouseLocation)
+        setOverlayIgnoresMouseEvents(!isOverChrome)
+
+        if !isOverChrome {
+            clearMenuHoverStates()
+        }
+    }
+
+    private func isPointOverOverlayChrome(_ point: NSPoint) -> Bool {
+        if let optionsPopupRect, optionsPopupRect.contains(point) {
+            return true
+        }
+
+        if menuRect.contains(point) {
+            return true
+        }
+
+        // While capturing, the selection has to pass scroll events through to the captured app.
+        guard sessionState == .selecting else { return false }
+
+        let margin = Constants.Overlay.pointerMargin
+        return rectangle.insetBy(dx: -margin, dy: -margin).contains(point)
+    }
+
+    /// Registers the options popup so it keeps receiving clicks while it extends past the menu.
+    func setOptionsPopupRect(_ rect: NSRect?) {
+        optionsPopupRect = rect
+        updatePointerTransparency()
+    }
+
+    private func clearMenuHoverStates() {
+        overlayWindows.forEach { ($0.contentView as? OverlayView)?.clearHoverState() }
     }
     
     /// Refreshes overlays. If oldFrame and newFrame are provided, it invalidates only those regions.
