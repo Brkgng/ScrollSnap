@@ -11,6 +11,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let overlayManager = OverlayManager()
     let loginItemManager = LoginItemManager()
     private let updateFeedbackManager = UpdateFeedbackManager()
+    private let statusItemController = StatusItemController()
+    private var menuBarIconObservation: NSKeyValueObservation?
     private var localKeyEventMonitor: Any?
     private var shortcutTask: Task<Void, Never>?
     private var screenRecordingPermissionWindow: NSWindow?
@@ -25,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         installGlobalShortcutHandler()
         overlayManager.openSettings = { [weak self] in self?.openSettings() }
         overlayManager.quit = { [weak self] in self?.quit() }
+        installStatusItem()
 
         isLoginLaunch = isLoginLaunch
             || ProcessInfo.processInfo.arguments.contains("--launch-at-login")
@@ -52,6 +55,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
         shortcutTask?.cancel()
         shortcutTask = nil
+        menuBarIconObservation?.invalidate()
+        menuBarIconObservation = nil
+    }
+
+    // MARK: - Menu Bar Icon
+
+    /// ScrollSnap has no Dock icon, so the menu bar item is its only standing interface.
+    private func installStatusItem() {
+        statusItemController.capture = { [weak self] in self?.presentCaptureInterface() }
+        statusItemController.openSettings = { [weak self] in self?.openSettings() }
+        statusItemController.quit = { [weak self] in self?.quit() }
+        statusItemController.syncWithPreference()
+
+        // Observing the single key rather than `UserDefaults.didChangeNotification`, which fires for
+        // every write the app makes, including the selection frame saved on each drag step.
+        menuBarIconObservation = UserDefaults.standard.observe(
+            \.ShowMenuBarIcon,
+            options: [.new]
+        ) { [weak self] _, _ in
+            Task { @MainActor in
+                self?.statusItemController.syncWithPreference()
+            }
+        }
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

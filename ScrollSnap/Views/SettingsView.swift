@@ -18,6 +18,9 @@ struct SettingsView: View {
     @AppStorage(AppLanguage.storageKey)
     private var selectedLanguageRawValue = AppLanguage.defaultValue.rawValue
     
+    @AppStorage(Constants.MenuBarIcon.visibleKey)
+    private var showsMenuBarIcon = true
+
     @State private var initialLanguageRawValue: String = ""
     @State private var shortcutFeedback: String?
 
@@ -129,6 +132,14 @@ struct SettingsView: View {
             }
 
             Section {
+                Toggle(AppText.showMenuBarIcon, isOn: $showsMenuBarIcon)
+
+                if !showsMenuBarIcon {
+                    Text(AppText.menuBarIconHiddenHint)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
                 Toggle(
                     AppText.launchAtLogin,
                     isOn: Binding(
