@@ -334,37 +334,44 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     /// Cleans up ScrollSnap temporary files older than the specified retention period
     private func cleanupOldTemporaryFiles() {
-        let tempDirectory = FileManager.default.temporaryDirectory
-        let retentionDays = 7 // Files older than this will be deleted
-        
+        // Resolved on the main actor, then swept off it so launch is not blocked on disk I/O.
+        let filenamePrefixes = AppText.supportedScreenshotFilenamePrefixes
+
+        Task.detached(priority: .utility) {
+            Self.removeTemporaryFiles(withPrefixes: filenamePrefixes, olderThanDays: 7)
+        }
+    }
+
+    private nonisolated static func removeTemporaryFiles(withPrefixes prefixes: [String], olderThanDays retentionDays: Int) {
+        let fileManager = FileManager.default
+        let tempDirectory = fileManager.temporaryDirectory
+
         do {
-            let tempContents = try FileManager.default.contentsOfDirectory(
+            let tempContents = try fileManager.contentsOfDirectory(
                 at: tempDirectory,
                 includingPropertiesForKeys: [.creationDateKey, .isRegularFileKey],
                 options: .skipsHiddenFiles
             )
-            
+
             let cutoffDate = Calendar.current.date(byAdding: .day, value: -retentionDays, to: Date()) ?? Date()
-            
+
             for fileURL in tempContents {
                 // Only process files that match ScrollSnap's naming pattern
-                guard AppText.supportedScreenshotFilenamePrefixes.contains(where: {
-                    fileURL.lastPathComponent.hasPrefix("\($0) ")
-                }) &&
-                      fileURL.pathExtension == "png" else {
+                guard fileURL.pathExtension == "png",
+                      prefixes.contains(where: { fileURL.lastPathComponent.hasPrefix("\($0) ") }) else {
                     continue
                 }
-                
+
                 do {
                     let resourceValues = try fileURL.resourceValues(forKeys: [.creationDateKey, .isRegularFileKey])
-                    
+
                     // Ensure it's a regular file
                     guard resourceValues.isRegularFile == true else { continue }
-                    
+
                     // Check if file is older than cutoff date
                     if let creationDate = resourceValues.creationDate,
                        creationDate < cutoffDate {
-                        try FileManager.default.removeItem(at: fileURL)
+                        try fileManager.removeItem(at: fileURL)
                     }
                 } catch {
                     print("Failed to process temp file \(fileURL.lastPathComponent): \(error.localizedDescription)")
