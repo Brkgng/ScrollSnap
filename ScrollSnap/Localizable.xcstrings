@@ -3487,6 +3487,30 @@
           }
         }
       }
+    },
+    "Quit & Reopen" : {
+      "comment" : "Button that relaunches ScrollSnap so a new Screen Recording grant takes effect.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit & Reopen"
+          }
+        }
+      }
+    },
+    "Already allowed it? macOS only applies the change to a newly launched app, so reopen ScrollSnap." : {
+      "comment" : "Hint in the Screen Recording permission window explaining why a relaunch is needed.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already allowed it? macOS only applies the change to a newly launched app, so reopen ScrollSnap."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

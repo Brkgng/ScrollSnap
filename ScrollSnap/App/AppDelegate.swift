@@ -151,18 +151,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @MainActor
     private func handleScreenRecordingPermissionOnLaunch() {
-        if presentOverlayIfScreenRecordingIsAllowed() {
-            showWhatsNewWindowIfNeeded()
+        if !hasScreenRecordingPermission() {
+            _ = requestScreenRecordingPermission()
+        }
+
+        // Only a missing grant may raise the permission window. An overlay that cannot be presented
+        // for some other reason is not a permission problem and must not be reported as one.
+        guard hasScreenRecordingPermission() else {
+            showScreenRecordingPermissionWindow()
             return
         }
 
-        _ = requestScreenRecordingPermission()
-
-        if !presentOverlayIfScreenRecordingIsAllowed() {
-            showScreenRecordingPermissionWindow()
-        } else {
-            showWhatsNewWindowIfNeeded()
-        }
+        presentOverlayIfScreenRecordingIsAllowed()
+        showWhatsNewWindowIfNeeded()
     }
 
     @MainActor
@@ -190,6 +191,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             },
             checkAgain: { [weak self] in
                 self?.checkScreenRecordingPermissionAgain()
+            },
+            relaunch: { [weak self] in
+                self?.relaunchApp()
             },
             quit: {
                 NSApplication.shared.terminate(nil)
@@ -223,12 +227,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @MainActor
     private func checkScreenRecordingPermissionAgain() {
-        if presentOverlayIfScreenRecordingIsAllowed() {
-            showWhatsNewWindowIfNeeded()
-        } else {
+        guard hasScreenRecordingPermission() else {
+            // This process will keep reading the old answer even once the switch is on, which is
+            // what the window's "Quit & Reopen" button is for.
             _ = requestScreenRecordingPermission()
-            if presentOverlayIfScreenRecordingIsAllowed() {
-                showWhatsNewWindowIfNeeded()
+            return
+        }
+
+        presentOverlayIfScreenRecordingIsAllowed()
+        showWhatsNewWindowIfNeeded()
+    }
+
+    /// Relaunches ScrollSnap so a Screen Recording grant made while it was running takes effect.
+    @MainActor
+    private func relaunchApp() {
+        let configuration = NSWorkspace.OpenConfiguration()
+        configuration.createsNewApplicationInstance = true
+
+        NSWorkspace.shared.openApplication(
+            at: URL(fileURLWithPath: Bundle.main.bundlePath),
+            configuration: configuration
+        ) { _, _ in
+            Task { @MainActor in
+                NSApp.terminate(nil)
             }
         }
     }
