@@ -46,6 +46,10 @@ struct Constants {
         static let collectionBehavior: NSWindow.CollectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
     }
     
+    struct MenuBarIcon {
+        static let visibleKey = "ShowMenuBarIcon"
+    }
+    
     struct Thumbnail {
         static let clickDistanceThreshold: CGFloat = 5    // Max movement for a click
         static let swipeDistanceThreshold: CGFloat = 20   // Min distance for swipe-right save

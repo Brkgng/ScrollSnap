@@ -3487,6 +3487,30 @@
           }
         }
       }
+    },
+    "Show icon in the menu bar" : {
+      "comment" : "Settings toggle for the ScrollSnap menu bar icon.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show icon in the menu bar"
+          }
+        }
+      }
+    },
+    "Without the icon, use the global shortcut to show ScrollSnap." : {
+      "comment" : "Settings hint shown when the menu bar icon is turned off.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without the icon, use the global shortcut to show ScrollSnap."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

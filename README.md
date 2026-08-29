@@ -23,6 +23,7 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 - **Interactive Menu**: Includes options to capture, save, reset positions, or cancel, with a draggable interface.
 - **Thumbnail Preview**: Displays a draggable thumbnail of the captured image with swipe-to-save or right-click options.
 - **Save Destinations**: Supports saving to Desktop, Documents, Downloads, Clipboard, or opening in Preview.
+- **Menu Bar Icon**: Capture, open Settings, or quit from the menu bar — ScrollSnap has no Dock icon, so this is its standing interface. It can be hidden in Settings.
 - **Settings**: Adjust language and reset selection and menu positions via the native settings window (Command + ,).
 
 ## 🌍 Multi-Language Support
@@ -86,7 +87,7 @@ Whether you want to add a completely new language or improve an existing transla
 
 9. **Quit**:
 
-- Press `Cmd + Q` or select "Quit ScrollSnap" from the Options menu.
+- Choose "Quit ScrollSnap" from the menu bar icon, press `Cmd + Q`, or select "Quit ScrollSnap" from the overlay's Options menu.
 
 ## Project Structure
 
@@ -107,6 +108,7 @@ ScrollSnap
 │   │── ThumbnailView.swift        # Thumbnail preview UI
 │── Managers
 │   │── OverlayManager.swift       # Overlay and state management
+│   │── StatusItemController.swift # Menu bar icon and its menu
 │   │── StitchingManager.swift     # Image stitching for scrolling capture
 ```
 

@@ -221,6 +221,14 @@ enum AppText {
         text("This shortcut is already used by macOS.")
     }
 
+    static var showMenuBarIcon: String {
+        text("Show icon in the menu bar")
+    }
+
+    static var menuBarIconHiddenHint: String {
+        text("Without the icon, use the global shortcut to show ScrollSnap.")
+    }
+
     static var launchAtLogin: String {
         text("Launch at Login")
     }

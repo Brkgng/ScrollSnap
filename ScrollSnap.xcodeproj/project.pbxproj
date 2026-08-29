@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D4A100012F20000100AA0001 /* ScrollingCaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A100022F20000100AA0001 /* ScrollingCaptureSession.swift */; };
+		D4A300052F30000100AA0001 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A300062F30000100AA0001 /* StatusItemController.swift */; };
 		D4A200012F20000100AA0001 /* ScrollingCaptureSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */; };
 		D4A200022F20000100AA0001 /* StitchingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A200042F20000100AA0001 /* StitchingManagerTests.swift */; };
 		E10000012F10000100AA0001 /* GlobalShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000112F10000100AA0001 /* GlobalShortcut.swift */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		D4A100022F20000100AA0001 /* ScrollingCaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingCaptureSession.swift; sourceTree = "<group>"; };
+		D4A300062F30000100AA0001 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingCaptureSessionTests.swift; sourceTree = "<group>"; };
 		D4A200042F20000100AA0001 /* StitchingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StitchingManagerTests.swift; sourceTree = "<group>"; };
 		D4A200052F20000100AA0001 /* ScrollSnapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScrollSnapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +169,7 @@
 			children = (
 				D4BBCA6C2D5A11370022FF73 /* OverlayManager.swift */,
 				D4A100022F20000100AA0001 /* ScrollingCaptureSession.swift */,
+				D4A300062F30000100AA0001 /* StatusItemController.swift */,
 				D4BBCA872D7276D20022FF73 /* StitchingManager.swift */,
 				E10000122F10000100AA0001 /* LoginItemManager.swift */,
 			);
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4A100012F20000100AA0001 /* ScrollingCaptureSession.swift in Sources */,
+				D4A300052F30000100AA0001 /* StatusItemController.swift in Sources */,
 				E10000012F10000100AA0001 /* GlobalShortcut.swift in Sources */,
 				E10000022F10000100AA0001 /* LoginItemManager.swift in Sources */,
 				D40200052F00000100AA0001 /* LocalizationSupport.swift in Sources */,
