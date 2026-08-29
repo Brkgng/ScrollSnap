@@ -301,6 +301,11 @@ final class StitchingManager: @unchecked Sendable {
     
     /// Appends the newly revealed strip of `newImage` below `baseImage`, working in pixels so that
     /// Retina captures keep their full resolution no matter which display the app draws on.
+    ///
+    /// The sampled strip reaches past the new content into the tail of what is already stitched, so
+    /// that region is redrawn from this frame. Content pinned to the bottom edge of the captured
+    /// window is stamped into every frame at the same place; by the next frame the real content
+    /// underneath it has scrolled clear of the edge, and redrawing replaces the copy with it.
     private func composite(baseImage: NSImage, newImage: NSImage, offset: CGFloat) -> NSImage? {
         guard let baseCGImage = baseImage.cgImage(forProposedRect: nil, context: nil, hints: nil),
               let newCGImage = newImage.cgImage(forProposedRect: nil, context: nil, hints: nil),
@@ -317,19 +322,29 @@ final class StitchingManager: @unchecked Sendable {
         let outputWidth = baseCGImage.width
         let outputHeight = baseCGImage.height + newContentHeight
 
+        // Reach past the new content into the stitched tail, as far as this frame can supply and the
+        // accumulated image can spare.
+        let repairHeight = max(0, min(
+            Int((Constants.Stitching.trailingRepairHeight * scale).rounded()),
+            newCGImage.height - newContentHeight,
+            baseCGImage.height
+        ))
+        let sampledHeight = newContentHeight + repairHeight
+
         // The strip sits at the bottom of the newest frame, which is the end of a top-left based image.
         guard let newContent = newCGImage.cropping(to: CGRect(
             x: 0,
-            y: newCGImage.height - newContentHeight,
+            y: newCGImage.height - sampledHeight,
             width: newCGImage.width,
-            height: newContentHeight
+            height: sampledHeight
         )), let context = makeContext(width: outputWidth, height: outputHeight) else {
             return nil
         }
 
-        // CGContext draws bottom-up: the accumulated image goes above the freshly revealed strip.
+        // CGContext draws bottom-up: the accumulated image goes down first, then the sampled strip
+        // over it, which both appends the new content and repaints the tail underneath.
         context.draw(baseCGImage, in: CGRect(x: 0, y: newContentHeight, width: outputWidth, height: baseCGImage.height))
-        context.draw(newContent, in: CGRect(x: 0, y: 0, width: outputWidth, height: newContentHeight))
+        context.draw(newContent, in: CGRect(x: 0, y: 0, width: outputWidth, height: sampledHeight))
 
         guard let outputImage = context.makeImage() else { return nil }
 

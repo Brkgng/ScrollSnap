@@ -49,6 +49,12 @@ struct Constants {
     struct Stitching {
         /// Vertical movement below this many points is treated as "the content did not move".
         static let movementDeadZone: CGFloat = 3.0
+        /// How much of the already-stitched tail each new frame redraws. Anything pinned to the
+        /// bottom of the captured window — a floating button, a sticky footer, an edge gradient —
+        /// sits in the strip that would otherwise be appended verbatim, once per frame. Redrawing
+        /// the tail from the next frame, where that content has scrolled clear of the edge, removes
+        /// it instead of accumulating it.
+        static let trailingRepairHeight: CGFloat = 100.0
     }
     
     struct Thumbnail {
