@@ -42,8 +42,17 @@ struct Constants {
     
     struct Overlay {
         static let backgroundColor: NSColor = NSColor.black.withAlphaComponent(0.5)
-        static let windowLevel: NSWindow.Level = .statusBar
+        /// Sits above every ordinary window but below the Dock and the menu bar, so both stay
+        /// visible and clickable while the overlay is up.
+        static let windowLevel: NSWindow.Level = NSWindow.Level(
+            rawValue: Int(CGWindowLevelForKey(.dockWindow)) - 1
+        )
         static let collectionBehavior: NSWindow.CollectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        /// Extra reach around the selection rectangle that still counts as overlay chrome,
+        /// matching the resize border zones in `SelectionRectangleView`.
+        static let pointerMargin: CGFloat = 20.0
+        /// Backstop for pointer movement the event monitors do not report.
+        static let pointerPollInterval: TimeInterval = 0.25
     }
     
     struct Thumbnail {
