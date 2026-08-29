@@ -46,6 +46,11 @@ struct Constants {
         static let collectionBehavior: NSWindow.CollectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
     }
     
+    struct Stitching {
+        /// Vertical movement below this many points is treated as "the content did not move".
+        static let movementDeadZone: CGFloat = 3.0
+    }
+    
     struct Thumbnail {
         static let clickDistanceThreshold: CGFloat = 5    // Max movement for a click
         static let swipeDistanceThreshold: CGFloat = 20   // Min distance for swipe-right save
