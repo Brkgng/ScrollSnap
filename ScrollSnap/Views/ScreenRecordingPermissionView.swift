@@ -8,6 +8,7 @@ import SwiftUI
 struct ScreenRecordingPermissionView: View {
     let openSystemSettings: () -> Void
     let checkAgain: () -> Void
+    let relaunch: () -> Void
     let quit: () -> Void
 
     var body: some View {
@@ -25,6 +26,14 @@ struct ScreenRecordingPermissionView: View {
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
+
+                // macOS only hands a new Screen Recording grant to a freshly launched process, so
+                // checking again in this one can never succeed after the switch is flipped.
+                Text(AppText.screenRecordingRelaunchHint)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             HStack(spacing: 10) {
@@ -36,6 +45,10 @@ struct ScreenRecordingPermissionView: View {
 
                 Button(AppText.checkAgain) {
                     checkAgain()
+                }
+
+                Button(AppText.relaunchApp) {
+                    relaunch()
                 }
 
                 Button(AppText.openSystemSettings) {
@@ -54,6 +67,7 @@ struct ScreenRecordingPermissionView_Previews: PreviewProvider {
         ScreenRecordingPermissionView(
             openSystemSettings: {},
             checkAgain: {},
+            relaunch: {},
             quit: {}
         )
     }

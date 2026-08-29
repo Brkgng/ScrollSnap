@@ -189,6 +189,14 @@ enum AppText {
         text("Check Again")
     }
 
+    static var relaunchApp: String {
+        text("Quit & Reopen")
+    }
+
+    static var screenRecordingRelaunchHint: String {
+        text("Already allowed it? macOS only applies the change to a newly launched app, so reopen ScrollSnap.")
+    }
+
     static var quit: String {
         text("Quit")
     }
