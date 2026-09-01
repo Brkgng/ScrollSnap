@@ -130,7 +130,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aprobare necesara in Setarile Sistemului"
+            "value" : "Este necesară aprobarea în Configurări sistem."
           }
         },
         "de" : {
@@ -190,7 +190,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anuleaza"
+            "value" : "Anulează"
           }
         },
         "de" : {
@@ -250,7 +250,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Captare"
+            "value" : "Capturează"
           }
         },
         "de" : {
@@ -310,7 +310,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Re-verifica"
+            "value" : "Verifică din nou"
           }
         },
         "en" : {
@@ -334,7 +334,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chineza (simplificat)"
+            "value" : "Chineză (simplificată)"
           }
         },
         "de" : {
@@ -454,7 +454,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inchide"
+            "value" : "Închide"
           }
         },
         "de" : {
@@ -514,7 +514,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Contacteaza suportul"
+            "value" : "Contactează asistența"
           }
         },
         "de" : {
@@ -574,7 +574,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sterge"
+            "value" : "Șterge"
           }
         },
         "de" : {
@@ -693,7 +693,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ignora captarea"
+            "value" : "Renunță la captură"
           }
         },
         "de" : {
@@ -813,7 +813,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Downloads"
+            "value" : "Descărcări"
           }
         },
         "de" : {
@@ -873,7 +873,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Engleza"
+            "value" : "Engleză"
           }
         },
         "de" : {
@@ -933,7 +933,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Franceza"
+            "value" : "Franceză"
           }
         },
         "de" : {
@@ -1053,7 +1053,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Germana"
+            "value" : "Germană"
           }
         },
         "de" : {
@@ -1112,7 +1112,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scurtatura globala"
+            "value" : "Scurtătură globală"
           }
         },
         "de" : {
@@ -1172,7 +1172,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Japoneza"
+            "value" : "Japoneză"
           }
         },
         "de" : {
@@ -1232,7 +1232,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coreeana"
+            "value" : "Coreeană"
           }
         },
         "de" : {
@@ -1292,7 +1292,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Limba"
+            "value" : "Limbă"
           }
         },
         "de" : {
@@ -1351,7 +1351,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lanseaza la login"
+            "value" : "Deschide la login"
           }
         },
         "de" : {
@@ -1411,7 +1411,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Misca"
+            "value" : "Mută"
           }
         },
         "de" : {
@@ -1470,7 +1470,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deschide setarile pentru login"
+            "value" : "Deschide configurările Lansare la login"
           }
         },
         "de" : {
@@ -1530,7 +1530,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deschide setarile sistemului"
+            "value" : "Deschide Configurări sistem"
           }
         },
         "en" : {
@@ -1554,7 +1554,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Optiuni"
+            "value" : "Opțiuni"
           }
         },
         "de" : {
@@ -1614,7 +1614,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Te rog selecteaza fisierul Desktop pentru a permite ScrollSnap sa salveze capturile de ecran aici"
+            "value" : "Selectează dosarul Desktop pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
           }
         },
         "de" : {
@@ -1674,7 +1674,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Te rog selecteaza Documente pentru a permite ScrollSnap sa salveze capturi de ecran aici"
+            "value" : "Selectează dosarul Documente pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
           }
         },
         "de" : {
@@ -1734,7 +1734,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Te rog selecteaza Downloads pentru a permite ScrollSnap sa salveze capturi de ecran aici"
+            "value" : "Selectează dosarul Descărcări pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
           }
         },
         "de" : {
@@ -1854,7 +1854,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Iesire"
+            "value" : "Închide"
           }
         },
         "en" : {
@@ -1878,7 +1878,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Iesire din ScrollSnap"
+            "value" : "Închide ScrollSnap"
           }
         },
         "de" : {
@@ -1938,7 +1938,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Evalueaza aplicatia"
+            "value" : "Evaluează în App Store"
           }
         },
         "de" : {
@@ -1998,7 +1998,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Relanseaza acum pentru a aplica modificarile"
+            "value" : "Relansează acum pentru a aplica schimbările de limbă"
           }
         },
         "de" : {
@@ -2058,7 +2058,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reseteaza configuratia de captura"
+            "value" : "Resetează aranjamentul capturii"
           }
         },
         "de" : {
@@ -2117,7 +2117,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Restabilire setari implicite"
+            "value" : "Restabilește valorile implicite"
           }
         },
         "de" : {
@@ -2177,7 +2177,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salvare"
+            "value" : "Salvează"
           }
         },
         "de" : {
@@ -2237,7 +2237,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Salvare la"
+            "value" : "Salvează în"
           }
         },
         "de" : {
@@ -2297,7 +2297,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inregistrare ecran necesara"
+            "value" : "Este necesară înregistrarea ecranului"
           }
         },
         "en" : {
@@ -2321,7 +2321,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Captura de ecran"
+            "value" : "Captură de ecran"
           }
         },
         "de" : {
@@ -2381,7 +2381,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ScrollSnap necesita permisiune sa arate captarea pe ecran. Dupa acordarea permisiunii, revino aici si verifica din nou"
+            "value" : "ScrollSnap are nevoie de permisiunea Înregistrare ecran pentru a afișa interfața de captură și a captura ecranul. După acordarea accesului, revino aici și verifică din nou."
           }
         },
         "en" : {
@@ -2405,7 +2405,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Setari ScrollSnap"
+            "value" : "Configurări ScrollSnap"
           }
         },
         "de" : {
@@ -2465,7 +2465,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Setari"
+            "value" : "Configurări…"
           }
         },
         "de" : {
@@ -2525,7 +2525,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spaniola"
+            "value" : "Spaniolă"
           }
         },
         "de" : {
@@ -2585,7 +2585,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Suport si evaluare"
+            "value" : "Asistență și feedback"
           }
         },
         "de" : {
@@ -2645,7 +2645,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sistem implicit"
+            "value" : "Implicit al sistemului"
           }
         },
         "de" : {
@@ -2704,7 +2704,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aceasta scurtatura e deja utilizata de macOS"
+            "value" : "Această scurtătură este deja utilizată de macOS."
           }
         },
         "de" : {
@@ -2764,7 +2764,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Turca"
+            "value" : "Turcă"
           }
         },
         "de" : {
@@ -2823,7 +2823,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Foloseste comanda, optiunea sau controlul cu alta tasta"
+            "value" : "Folosește tasta Comandă, Opțiune sau Control împreună cu o altă tastă."
           }
         },
         "de" : {
@@ -2943,7 +2943,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Evaluare ScrollSnap (v%@)"
+            "value" : "Feedback ScrollSnap (v%@)"
           }
         },
         "de" : {
@@ -3003,7 +3003,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Am inteles"
+            "value" : "Am înțeles"
           }
         },
         "de" : {
@@ -3063,7 +3063,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eliminand interfata suprapusa a captarii permite ScrollSnap sa continue derularea. Poti lansa automat la login, sau la deschidere Setari si iesire"
+            "value" : "Închiderea interfeței de captură menține acum ScrollSnap în funcțiune. De asemenea, poți lansa aplicația automat la login sau poți deschide Configurări și închide aplicația din meniul Opțiuni."
           }
         },
         "de" : {
@@ -3123,7 +3123,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gata in fundal"
+            "value" : "Gata în fundal"
           }
         },
         "de" : {
@@ -3183,7 +3183,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Derularea capturii acum include ultima bordura si utilizeaza miscare imbunatatita si combinare, prevenind intreruperea captarilor lungi"
+            "value" : "Capturile cu derulare includ acum cadrul final și utilizează detectarea îmbunătățită a mișcării și îmbinarea imaginilor, împiedicând încheierea prematură a capturilor lungi."
           }
         },
         "de" : {
@@ -3243,7 +3243,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Derulari de captura mai fiabile"
+            "value" : "Capturi cu derulare mai fiabile"
           }
         },
         "de" : {
@@ -3303,7 +3303,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apasa ⌃⌥S din aplicatie pentru a vizualiza ScrollSnap. Modifica, reseteaza, sau dezactiveaza scurtatura in Setari"
+            "value" : "Apasă ⌃⌥S din orice aplicație pentru a afișa ScrollSnap. Personalizează, resetează sau dezactivează scurtătura în Configurări."
           }
         },
         "de" : {
@@ -3363,7 +3363,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scurtatura pentru Tastatura globala (⌃⌥S)"
+            "value" : "Scurtătură globală de la tastatură (⌃⌥S)"
           }
         },
         "de" : {
@@ -3423,7 +3423,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Acum ScrollSnap este disponibil in coreeana"
+            "value" : "ScrollSnap este acum disponibil integral în coreeană."
           }
         },
         "de" : {
@@ -3483,7 +3483,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Suport pentru limba coreeana"
+            "value" : "Compatibilitate cu limba coreeană"
           }
         },
         "de" : {
@@ -3543,7 +3543,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Raporteaza o problema cu ScrollSnap (v%@)"
+            "value" : "Raport de problemă ScrollSnap (v%@)"
           }
         },
         "de" : {
@@ -3603,7 +3603,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Raporteaza o problema"
+            "value" : "Raportează o problemă"
           }
         },
         "de" : {
@@ -3663,7 +3663,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trimite evaluare"
+            "value" : "Trimite feedback"
           }
         },
         "de" : {
@@ -3723,7 +3723,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ce e nou in ScrollSnap"
+            "value" : "Noutăți în ScrollSnap"
           }
         },
         "de" : {
@@ -3783,7 +3783,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Versiune %@"
+            "value" : "Versiunea %@"
           }
         },
         "de" : {
@@ -3843,7 +3843,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ce e nou"
+            "value" : "Noutăți"
           }
         },
         "de" : {
@@ -3900,16 +3900,58 @@
       "comment" : "Language picker option for Romanian.",
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumänisch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Romanian"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumano"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roumain"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ルーマニア語"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "루마니아어"
+          }
+        },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Romana"
+            "value" : "Română"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumence"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "罗马尼亚语"
           }
         }
       }
