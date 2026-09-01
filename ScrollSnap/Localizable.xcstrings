@@ -8,6 +8,12 @@
       "comment" : "Tab title for the settings about screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Despre"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -62,6 +68,12 @@
       "comment" : "Main menu item that opens the app's About panel.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Despre ScrollSnap"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -115,6 +127,12 @@
     "Approval is required in System Settings." : {
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este necesară aprobarea în Configurări sistem."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -169,6 +187,12 @@
       "comment" : "Accessibility label for the cancel button in the overlay menu.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anulează"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -223,6 +247,12 @@
       "comment" : "Label for the overlay button that starts scrolling capture.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturează"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -277,6 +307,12 @@
       "comment" : "Button label in the screen recording permission window that rechecks access.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifică din nou"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -295,6 +331,12 @@
       "comment" : "Language picker option for Simplified Chinese.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chineză (simplificată)"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -349,6 +391,12 @@
       "comment" : "Save destination label for copying an image to the clipboard.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clipboard"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -403,6 +451,12 @@
       "comment" : "Context menu item that closes the current thumbnail.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Închide"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -457,6 +511,12 @@
       "comment" : "Button label in settings that opens the user's mail client for support.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contactează asistența"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -511,6 +571,12 @@
       "comment" : "Context menu item that deletes the current thumbnail result.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Șterge"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -565,6 +631,12 @@
       "comment" : "Save destination label for the Desktop folder.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desktop"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -618,6 +690,12 @@
     "Dismiss Capture" : {
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renunță la captură"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -672,6 +750,12 @@
       "comment" : "Save destination label for the Documents folder.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Documente"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -726,6 +810,12 @@
       "comment" : "Save destination label for the Downloads folder.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descărcări"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -780,6 +870,12 @@
       "comment" : "Language picker option for English.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engleză"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -834,6 +930,12 @@
       "comment" : "Language picker option for French.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Franceză"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -888,6 +990,12 @@
       "comment" : "Tab title for the settings general screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -942,6 +1050,12 @@
       "comment" : "Language picker option for German.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Germană"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -995,6 +1109,12 @@
     "Global Shortcut" : {
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scurtătură globală"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1049,6 +1169,12 @@
       "comment" : "Language picker option for Japanese.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japoneză"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1103,6 +1229,12 @@
       "comment" : "Language picker option for Korean.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coreeană"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1157,6 +1289,12 @@
       "comment" : "Label shown next to the in-app language picker in settings.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limbă"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1210,6 +1348,12 @@
     "Launch at Login" : {
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deschide la login"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1264,6 +1408,12 @@
       "comment" : "Accessibility label for the drag handle in the overlay menu.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mută"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1317,6 +1467,12 @@
     "Open Login Items Settings" : {
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deschide configurările Lansare la login"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1371,6 +1527,12 @@
       "comment" : "Button label in the screen recording permission window that opens System Settings.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deschide Configurări sistem"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1389,6 +1551,12 @@
       "comment" : "Label for the overlay button that opens destination options.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opțiuni"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1443,6 +1611,12 @@
       "comment" : "Prompt asking the user to choose the Desktop folder for screenshot save access.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează dosarul Desktop pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1497,6 +1671,12 @@
       "comment" : "Prompt asking the user to choose the Documents folder for screenshot save access.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează dosarul Documente pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1551,6 +1731,12 @@
       "comment" : "Prompt asking the user to choose the Downloads folder for screenshot save access.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează dosarul Descărcări pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1605,6 +1791,12 @@
       "comment" : "Save destination label for opening the image in Preview.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previzualizare"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1659,6 +1851,12 @@
       "comment" : "Button label in the screen recording permission window that quits the app.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Închide"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1677,6 +1875,12 @@
       "comment" : "Main menu item that quits the app.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Închide ScrollSnap"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1731,6 +1935,12 @@
       "comment" : "Button label in settings that opens the Mac App Store review page.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evaluează în App Store"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1785,6 +1995,12 @@
       "comment" : "Button label in settings that relaunches the app so language changes take effect.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relansează acum pentru a aplica schimbările de limbă"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1839,6 +2055,12 @@
       "comment" : "Button title that restores the default capture layout.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resetează aranjamentul capturii"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1892,6 +2114,12 @@
     "Reset to Default" : {
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restabilește valorile implicite"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1946,6 +2174,12 @@
       "comment" : "Label for the overlay button that stops capture and saves the result.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvează"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2000,6 +2234,12 @@
       "comment" : "Disabled heading above the save destination menu choices.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvează în"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2054,6 +2294,12 @@
       "comment" : "Title and heading shown when Screen Recording permission is required.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este necesară înregistrarea ecranului"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2072,6 +2318,12 @@
       "comment" : "Filename prefix used when saving screenshots.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captură de ecran"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2126,6 +2378,12 @@
       "comment" : "Message explaining why Screen Recording permission is required and what to do after granting it.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap are nevoie de permisiunea Înregistrare ecran pentru a afișa interfața de captură și a captura ecranul. După acordarea accesului, revino aici și verifică din nou."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2144,6 +2402,12 @@
       "comment" : "Title of the app settings window.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurări ScrollSnap"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2198,6 +2462,12 @@
       "comment" : "Main menu item that opens the settings window.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurări…"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2252,6 +2522,12 @@
       "comment" : "Language picker option for Spanish.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spaniolă"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2306,6 +2582,12 @@
       "comment" : "Section header in settings for support and review actions.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asistență și feedback"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2360,6 +2642,12 @@
       "comment" : "Language picker option that follows the system language preferences.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Implicit al sistemului"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2413,6 +2701,12 @@
     "This shortcut is already used by macOS." : {
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Această scurtătură este deja utilizată de macOS."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2467,6 +2761,12 @@
       "comment" : "Language picker option for Turkish.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turcă"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2520,6 +2820,12 @@
     "Use Command, Option, or Control with another key." : {
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folosește tasta Comandă, Opțiune sau Control împreună cu o altă tastă."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2574,6 +2880,12 @@
       "comment" : "Prefix shown before the app version number.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versiune"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2628,6 +2940,12 @@
       "comment" : "Email subject for general feedback from the What's New screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback ScrollSnap (v%@)"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2682,6 +3000,12 @@
       "comment" : "Primary button that dismisses the What's New screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Am înțeles"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2736,6 +3060,12 @@
       "comment" : "What's New highlight body for background access and launch at login.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Închiderea interfeței de captură menține acum ScrollSnap în funcțiune. De asemenea, poți lansa aplicația automat la login sau poți deschide Configurări și închide aplicația din meniul Opțiuni."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2790,6 +3120,12 @@
       "comment" : "What's New highlight title for background access.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gata în fundal"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2844,6 +3180,12 @@
       "comment" : "What's New highlight body for more reliable scrolling captures.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturile cu derulare includ acum cadrul final și utilizează detectarea îmbunătățită a mișcării și îmbinarea imaginilor, împiedicând încheierea prematură a capturilor lungi."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2898,6 +3240,12 @@
       "comment" : "What's New highlight title for more reliable scrolling captures.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturi cu derulare mai fiabile"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2952,6 +3300,12 @@
       "comment" : "What's New highlight body for the customizable global shortcut.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apasă ⌃⌥S din orice aplicație pentru a afișa ScrollSnap. Personalizează, resetează sau dezactivează scurtătura în Configurări."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3006,6 +3360,12 @@
       "comment" : "What's New highlight title for the global shortcut.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scurtătură globală de la tastatură (⌃⌥S)"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3060,6 +3420,12 @@
       "comment" : "What's New highlight body for Korean language support.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap este acum disponibil integral în coreeană."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3114,6 +3480,12 @@
       "comment" : "What's New highlight title for Korean language support.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compatibilitate cu limba coreeană"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3168,6 +3540,12 @@
       "comment" : "Email subject for problem reports from the What's New screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raport de problemă ScrollSnap (v%@)"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3222,6 +3600,12 @@
       "comment" : "Secondary button that opens a problem report email from the What's New screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raportează o problemă"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3276,6 +3660,12 @@
       "comment" : "Secondary button that opens a feedback email from the What's New screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trimite feedback"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3330,6 +3720,12 @@
       "comment" : "Main title in the What's New screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noutăți în ScrollSnap"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3384,6 +3780,12 @@
       "comment" : "Subtitle in the What's New screen. The placeholder is the app version.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versiunea %@"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3438,6 +3840,12 @@
       "comment" : "Title shown in the What's New window title bar.",
       "extractionState" : "stale",
       "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noutăți"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3484,6 +3892,66 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新功能"
+          }
+        }
+      }
+    },
+    "Romanian" : {
+      "comment" : "Language picker option for Romanian.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumänisch"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romanian"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumano"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roumain"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ルーマニア語"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "루마니아어"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Română"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumence"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "罗马尼亚语"
           }
         }
       }

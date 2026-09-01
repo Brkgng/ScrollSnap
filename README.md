@@ -27,7 +27,7 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 
 ## 🌍 Multi-Language Support
 
-ScrollSnap currently supports **English, Simplified Chinese, French, German, Japanese, Korean, Spanish, and Turkish**.
+ScrollSnap currently supports **English, Simplified Chinese, French, German, Japanese, Korean, Romanian, Spanish, and Turkish**.
 
 **Notice a typo or want ScrollSnap in your language?** Contributions are incredibly welcome! As a solo developer, I rely on the community to help make ScrollSnap accessible to everyone.
 
