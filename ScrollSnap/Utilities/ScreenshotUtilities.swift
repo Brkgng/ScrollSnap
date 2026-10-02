@@ -278,6 +278,9 @@ private func promptForFolderAccess(for destination: SaveDestination, bookmarkKey
         let bookmarkData = try selectedURL.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
         UserDefaults.standard.set(bookmarkData, forKey: bookmarkKey)
         print("\(destination.rawValue) permission cached.")
+        // Balance the caller's `stopAccessingSecurityScopedResource()`, which runs for both the
+        // freshly picked and the restored-from-bookmark folder.
+        _ = selectedURL.startAccessingSecurityScopedResource()
         return selectedURL
     } catch {
         print("Failed to create bookmark for \(destination.rawValue): \(error)")

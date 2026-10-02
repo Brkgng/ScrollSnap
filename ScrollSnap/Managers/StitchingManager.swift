@@ -181,14 +181,16 @@ struct VisionOffsetEstimator: VerticalOffsetEstimating {
     }
 }
 
-class StitchingManager {
+/// Confines all of its mutable state to `stitchingQueue`, a serial queue, which is what makes the
+/// unchecked `Sendable` conformance safe: no property is touched outside that queue.
+final class StitchingManager: @unchecked Sendable {
     // MARK: - Properties
     private var runningStitchedImage: NSImage?
     private var previousImage: NSImage? // The most recent screenshot to use for comparison.
     private var hasPendingReverseOffset = false
     private let stitchingQueue = DispatchQueue(label: "com.scrollsnap.stitching", qos: .userInitiated)
     private let offsetEstimator: any VerticalOffsetEstimating
-    private let movementDeadZone: CGFloat = 3
+    private let movementDeadZone = Constants.Stitching.movementDeadZone
 
     init(offsetEstimator: any VerticalOffsetEstimating = VisionOffsetEstimator()) {
         self.offsetEstimator = offsetEstimator
@@ -197,9 +199,13 @@ class StitchingManager {
     // MARK: - Public API
     
     func startStitching(with initialImage: NSImage) {
-        runningStitchedImage = initialImage
-        previousImage = initialImage // On start, the initial image is also the previous one.
-        hasPendingReverseOffset = false
+        // State is owned by the stitching queue, so seed it there instead of racing with `addImage`.
+        stitchingQueue.async { [weak self] in
+            guard let self = self else { return }
+            self.runningStitchedImage = initialImage
+            self.previousImage = initialImage // On start, the initial image is also the previous one.
+            self.hasPendingReverseOffset = false
+        }
     }
     
     func addImage(_ image: NSImage) {
@@ -293,51 +299,91 @@ class StitchingManager {
         return estimate.translation.y / (scale > 0 ? scale : 1.0)
     }
     
+    /// Appends the newly revealed strip of `newImage` below `baseImage`, working in pixels so that
+    /// Retina captures keep their full resolution no matter which display the app draws on.
     private func composite(baseImage: NSImage, newImage: NSImage, offset: CGFloat) -> NSImage? {
-        let baseSize = baseImage.size
-        let newSize = newImage.size
-        let newContentHeight = min(offset, newSize.height)
-        guard newContentHeight > 0 else { return nil }
-        
-        // The total height is the base height plus the new, non-overlapping area (the scroll amount).
-        let totalHeight = baseSize.height + newContentHeight
-        let outputSize = NSSize(width: baseSize.width, height: totalHeight)
-        
-        let outputImage = NSImage(size: outputSize)
-        outputImage.lockFocus()
-        
-        // Using a standard bottom-up coordinate system for drawing.
-        
-        // 1. Draw the base image above the newly revealed content.
-        let baseRect = CGRect(x: 0, y: newContentHeight, width: baseSize.width, height: baseSize.height)
-        baseImage.draw(in: baseRect)
-        
-        // 2. Draw only the newly exposed bottom strip from the latest screenshot.
-        let newContentRect = CGRect(x: 0, y: 0, width: newSize.width, height: newContentHeight)
-        newImage.draw(in: newContentRect, from: newContentRect, operation: .copy, fraction: 1.0)
-        
-        outputImage.unlockFocus()
+        guard let baseCGImage = baseImage.cgImage(forProposedRect: nil, context: nil, hints: nil),
+              let newCGImage = newImage.cgImage(forProposedRect: nil, context: nil, hints: nil),
+              let scale = pixelScale(of: baseImage, cgImage: baseCGImage) else {
+            return nil
+        }
 
-        return outputImage
+        let newContentHeightInPoints = min(offset, newImage.size.height)
+        guard newContentHeightInPoints > 0 else { return nil }
+
+        let newContentHeight = Int((newContentHeightInPoints * scale).rounded())
+        guard newContentHeight > 0, newContentHeight <= newCGImage.height else { return nil }
+
+        let outputWidth = baseCGImage.width
+        let outputHeight = baseCGImage.height + newContentHeight
+
+        // The strip sits at the bottom of the newest frame, which is the end of a top-left based image.
+        guard let newContent = newCGImage.cropping(to: CGRect(
+            x: 0,
+            y: newCGImage.height - newContentHeight,
+            width: newCGImage.width,
+            height: newContentHeight
+        )), let context = makeContext(width: outputWidth, height: outputHeight) else {
+            return nil
+        }
+
+        // CGContext draws bottom-up: the accumulated image goes above the freshly revealed strip.
+        context.draw(baseCGImage, in: CGRect(x: 0, y: newContentHeight, width: outputWidth, height: baseCGImage.height))
+        context.draw(newContent, in: CGRect(x: 0, y: 0, width: outputWidth, height: newContentHeight))
+
+        guard let outputImage = context.makeImage() else { return nil }
+
+        return NSImage(cgImage: outputImage, size: pointSize(pixelWidth: outputWidth, pixelHeight: outputHeight, scale: scale))
     }
 
     private func cropBottomRegion(of image: NSImage, byAmount amount: CGFloat) -> NSImage? {
         let originalSize = image.size
         guard amount > 0, amount < originalSize.height else { return image }
 
-        let newHeight = originalSize.height - amount
-        let newSize = NSSize(width: originalSize.width, height: newHeight)
+        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
+              let scale = pixelScale(of: image, cgImage: cgImage) else {
+            return nil
+        }
 
-        let croppedImage = NSImage(size: newSize)
-        croppedImage.lockFocus()
+        let croppedHeight = cgImage.height - Int((amount * scale).rounded())
+        guard croppedHeight > 0 else { return nil }
 
         // Keep the top content, crop from the bottom.
-        let sourceRect = NSRect(x: 0, y: amount, width: originalSize.width, height: newHeight)
-        let destRect = NSRect(origin: .zero, size: newSize)
+        guard let croppedImage = cgImage.cropping(to: CGRect(
+            x: 0,
+            y: 0,
+            width: cgImage.width,
+            height: croppedHeight
+        )) else {
+            return nil
+        }
 
-        image.draw(in: destRect, from: sourceRect, operation: .copy, fraction: 1.0)
+        return NSImage(
+            cgImage: croppedImage,
+            size: pointSize(pixelWidth: cgImage.width, pixelHeight: croppedHeight, scale: scale)
+        )
+    }
 
-        croppedImage.unlockFocus()
-        return croppedImage
+    private func makeContext(width: Int, height: Int) -> CGContext? {
+        CGContext(
+            data: nil,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: 0,
+            space: CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue
+        )
+    }
+
+    /// Pixels per point for an image, or `nil` when the image has no usable height.
+    private func pixelScale(of image: NSImage, cgImage: CGImage) -> CGFloat? {
+        guard image.size.height > 0 else { return nil }
+        let scale = CGFloat(cgImage.height) / image.size.height
+        return scale > 0 ? scale : nil
+    }
+
+    private func pointSize(pixelWidth: Int, pixelHeight: Int, scale: CGFloat) -> NSSize {
+        NSSize(width: CGFloat(pixelWidth) / scale, height: CGFloat(pixelHeight) / scale)
     }
 }
