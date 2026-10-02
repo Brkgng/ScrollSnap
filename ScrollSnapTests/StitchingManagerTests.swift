@@ -175,6 +175,52 @@ final class StitchingManagerTests: XCTestCase {
         XCTAssertNil(beyondBoundary)
     }
 
+    /// Anything pinned to the bottom edge of the captured window lands in every frame's strip. The
+    /// next frame has to repaint it away rather than leave one copy per band.
+    func testTrailingTailIsRepaintedFromTheNewestFrame() async {
+        let manager = StitchingManager(offsetEstimator: SequenceOffsetEstimator([estimate(y: 20)]))
+        manager.startStitching(with: makeSolidImage(blue: true))
+        manager.addImage(makeSolidImage(blue: false))
+
+        guard let result = await manager.stopStitching() else {
+            return XCTFail("Expected a stitched image")
+        }
+
+        XCTAssertEqual(result.size.height, 120)
+        // 50 pt up from the bottom sits in territory the base image had already claimed. It must now
+        // carry the newest frame's pixels, not the ones stitched a frame ago.
+        XCTAssertTrue(isGreen(at: 50, in: result))
+        XCTAssertFalse(isGreen(at: 115, in: result), "Content above the repaired tail must stand")
+    }
+
+    private func isGreen(at y: CGFloat, in image: NSImage) -> Bool {
+        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+            return false
+        }
+
+        let bitmap = NSBitmapImageRep(cgImage: cgImage)
+        let row = min(max(Int(image.size.height - y), 0), bitmap.pixelsHigh - 1)
+        guard let color = bitmap.colorAt(x: bitmap.pixelsWide / 2, y: row) else { return false }
+        return color.greenComponent > 0.5 && color.blueComponent < 0.5
+    }
+
+    private func makeSolidImage(blue: Bool) -> NSImage {
+        let width = 40, height = 100
+        let context = CGContext(
+            data: nil,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: 0,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        )!
+
+        context.setFillColor(CGColor(red: 0, green: blue ? 0 : 1, blue: blue ? 1 : 0, alpha: 1))
+        context.fill(CGRect(x: 0, y: 0, width: width, height: height))
+        return NSImage(cgImage: context.makeImage()!, size: NSSize(width: width, height: height))
+    }
+
     private func estimate(y: CGFloat) -> OffsetEstimate {
         OffsetEstimate(
             translation: CGPoint(x: 0, y: y),
