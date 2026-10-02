@@ -113,8 +113,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private func installGlobalShortcutHandler() {
         shortcutTask = Task { @MainActor [weak self] in
             for await _ in KeyboardShortcuts.events(.keyUp, for: .invokeScrollSnap) {
-                self?.presentCaptureInterface()
+                self?.handleGlobalShortcut()
             }
+        }
+    }
+
+    /// The global shortcut doubles as a capture toggle so the overlay can be driven while another
+    /// app keeps keyboard focus.
+    @MainActor
+    private func handleGlobalShortcut() {
+        guard screenRecordingPermissionWindow == nil,
+              whatsNewWindow == nil else {
+            return
+        }
+
+        switch overlayManager.sessionState {
+        case .selecting, .capturing:
+            overlayManager.captureScreenshot()
+        case .thumbnail:
+            overlayManager.hideThumbnail()
+            presentCaptureInterface()
+        case .idle:
+            presentCaptureInterface()
+        case .finishing:
+            break
         }
     }
 

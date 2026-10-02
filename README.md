@@ -19,7 +19,8 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 
 - **Customizable Selection Area**: Resize and drag a selection rectangle to define the capture region.
 - **Scrolling Capture**: Automatically stitches multiple screenshots into a single image for capturing long content.
-- **Keyboard Shortcut**: Press `Return` while the overlay is active to start or stop scrolling capture.
+- **Stays Out of the Way**: The overlay only intercepts clicks on its own controls, so the Dock, the menu bar, and the app you are capturing all stay clickable while it is up.
+- **Keyboard Shortcut**: Press `Return` while the overlay is active to start or stop scrolling capture, or press the global shortcut, which toggles the capture from any app.
 - **Interactive Menu**: Includes options to capture, save, reset positions, or cancel, with a draggable interface.
 - **Thumbnail Preview**: Displays a draggable thumbnail of the captured image with swipe-to-save or right-click options.
 - **Save Destinations**: Supports saving to Desktop, Documents, Downloads, Clipboard, or opening in Preview.
@@ -59,6 +60,7 @@ Whether you want to add a completely new language or improve an existing transla
 2. **Show the Overlay**:
 
 - Press `Control + Option + S` from any app. You can change, disable, or reset this global shortcut in Settings (`Cmd + ,`).
+- The overlay floats above your windows without blocking them: click the Dock, the menu bar, or any visible window to bring the app you want to capture forward.
 
 3. **Adjust the Selection**:
 
@@ -112,7 +114,7 @@ ScrollSnap
 
 ## How It Works
 
-- **Overlay System**: `OverlayManager` creates overlays on all screens, managed by `OverlayView`, which delegates drawing and interaction to `SelectionRectangleView` and `MenuBarView`.
+- **Overlay System**: `OverlayManager` creates overlays on all screens, managed by `OverlayView`, which delegates drawing and interaction to `SelectionRectangleView` and `MenuBarView`. The overlay sits just below the Dock and passes the pointer through everywhere except its own controls.
 - **Screenshot Capture**: `ScreenshotUtilities` uses ScreenCaptureKit to capture the defined rectangle, excluding the app’s UI.
 - **Scrolling Capture**: `StitchingManager` combines screenshots into a single image using overlap detection.
 - **Thumbnail**: `ThumbnailView` provides an interactive preview with drag-and-drop and swipe gestures.

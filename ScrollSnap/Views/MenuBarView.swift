@@ -380,6 +380,7 @@ class MenuBarView: NSView {
         if !isOptionsPopupVisible {
             hoveredOptionsPopupTarget = nil
         }
+        publishOptionsPopupRect()
         invalidateOverlay()
     }
 
@@ -387,7 +388,16 @@ class MenuBarView: NSView {
         guard isOptionsPopupVisible else { return }
         isOptionsPopupVisible = false
         hoveredOptionsPopupTarget = nil
+        publishOptionsPopupRect()
         invalidateOverlay()
+    }
+
+    /// Tells the manager how far the popup reaches so it keeps accepting clicks outside the menu bar.
+    private func publishOptionsPopupRect() {
+        guard let manager = manager else { return }
+        manager.setOptionsPopupRect(
+            isOptionsPopupVisible ? getOptionsPopupRect(for: manager.getMenuRectangle()) : nil
+        )
     }
 
     private func drawOptionsPopupIfNeeded(for menuRect: NSRect) {

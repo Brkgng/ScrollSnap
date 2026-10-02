@@ -85,6 +85,11 @@ class OverlayView: NSView {
         updateTrackingAreas()
     }
     
+    /// Drops any hover feedback, used when the pointer leaves the overlay's own chrome.
+    func clearHoverState() {
+        menuBarView?.clearHoverState()
+    }
+    
     // MARK: - Drawing
     
     override func draw(_ dirtyRect: NSRect) {
@@ -169,15 +174,10 @@ class OverlayView: NSView {
             return
         }
         
-        guard let manager = manager else { return }
-        if let type = userInfo["type"] as? String {
-            if type == "menu" && manager.getIsScrollingCaptureActive() {
-                // Re-enable mouse events so the user can click the menu while scrolling capture is active
-                manager.setOverlayIgnoresMouseEvents(false)
-            }
-        } else if let zone = userInfo["zone"] as? String {
+        if let zone = userInfo["zone"] as? String {
             selectionRectangleView.handleMouseEnteredBorder(zone: zone)
-        } else {
+        } else if userInfo["type"] == nil {
+            // Menu and overlay hover feedback is driven by mouseMoved, not by entering.
             selectionRectangleView.handleMouseEntered()
         }
     }
@@ -189,10 +189,9 @@ class OverlayView: NSView {
             return
         }
         
-        guard let manager = manager else { return }
         if let type = userInfo["type"] as? String {
-            if type == "menu" && manager.getIsScrollingCaptureActive() {
-                manager.setOverlayIgnoresMouseEvents(true)
+            if type == "menu" {
+                menuBarView?.clearHoverState()
             }
         } else if userInfo["zone"] != nil {
             selectionRectangleView.handleMouseExitedBorder()
