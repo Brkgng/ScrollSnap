@@ -119,6 +119,7 @@ final class ScrollingCaptureSessionTests: XCTestCase {
         let result = await session.finish()
 
         XCTAssertTrue(result === initial)
+        XCTAssertTrue(session.isIncomplete)
         XCTAssertEqual(stitcher.addedImages.count, 0)
         XCTAssertEqual(stitcher.stopCount, 1)
     }
@@ -170,6 +171,24 @@ final class ScrollingCaptureSessionTests: XCTestCase {
         XCTAssertEqual(stitcher.stopCount, 1)
     }
 
+    func testFrameRequestRemainsBusyUntilStitchingCompletes() async {
+        let gate = CaptureGate()
+        let image = makeImage(color: .blue)
+        let provider = CaptureScript([.immediate(image), .immediate(image), .immediate(image)])
+        let stitcher = RecordingStitcher(processingGate: gate)
+        let session = ScrollingCaptureSession(capture: provider.capture, stitcher: stitcher)
+        let started = await session.start()
+        XCTAssertTrue(started)
+        XCTAssertTrue(session.requestFrame())
+        await gate.waitUntilStarted()
+        XCTAssertFalse(session.requestFrame(), "Processing must not accumulate screenshots")
+        XCTAssertEqual(provider.captureCount, 2)
+        let finish = Task { @MainActor in await session.finish() }
+        gate.resume(returning: nil)
+        _ = await finish.value
+        XCTAssertEqual(provider.captureCount, 3)
+    }
+
     private func makeImage(color: NSColor) -> NSImage {
         let image = NSImage(size: NSSize(width: 20, height: 20))
         image.lockFocus()
@@ -182,10 +201,18 @@ final class ScrollingCaptureSessionTests: XCTestCase {
 
 @MainActor
 private final class RecordingStitcher: ImageStitching {
+    var isIncomplete = false
     private(set) var startedImages: [NSImage] = []
     private(set) var addedImages: [NSImage] = []
     private(set) var stopCount = 0
     private var currentImage: NSImage?
+    private let processingGate: CaptureGate?
+
+    init(processingGate: CaptureGate? = nil) { self.processingGate = processingGate }
+
+    func waitForPendingImages() async {
+        if !addedImages.isEmpty, let processingGate { _ = await processingGate.capture() }
+    }
 
     func startStitching(with initialImage: NSImage) {
         startedImages.append(initialImage)

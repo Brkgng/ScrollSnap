@@ -343,7 +343,7 @@ class OverlayManager {
     }
     
     private func setupCaptureTimer(sessionID: UUID) {
-        let timer = Timer(timeInterval: 0.25, repeats: true) { [weak self] _ in
+        let timer = Timer(timeInterval: 0.05, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 guard let self,
                       self.captureSessionID == sessionID,
