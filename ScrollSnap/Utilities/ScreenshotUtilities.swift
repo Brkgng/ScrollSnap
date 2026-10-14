@@ -20,7 +20,8 @@ final class ScreenshotCaptureSession {
             return nil
         }
 
-        let adjustedRect = adjustRectForScreen(rectangle, for: activeScreen)
+        // ScreenCaptureKit resamples fractional source rectangles, even on Retina displays.
+        let adjustedRect = adjustRectForScreen(rectangle, for: activeScreen).integral
         let filter = SCContentFilter(
             display: captureContext.display,
             excludingApplications: captureContext.excludedApplications,
