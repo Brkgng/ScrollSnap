@@ -132,6 +132,8 @@ If you are contributing locally in Xcode:
 
 macOS tracks Screen Recording permission by signed app identity. Ad-hoc signing can make a rebuilt app look new after each code change, which causes repeated permission prompts. A real local development signature keeps that permission stable across rebuilds.
 
+Debug builds use `ScrollSnap Dev.app`; Release builds use `ScrollSnap.app`. They have separate bundle identifiers and Screen Recording permissions, so you can distinguish development and release builds in System Settings.
+
 - **Report Issues**: Open an issue on the [GitHub repository](https://github.com/brkgng/ScrollSnap/issues) for bugs or feature requests.
 - **Submit Pull Requests**:
   1. Fork the repo.

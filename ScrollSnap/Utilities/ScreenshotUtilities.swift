@@ -334,8 +334,11 @@ func hasScreenRecordingPermission() -> Bool {
 }
 
 /// Requests screen recording permission if it is not already granted.
-/// - Returns: `true` if the request API reports access was granted, `false` otherwise.
+/// - Returns: `true` if access is already granted, `false` while requesting access.
 @MainActor
 func requestScreenRecordingPermission() -> Bool {
-    CGRequestScreenCaptureAccess()
+    guard !hasScreenRecordingPermission() else { return true }
+
+    SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: true) { _, _ in }
+    return false
 }

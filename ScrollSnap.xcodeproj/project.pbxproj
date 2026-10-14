@@ -475,7 +475,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnapTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScrollSnap.app/Contents/MacOS/ScrollSnap";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScrollSnap Dev.app/Contents/MacOS/ScrollSnap Dev";
 			};
 			name = Debug;
 		};
@@ -512,7 +512,7 @@
 				INFOPLIST_KEY_LSUIElement = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 3.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnap.dev.LoginItem;
+				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnapDev.LoginItem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -696,8 +696,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 3.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnap.dev;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.berkergungor.ScrollSnapDev;
+				PRODUCT_MODULE_NAME = ScrollSnap;
+				PRODUCT_NAME = "ScrollSnap Dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
