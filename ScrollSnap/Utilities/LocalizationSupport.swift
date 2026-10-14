@@ -231,6 +231,10 @@ enum AppText {
         text("Launch at Login")
     }
 
+    static var showInDock: String {
+        text("Show in Dock")
+    }
+
     static var loginItemRequiresApproval: String {
         text("Approval is required in System Settings.")
     }

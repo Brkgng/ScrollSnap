@@ -17,8 +17,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var whatsNewWindow: NSWindow?
     private var whatsNewWindowVersion: String?
     private var isLoginLaunch = false
+    private var hasCompletedLaunch = false
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+        let showInDock = UserDefaults.standard.object(forKey: Constants.showInDockKey) as? Bool ?? true
+        NSApp.setActivationPolicy(showInDock ? .regular : .accessory)
+
         updateFeedbackManager.recordLaunch(currentVersion: UpdateFeedbackManager.currentAppVersion)
         cleanupOldTemporaryFiles()
         installLocalKeyEventMonitor()
@@ -31,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(100))
+            defer { hasCompletedLaunch = true }
             guard !isLoginLaunch else { return }
             handleScreenRecordingPermissionOnLaunch()
         }
@@ -59,6 +64,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             presentCaptureInterface()
         }
         return true
+    }
+
+    func applicationDidBecomeActive(_ notification: Notification) {
+        guard hasCompletedLaunch, NSApp.activationPolicy() == .regular else { return }
+
+        Task { @MainActor in
+            guard NSApp.isActive else { return }
+            presentCaptureInterface()
+        }
     }
 
     func windowWillClose(_ notification: Notification) {
@@ -131,7 +145,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @MainActor
     func openSettings() {
-        NSApp.activate(ignoringOtherApps: true)
         guard let appMenu = NSApp.mainMenu?.items.first?.submenu,
               let settingsIndex = appMenu.items.firstIndex(where: {
                   $0.keyEquivalent == ","
@@ -140,6 +153,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             return
         }
 
+        overlayManager.suspendFloatingWindows(for: .settings)
+        NSApp.activate(ignoringOtherApps: true)
         appMenu.performActionForItem(at: settingsIndex)
     }
 

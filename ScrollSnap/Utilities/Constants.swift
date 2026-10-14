@@ -69,5 +69,6 @@ struct Constants {
     
     static let rectangleKey = "LastRectangleFrame"
     static let menuRectKey = "LastMenuFrame"
+    static let showInDockKey = "ShowInDock"
     static let dateFormat = "yyyy-MM-dd 'at' HH.mm.ss"
 }

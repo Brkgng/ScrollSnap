@@ -17,6 +17,9 @@ struct SettingsView: View {
 
     @AppStorage(AppLanguage.storageKey)
     private var selectedLanguageRawValue = AppLanguage.defaultValue.rawValue
+
+    @AppStorage(Constants.showInDockKey)
+    private var showInDock = true
     
     @State private var initialLanguageRawValue: String = ""
     @State private var shortcutFeedback: String?
@@ -129,6 +132,11 @@ struct SettingsView: View {
             }
 
             Section {
+                Toggle(AppText.showInDock, isOn: $showInDock)
+                    .onChange(of: showInDock) { _, isVisible in
+                        NSApp.setActivationPolicy(isVisible ? .regular : .accessory)
+                    }
+
                 Toggle(
                     AppText.launchAtLogin,
                     isOn: Binding(
