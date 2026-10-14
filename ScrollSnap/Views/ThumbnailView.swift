@@ -4,6 +4,26 @@
 //
 
 import AppKit
+import SwiftUI
+
+@MainActor
+func makeIncompleteCaptureNotice(width: CGFloat) -> NSView {
+    NSHostingView(rootView:
+        VStack(alignment: .leading, spacing: 6) {
+            Label(AppText.incompleteCaptureTitle, systemImage: "exclamationmark.triangle")
+                .font(.system(size: 12, weight: .semibold))
+            Text(AppText.incompleteCaptureMessage)
+                .font(.system(size: 11))
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(12)
+        .frame(width: width, alignment: .leading)
+        .background(Color(nsColor: .windowBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("capture.incomplete.notice")
+    )
+}
 
 class ThumbnailView: NSView {
     // MARK: - Properties
@@ -27,6 +47,10 @@ class ThumbnailView: NSView {
     private var hoveredAction: ThumbnailAction?
     private var actionStripAlpha: CGFloat = 0.0
     private var actionStripFadeTimer: Timer?
+    private let noticeHeight: CGFloat
+    private var imageRect: NSRect {
+        NSRect(x: 0, y: 0, width: bounds.width, height: max(0, bounds.height - noticeHeight))
+    }
 
     private enum ThumbnailAction: CaseIterable {
         case save
@@ -78,13 +102,20 @@ class ThumbnailView: NSView {
     private let gestureThreshold: CGFloat = 10.0
     
     // MARK: - Initialization
-    init(image: NSImage, overlayManager: OverlayManager, screen: NSScreen, origin: NSPoint, size: NSSize) {
+    init(image: NSImage, overlayManager: OverlayManager, screen: NSScreen, origin: NSPoint, size: NSSize, isIncomplete: Bool = false) {
         self.image = image
         self.overlayManager = overlayManager
         self.screen = screen
         self.initialOrigin = origin
         self.initialWidth = size.width
-        super.init(frame: NSRect(origin: .zero, size: size))
+        let notice = isIncomplete ? makeIncompleteCaptureNotice(width: size.width) : nil
+        noticeHeight = notice?.fittingSize.height ?? 0
+        super.init(frame: NSRect(x: 0, y: 0, width: size.width, height: size.height + noticeHeight))
+        if let notice {
+            notice.frame = NSRect(x: 0, y: size.height, width: size.width, height: noticeHeight)
+            notice.autoresizingMask = [.width, .minYMargin]
+            addSubview(notice)
+        }
         
         setupTimer()
     }
@@ -119,11 +150,11 @@ class ThumbnailView: NSView {
         super.draw(dirtyRect)
         guard let context = NSGraphicsContext.current?.cgContext else { return }
         
-        image.draw(in: bounds, from: .zero, operation: .sourceOver, fraction: 1.0)
+        image.draw(in: imageRect, from: .zero, operation: .sourceOver, fraction: 1.0)
         
         context.setStrokeColor(NSColor.white.cgColor)
         context.setLineWidth(2.0)
-        let borderPath = NSBezierPath(roundedRect: bounds, xRadius: 5, yRadius: 5)
+        let borderPath = NSBezierPath(roundedRect: imageRect, xRadius: 5, yRadius: 5)
         context.addPath(borderPath.cgPath)
         context.strokePath()
 
@@ -329,7 +360,7 @@ class ThumbnailView: NSView {
 
         return NSRect(
             x: bounds.maxX - actionStripMargin - width,
-            y: bounds.maxY - actionStripMargin - height,
+            y: imageRect.maxY - actionStripMargin - height,
             width: width,
             height: height
         )

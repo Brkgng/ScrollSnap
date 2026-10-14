@@ -45,6 +45,8 @@ class OverlayManager {
     private var captureTimer: Timer?
     private var scrollingCaptureSession: ScrollingCaptureSession?
     var thumbnailWindow: NSWindow?
+    private var captureNoticeWindow: NSWindow?
+    private var captureNoticeTask: Task<Void, Never>?
     private var suspendedWindowsState: SuspendedWindowsState?
     private var activeSuspensionReasons = Set<FloatingWindowSuspensionReason>()
     private(set) var sessionState: CaptureSessionState = .idle
@@ -72,6 +74,7 @@ class OverlayManager {
     @discardableResult
     func presentOverlay() -> Bool {
         guard canPresentOverlay else { return false }
+        hideCaptureNotice()
 
         reconcileFramesWithCurrentScreens()
         rebuildOverlayWindows()
@@ -268,7 +271,8 @@ class OverlayManager {
             return
         }
 
-        recordSuccessfulCaptureForReview()
+        let isIncomplete = scrollingCaptureSession.isIncomplete
+        if !isIncomplete { recordSuccessfulCaptureForReview() }
         let selectedDestination = SaveDestination.current()
         self.scrollingCaptureSession = nil
         captureSessionID = nil
@@ -277,8 +281,10 @@ class OverlayManager {
         case .clipboard, .preview:
             _ = saveImage(finalImage)
             sessionState = .idle
+            if isIncomplete { showIncompleteCaptureNotice() }
         case .file:
-            guard let thumbnailSessionID = showThumbnail(with: finalImage) else { return }
+            guard let thumbnailSessionID = showThumbnail(with: finalImage, isIncomplete: isIncomplete) else { return }
+            if isIncomplete { return }
 
             do {
                 try await Task.sleep(for: .seconds(1))
@@ -292,6 +298,37 @@ class OverlayManager {
 
             await requestReviewIfEligible()
         }
+    }
+
+    private func showIncompleteCaptureNotice() {
+        hideCaptureNotice()
+        guard let screen = NSScreen.screens.first(where: { $0.frame.contains(rectangle.origin) }) else { return }
+        let notice = makeIncompleteCaptureNotice(width: 320)
+        let size = notice.fittingSize
+        let origin = NSPoint(x: screen.visibleFrame.maxX - size.width - 20, y: screen.visibleFrame.minY + 20)
+        let window = OverlayWindow(contentRect: NSRect(origin: origin, size: size),
+                                   styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
+        window.contentView = notice
+        window.level = .statusBar
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        window.ignoresMouseEvents = true
+        window.collectionBehavior = Constants.Overlay.collectionBehavior
+        window.hidesOnDeactivate = false
+        window.orderFrontRegardless()
+        captureNoticeWindow = window
+        captureNoticeTask = Task { @MainActor [weak self] in
+            try? await Task.sleep(for: .seconds(8))
+            guard !Task.isCancelled else { return }
+            self?.hideCaptureNotice()
+        }
+    }
+
+    private func hideCaptureNotice() {
+        captureNoticeTask?.cancel()
+        captureNoticeTask = nil
+        captureNoticeWindow?.orderOut(nil)
+        captureNoticeWindow = nil
     }
     
     /// Starts the scrolling capture process.
@@ -385,7 +422,7 @@ class OverlayManager {
     
     // MARK: - Thumbnail Management
     
-    private func showThumbnail(with image: NSImage) -> UUID? {
+    private func showThumbnail(with image: NSImage, isIncomplete: Bool = false) -> UUID? {
         thumbnailSessionID = nil
 
         guard let screen = NSScreen.screens.first(where: { $0.frame.contains(rectangle.origin) }) else {
@@ -402,13 +439,16 @@ class OverlayManager {
         let thumbnailHeight = max(150, min(image.size.height * thumbnailScaleFactor, 500)) // Minimum height of 150
         let thumbnailSize = NSSize(width: thumbnailWidth, height: thumbnailHeight)
         let thumbnailOrigin = NSPoint(
-            x: screen.frame.maxX - thumbnailSize.width - 20,
-            y: screen.frame.minY + 20
+            x: screen.visibleFrame.maxX - thumbnailSize.width - 20,
+            y: screen.visibleFrame.minY + 20
         )
         
-        let thumbnailView = ThumbnailView(image: image, overlayManager: self, screen: screen, origin: thumbnailOrigin, size: thumbnailSize)
+        let thumbnailView = ThumbnailView(image: image, overlayManager: self, screen: screen, origin: thumbnailOrigin,
+                                          size: thumbnailSize, isIncomplete: isIncomplete)
+        thumbnailView.setFrameSize(NSSize(width: thumbnailSize.width,
+                                          height: min(thumbnailView.frame.height, screen.visibleFrame.height - 40)))
         thumbnailWindow = OverlayWindow(
-            contentRect: NSRect(origin: thumbnailOrigin, size: thumbnailSize),
+            contentRect: NSRect(origin: thumbnailOrigin, size: thumbnailView.frame.size),
             styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
             defer: false

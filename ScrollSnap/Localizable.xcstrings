@@ -3487,6 +3487,114 @@
           }
         }
       }
+    },
+    "Capture may be incomplete" : {
+      "comment" : "Warning title: a scrolling screenshot may be missing content.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capture may be incomplete"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildschirmfoto möglicherweise unvollständig"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La captura podría estar incompleta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La capture est peut-être incomplète"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画像が一部欠けている可能性があります"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "캡처에 빠진 내용이 있을 수 있습니다"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekran görüntüsü eksik olabilir"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "截图可能不完整"
+          }
+        }
+      }
+    },
+    "Your capture is still available. Try again and scroll more slowly." : {
+      "comment" : "Reassure that the capture remains usable and suggest a slower retry. The image may be on the clipboard or in Preview; do not imply a file was saved.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your capture is still available. Try again and scroll more slowly."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein Bildschirmfoto bleibt erhalten. Versuche es erneut und scrolle dabei langsamer."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La captura sigue disponible. Vuelve a intentarlo y desplázate más despacio."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre capture reste disponible. Réessayez en faisant défiler plus lentement."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャプチャした画像はそのまま使えます。スクロールの速度を落として、もう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "캡처한 이미지는 그대로 사용할 수 있습니다. 더 천천히 스크롤하면서 다시 캡처해 주세요."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekran görüntünüzü yine de kullanabilirsiniz. Daha yavaş kaydırarak tekrar deneyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当前截图仍可使用，请放慢滚动速度后重试。"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

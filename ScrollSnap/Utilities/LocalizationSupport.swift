@@ -177,6 +177,12 @@ enum AppText {
         text("Screen Recording Required")
     }
 
+    static var incompleteCaptureTitle: String { text("Capture may be incomplete") }
+
+    static var incompleteCaptureMessage: String {
+        text("Your capture is still available. Try again and scroll more slowly.")
+    }
+
     static var screenRecordingPermissionMessage: String {
         text("ScrollSnap needs Screen Recording permission to show the capture overlay and capture your screen. After granting access, return here and check again.")
     }
