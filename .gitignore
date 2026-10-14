@@ -41,3 +41,7 @@ playground.xcworkspace
 .DS_Store
 
 notes.md
+
+# Python test tools
+__pycache__/
+*.py[cod]

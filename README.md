@@ -121,6 +121,13 @@ ScrollSnap
 
 ScrollSnap is an open-source project, and we welcome contributions! If you’d like to improve it:
 
+- **Report Issues**: Open an issue on the [GitHub repository](https://github.com/brkgng/ScrollSnap/issues) for bugs or feature requests.
+- **Submit Pull Requests**:
+  1. Fork the repo.
+  2. Create a new branch for your changes (e.g., `git checkout -b feature/your-feature-name`).
+  3. Make your changes and commit them.
+  4. Submit a pull request with your improvements.
+
 ### Development Signing
 
 If you are contributing locally in Xcode:
@@ -134,12 +141,10 @@ macOS tracks Screen Recording permission by signed app identity. Ad-hoc signing 
 
 Debug builds use `ScrollSnap Dev.app`; Release builds use `ScrollSnap.app`. They have separate bundle identifiers and Screen Recording permissions, so you can distinguish development and release builds in System Settings.
 
-- **Report Issues**: Open an issue on the [GitHub repository](https://github.com/brkgng/ScrollSnap/issues) for bugs or feature requests.
-- **Submit Pull Requests**:
-  1. Fork the repo.
-  2. Create a new branch for your changes (e.g., `git checkout -b feature/your-feature-name`).
-  3. Make your changes and commit them.
-  4. Submit a pull request with your improvements.
+### Tests
+
+Run the `ScrollSnap` scheme with **Product → Test** in Xcode for the capture-session and stitching unit tests. See [the capture test harness](Tests/CaptureBaseline/README.md) for image replay and full-app UI tests.
+
 
 ## License
 
