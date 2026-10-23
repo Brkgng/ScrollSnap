@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private let updateFeedbackManager = UpdateFeedbackManager()
     private var localKeyEventMonitor: Any?
     private var shortcutTask: Task<Void, Never>?
+    private var screenRecordingPermissionTask: Task<Void, Never>?
     private var screenRecordingPermissionWindow: NSWindow?
     private var whatsNewWindow: NSWindow?
     private var whatsNewWindowVersion: String?
@@ -20,6 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var hasCompletedLaunch = false
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Unit tests inject permission responses and must not open the real capture UI.
+        guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else { return }
+
         let showInDock = UserDefaults.standard.object(forKey: Constants.showInDockKey) as? Bool ?? true
         NSApp.setActivationPolicy(showInDock ? .regular : .accessory)
 
@@ -57,6 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
         shortcutTask?.cancel()
         shortcutTask = nil
+        screenRecordingPermissionTask?.cancel()
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -71,6 +76,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         Task { @MainActor in
             guard NSApp.isActive else { return }
+            if screenRecordingPermissionWindow != nil {
+                handleScreenRecordingPermissionOnLaunch()
+                return
+            }
             presentCaptureInterface()
         }
     }
@@ -166,29 +175,56 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @MainActor
     private func handleScreenRecordingPermissionOnLaunch() {
-        if presentOverlayIfScreenRecordingIsAllowed() {
-            showWhatsNewWindowIfNeeded()
-            return
-        }
+        guard screenRecordingPermissionTask == nil else { return }
 
-        _ = requestScreenRecordingPermission()
-
-        if !presentOverlayIfScreenRecordingIsAllowed() {
-            showScreenRecordingPermissionWindow()
-        } else {
-            showWhatsNewWindowIfNeeded()
+        screenRecordingPermissionTask = Task { @MainActor in
+            defer { screenRecordingPermissionTask = nil }
+            while !Task.isCancelled {
+                do {
+                    let isAllowed = try await screenRecordingAccessIsAllowed()
+                    guard !Task.isCancelled else { return }
+                    if isAllowed {
+                        presentCaptureInterfaceAfterPermissionGranted()
+                    } else {
+                        showScreenRecordingPermissionWindow()
+                    }
+                    return
+                } catch {
+                    guard !Task.isCancelled else { return }
+                    // A capture-service failure does not establish that permission is missing.
+                    print("Unable to check screen recording access: \(error)")
+                    let alert = NSAlert()
+                    alert.alertStyle = .warning
+                    alert.messageText = AppText.screenRecordingAccessCheckFailed
+                    alert.informativeText = AppText.screenRecordingAccessCheckRetryMessage
+                    alert.addButton(withTitle: AppText.tryAgain)
+                    alert.addButton(withTitle: AppText.quit)
+                    guard presentScreenRecordingAccessError(alert) == .alertFirstButtonReturn else {
+                        quit()
+                        return
+                    }
+                }
+            }
         }
     }
 
-    @MainActor
-    @discardableResult
-    private func presentOverlayIfScreenRecordingIsAllowed() -> Bool {
-        guard hasScreenRecordingPermission() else { return false }
+    func screenRecordingAccessIsAllowed() async throws -> Bool {
+        try await checkScreenRecordingPermission()
+    }
 
+    func presentScreenRecordingAccessError(_ alert: NSAlert) -> NSApplication.ModalResponse {
+        NSApp.activate(ignoringOtherApps: true)
+        return alert.runModal()
+    }
+
+    @MainActor
+    private func presentCaptureInterfaceAfterPermissionGranted() {
         screenRecordingPermissionWindow?.close()
         screenRecordingPermissionWindow = nil
 
-        return overlayManager.presentOverlay()
+        if overlayManager.presentOverlay() {
+            showWhatsNewWindowIfNeeded()
+        }
     }
 
     @MainActor
@@ -238,14 +274,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @MainActor
     private func checkScreenRecordingPermissionAgain() {
-        if presentOverlayIfScreenRecordingIsAllowed() {
-            showWhatsNewWindowIfNeeded()
-        } else {
-            _ = requestScreenRecordingPermission()
-            if presentOverlayIfScreenRecordingIsAllowed() {
-                showWhatsNewWindowIfNeeded()
-            }
-        }
+        handleScreenRecordingPermissionOnLaunch()
     }
 
     // MARK: - What's New

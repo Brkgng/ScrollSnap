@@ -177,6 +177,18 @@ enum AppText {
         text("Screen Recording Required")
     }
 
+    static var screenRecordingAccessCheckFailed: String {
+        text("Screen recording access couldn’t be checked.")
+    }
+
+    static var screenRecordingAccessCheckRetryMessage: String {
+        text("Please try again.")
+    }
+
+    static var tryAgain: String {
+        text("Try Again")
+    }
+
     static var incompleteCaptureTitle: String { text("Capture may be incomplete") }
 
     static var incompleteCaptureMessage: String {

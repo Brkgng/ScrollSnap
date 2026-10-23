@@ -328,18 +328,22 @@ private func defaultDirectoryURL(for destination: SaveDestination) -> URL? {
     return FileManager.default.urls(for: directory, in: .userDomainMask).first
 }
 
-/// Returns whether screen recording permission is currently granted.
+/// Checks access using the capture API when preflight does not confirm it.
+/// Only an explicit permission denial is treated as missing permission.
 @MainActor
-func hasScreenRecordingPermission() -> Bool {
-    CGPreflightScreenCaptureAccess()
-}
+func checkScreenRecordingPermission(
+    preflight: () -> Bool = { CGPreflightScreenCaptureAccess() },
+    requestAccess: () async throws -> Void = {
+        _ = try await SCShareableContent.excludingDesktopWindows(true, onScreenWindowsOnly: true)
+    }
+) async throws -> Bool {
+    if preflight() { return true }
 
-/// Requests screen recording permission if it is not already granted.
-/// - Returns: `true` if access is already granted, `false` while requesting access.
-@MainActor
-func requestScreenRecordingPermission() -> Bool {
-    guard !hasScreenRecordingPermission() else { return true }
-
-    SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: true) { _, _ in }
-    return false
+    do {
+        try await requestAccess()
+        return true
+    } catch let error as NSError where error.domain == SCStreamErrorDomain
+        && error.code == SCStreamError.Code.userDeclined.rawValue {
+        return false
+    }
 }

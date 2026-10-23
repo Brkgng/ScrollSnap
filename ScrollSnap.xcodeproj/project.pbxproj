@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4A400012F20000100AA0001 /* ScreenRecordingPermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */; };
 		D4A100012F20000100AA0001 /* ScrollingCaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A100022F20000100AA0001 /* ScrollingCaptureSession.swift */; };
 		D4A200012F20000100AA0001 /* ScrollingCaptureSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */; };
 		D4A200022F20000100AA0001 /* StitchingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A200042F20000100AA0001 /* StitchingManagerTests.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingPermissionTests.swift; sourceTree = "<group>"; };
 		D4A100022F20000100AA0001 /* ScrollingCaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingCaptureSession.swift; sourceTree = "<group>"; };
 		D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingCaptureSessionTests.swift; sourceTree = "<group>"; };
 		D4A200042F20000100AA0001 /* StitchingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StitchingManagerTests.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		D4A200062F20000100AA0001 /* ScrollSnapTests */ = {
 			isa = PBXGroup;
 			children = (
+				D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */,
 				D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */,
 				D4A200042F20000100AA0001 /* StitchingManagerTests.swift */,
 			);
@@ -402,6 +405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A400012F20000100AA0001 /* ScreenRecordingPermissionTests.swift in Sources */,
 				D4A200012F20000100AA0001 /* ScrollingCaptureSessionTests.swift in Sources */,
 				D4A200022F20000100AA0001 /* StitchingManagerTests.swift in Sources */,
 			);

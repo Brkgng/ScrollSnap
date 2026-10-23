@@ -32,6 +32,21 @@ def run(command, log, cwd=REPO, allow_failure=False):
     return result.returncode
 
 
+def verify_app_signature(app, log):
+    signature = subprocess.run(["codesign", "--display", "--verbose=2", str(app)], capture_output=True, text=True)
+    details = signature.stdout + signature.stderr
+    log.write_text(details)
+    has_team = any(line.startswith("TeamIdentifier=") and line != "TeamIdentifier=not set"
+                   for line in details.splitlines())
+    if signature.returncode or "Signature=adhoc" in details or not has_team:
+        raise RuntimeError("ScrollSnap must use a certificate-signed build to preserve Screen Recording permission. "
+                           "Configure Config/Signing.local.xcconfig or supply a signed --app-bundle. "
+                           f"See {log}")
+    verification = subprocess.run(["codesign", "--verify", "--strict", str(app)], capture_output=True, text=True)
+    if verification.returncode:
+        raise RuntimeError("ScrollSnap signature verification failed: " + verification.stderr.strip())
+
+
 def content_matches(observation):
     return (abs(observation["actualHeight"] - observation["expectedHeight"]) <= 1
             and observation["actualRows"] == observation["expectedRows"])
@@ -129,10 +144,11 @@ def main():
     if app is None:
         run(["xcodebuild", "-project", REPO / "ScrollSnap.xcodeproj", "-scheme", "ScrollSnap",
              "-configuration", "Debug", "-destination", "platform=macOS", "-derivedDataPath", BUILD / "App",
-             "CODE_SIGN_IDENTITY=-", "DEVELOPMENT_TEAM=", "build"], output / "app-build.log")
+             "build"], output / "app-build.log")
         app = BUILD / "App/Build/Products/Debug/ScrollSnap Dev.app"
     if not app.is_dir():
         raise RuntimeError(f"Missing development app: {app}")
+    verify_app_signature(app, output / "app-signature.log")
     info = plistlib.loads((app / "Contents/Info.plist").read_bytes())
     executable = app / "Contents/MacOS" / info["CFBundleExecutable"]
     metadata["tested_app"] = {"path": str(app.resolve()), "bundle_id": info["CFBundleIdentifier"],
