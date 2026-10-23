@@ -1,5 +1,6 @@
 import AppKit
 import XCTest
+import Vision
 
 @MainActor
 final class CaptureUITests: XCTestCase {
@@ -130,6 +131,57 @@ final class CaptureUITests: XCTestCase {
         let expectedImage = NSImage(cgImage: expected, size: NSSize(width: FixtureDocument.width,
                                                                    height: FixtureDocument.viewportHeight + top))
         XCTAssertEqual(FixtureDocument.rows(in: image), FixtureDocument.rows(in: expectedImage))
+    }
+
+    func testOptionsDuringCaptureRestoresNativeScrolling() throws {
+        viewport.scroll(byDeltaX: 0, deltaY: -160)
+        let delta: CGFloat = offset > 0 ? -160 : 160
+        fixture.buttons["Reset"].click()
+        try launchCaptureApp()
+        try startCapture()
+
+        // The canvas toolbar is 40 points above the viewport; Options follows
+        // its 35-point drag handle and 40-point Cancel button.
+        let origin = viewport.coordinate(withNormalizedOffset: .zero)
+        let options = origin.withOffset(CGVector(dx: 115, dy: -65))
+        let gap = origin.withOffset(CGVector(dx: 115, dy: -37))
+        options.hover()
+        options.click()
+        gap.hover()
+        origin.withOffset(CGVector(dx: 115, dy: 99)).click() // Clipboard row closes Options.
+
+        options.hover()
+        options.click()
+        gap.hover()
+        let font: [NSAttributedString.Key: Any] = [.font: NSFont.systemFont(ofSize: 14)]
+        func width(_ text: String) -> CGFloat { text.size(withAttributes: font).width }
+        let pngWidth = max(44, width("PNG") + 16)
+        let pdfWidth = max(44, width("PDF") + 16)
+        let paperWidth = max(44, width("A4") + 16) + max(44, width("Letter") + 16)
+        let popupWidth = max(220, max(width("Reset Capture Layout"),
+                                     width("File format") + pngWidth + pdfWidth + 4,
+                                     width("Paper size") + paperWidth + 4) + 60)
+        let right = 75 + popupWidth
+        func paperSizeIsVisible() throws -> Bool {
+            let image = try XCTUnwrap(viewport.screenshot().image.cgImage(forProposedRect: nil, context: nil, hints: nil))
+            let request = VNRecognizeTextRequest()
+            request.recognitionLanguages = ["en-US"]
+            try VNImageRequestHandler(cgImage: image).perform([request])
+            return request.results?.contains { $0.topCandidates(1).first?.string.contains("Paper size") == true } == true
+        }
+        let png = origin.withOffset(CGVector(dx: right - 6 - pdfWidth - 4 - pngWidth / 2, dy: 164))
+        png.click()
+        XCTAssertFalse(try paperSizeIsVisible())
+        origin.withOffset(CGVector(dx: right - 6 - pdfWidth / 2, dy: 164)).click()
+        attach(viewport.screenshot().image, name: "options-during-capture-pdf")
+        XCTAssertTrue(try paperSizeIsVisible(), "Selecting PDF must reveal paper sizes while capture remains active")
+        png.click()
+        XCTAssertFalse(try paperSizeIsVisible(), "Selecting PNG must hide paper sizes again")
+        options.hover()
+        options.click()
+        viewport.scroll(byDeltaX: 0, deltaY: delta)
+        waitUntil("Native scrolling resumes after Options closes", timeout: 5) { self.offset > 0 }
+        _ = try finishCapture()
     }
 
     func testNormalCapturesWithoutRestarting() throws {

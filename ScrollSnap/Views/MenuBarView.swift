@@ -13,7 +13,7 @@ class MenuBarView: NSView {
     private weak var manager: OverlayManager?
     private weak var overlayView: OverlayView?
     private let screenFrame: NSRect
-    private var isOptionsPopupVisible = false
+    private(set) var isOptionsPopupVisible = false
     private var hoveredMenuControl: MenuControl?
     private var hoveredOptionsPopupTarget: OptionsPopupTarget?
 

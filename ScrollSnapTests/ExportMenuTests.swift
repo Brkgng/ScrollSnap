@@ -157,6 +157,78 @@ final class ExportMenuTests: XCTestCase {
         }
     }
 
+    func testCapturingOptionsKeepsMouseEventsUntilPopupDismisses() throws {
+        let manager = CapturingInputOverlayManager()
+        let screen = NSRect(x: 0, y: 0, width: 1440, height: 1200)
+        let overlay = OverlayView(manager: manager, screenFrame: screen)
+        let window = NSWindow(contentRect: screen, styleMask: .borderless, backing: .buffered, defer: false)
+        window.contentView = overlay
+        let geometry = MenuBarView(manager: manager, screenFrame: screen, overlayView: overlay)
+        let bar = manager.getMenuRectangle()
+        let optionsPoint = NSPoint(
+            x: bar.minX + MenuBarLayout.dragWidth + MenuBarLayout.cancelWidth + MenuBarLayout.optionsWidth / 2,
+            y: bar.midY
+        )
+
+        func hoverMenu(_ entered: Bool) throws {
+            let area = try XCTUnwrap(overlay.trackingAreas.first { $0.userInfo?["type"] as? String == "menu" })
+            let trackingEvent = MenuTrackingEvent(area: area)
+            if entered { overlay.mouseEntered(with: trackingEvent) }
+            else { overlay.mouseExited(with: trackingEvent) }
+        }
+
+        func click(_ point: NSPoint) throws {
+            for type in [NSEvent.EventType.leftMouseDown, .leftMouseUp] {
+                let event = try XCTUnwrap(NSEvent.mouseEvent(
+                    with: type, location: point, modifierFlags: [], timestamp: 0,
+                    windowNumber: window.windowNumber, context: nil, eventNumber: 0, clickCount: 1, pressure: 1
+                ))
+                if type == .leftMouseDown { overlay.mouseDown(with: event) }
+                else { overlay.mouseUp(with: event) }
+            }
+        }
+
+        func openOptions() throws {
+            try hoverMenu(true)
+            XCTAssertFalse(manager.ignoresMouseEvents)
+            try click(optionsPoint)
+            try hoverMenu(false)
+            XCTAssertFalse(manager.ignoresMouseEvents, "Crossing the gap into Options must keep clicks enabled")
+        }
+
+        try openOptions()
+        var popup = geometry.getOptionsPopupRect(for: bar)
+        let destination = try XCTUnwrap(geometry.getOptionsPopupRect(for: .destination(.clipboard), in: popup))
+        SaveDestination.downloads.persist()
+        try click(NSPoint(x: destination.midX, y: destination.midY))
+        XCTAssertEqual(SaveDestination.current(), .clipboard)
+        XCTAssertTrue(manager.ignoresMouseEvents, "Choosing a destination restores scrolling")
+
+        try openOptions()
+        popup = geometry.getOptionsPopupRect(for: bar)
+        let pdf = try XCTUnwrap(geometry.getOptionsPopupRect(for: .format(.pdf), in: popup))
+        try click(NSPoint(x: pdf.midX, y: pdf.midY))
+        XCTAssertEqual(ScreenshotFormat.current(), .pdf)
+        XCTAssertFalse(manager.ignoresMouseEvents, "Format changes keep Options interactive")
+        popup = geometry.getOptionsPopupRect(for: bar)
+        let paper = try XCTUnwrap(geometry.getOptionsPopupRect(for: .paperSize(.letter), in: popup))
+        try click(NSPoint(x: paper.midX, y: paper.midY))
+        XCTAssertEqual(PDFPaperSize.current(), .letter)
+        XCTAssertTrue(manager.ignoresMouseEvents, "Choosing paper size restores scrolling")
+
+        try openOptions()
+        try click(NSPoint(x: 10, y: 10))
+        XCTAssertTrue(manager.ignoresMouseEvents, "Dismissing Options outside restores scrolling")
+
+        try openOptions()
+        try hoverMenu(true)
+        try click(optionsPoint)
+        XCTAssertFalse(manager.ignoresMouseEvents, "Closing Options over the toolbar keeps its buttons clickable")
+        try hoverMenu(false)
+        XCTAssertTrue(manager.ignoresMouseEvents)
+        XCTAssertEqual(manager.captureCount, 0)
+    }
+
     func testThumbnailTimerPausesDuringMenuAndResumesAfterCancellation() throws {
         let manager = OverlayManager()
         let thumbnail = try makeThumbnail(manager: manager) { _, _, _ in
@@ -202,7 +274,7 @@ final class ExportMenuTests: XCTestCase {
 }
 
 @MainActor
-private final class CaptureCountingOverlayManager: OverlayManager {
+private class CaptureCountingOverlayManager: OverlayManager {
     var captureCount = 0
 
     override func getMenuRectangle() -> NSRect {
@@ -212,4 +284,30 @@ private final class CaptureCountingOverlayManager: OverlayManager {
     override func captureScreenshot() {
         captureCount += 1
     }
+}
+
+@MainActor
+private final class CapturingInputOverlayManager: CaptureCountingOverlayManager {
+    private(set) var ignoresMouseEvents = true
+
+    override func getIsScrollingCaptureActive() -> Bool { true }
+
+    override func setOverlayIgnoresMouseEvents(_ ignoresMouseEvents: Bool) {
+        self.ignoresMouseEvents = ignoresMouseEvents
+    }
+}
+
+private final class MenuTrackingEvent: NSEvent {
+    private let area: NSTrackingArea
+
+    init(area: NSTrackingArea) {
+        self.area = area
+        super.init()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override var trackingArea: NSTrackingArea? { area }
 }
