@@ -3740,434 +3740,110 @@
         }
       }
     },
-    "whatsNew.highlight.captureReliability.message" : {
-      "comment" : "What's New highlight body for more reliable scrolling captures, including faster scrolling.",
+    "whatsNew.highlight.printablePDFs.message" : {
+      "comment" : "What's New highlight message for printable pdfs.",
       "extractionState" : "manual",
       "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Verbesserte Bildzusammenfügung für schnelleres Scrollen, fixierte Kopfzeilen und Richtungswechsel beim Scrollen."
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Improved stitching for faster scrolling, sticky headers, and changes in scroll direction."
+            "value" : "Save long screenshots as multipage PDFs, ready to print on A4 or Letter paper."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichere lange Screenshots als mehrseitige PDFs zum Drucken auf A4- oder Letter-Papier."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ensamblado mejorado para desplazamientos más rápidos, encabezados fijos y cambios de dirección."
+            "value" : "Guarda capturas largas como PDF de varias páginas, listos para imprimir en papel A4 o Carta."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Assemblage amélioré pour le défilement rapide, les en-têtes fixes et les changements de sens."
+            "value" : "Enregistrez vos longues captures en PDF de plusieurs pages, prêts à imprimer sur du papier A4 ou Lettre."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "高速スクロール、固定ヘッダー、スクロール方向の変更に対応する画像結合を改善しました。"
+            "value" : "長いスクリーンショットを、A4またはレターサイズで印刷できる複数ページPDFとして保存できます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "빠른 스크롤, 고정 헤더, 스크롤 방향 변경에 더 잘 대응하도록 이미지 연결을 개선했습니다."
+            "value" : "긴 스크린샷을 A4 또는 Letter 용지에 인쇄할 수 있는 여러 페이지 PDF로 저장하세요."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daha hızlı kaydırma, sabit başlıklar ve kaydırma yönü değişiklikleri için iyileştirilmiş birleştirme."
+            "value" : "Uzun ekran görüntülerini A4 veya Letter kağıda yazdırmaya hazır, çok sayfalı PDF olarak kaydedin."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "改进了拼接，更好地应对快速滚动、固定标题栏和滚动方向变化。"
+            "value" : "将长截图保存为多页 PDF，方便使用 A4 或 Letter 纸张打印。"
           }
         }
       }
     },
-    "whatsNew.highlight.captureReliability.title" : {
-      "comment" : "What's New highlight title for more reliable scrolling captures, including faster scrolling.",
+    "whatsNew.highlight.printablePDFs.title" : {
+      "comment" : "What's New highlight title for printable pdfs.",
       "extractionState" : "manual",
       "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zuverlässigere scrollende Aufnahmen"
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "More Reliable Scrolling Captures"
+            "value" : "Printable PDFs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Druckfertige PDFs"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Capturas con desplazamiento más fiables"
+            "value" : "PDF listos para imprimir"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Captures avec défilement plus fiables"
+            "value" : "Des PDF prêts à imprimer"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "より安定したスクロールキャプチャ"
+            "value" : "印刷できるPDF"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "더 안정적인 스크롤 캡처"
+            "value" : "인쇄용 PDF 저장"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daha Güvenilir Kaydırmalı Yakalamalar"
+            "value" : "Yazdırmaya Hazır PDF’ler"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "更可靠的滚动截图"
-          }
-        }
-      }
-    },
-    "whatsNew.highlight.dockAccess.message" : {
-      "comment" : "What's New highlight body for Dock visibility and Command-Tab access.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wechsle mit ⌘Tab zu ScrollSnap, um die Aufnahmeoberfläche zu öffnen. Die Sichtbarkeit im Dock kannst du in den Einstellungen ändern."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Switch to ScrollSnap with ⌘Tab to bring up the capture interface. Control Dock visibility in Settings."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cambia a ScrollSnap con ⌘Tab para abrir la interfaz de captura. Elige si aparece en el Dock desde Ajustes."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passez à ScrollSnap avec ⌘Tab pour afficher l’interface de capture. Gérez sa présence dans le Dock dans Réglages."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "⌘TabでScrollSnapに切り替えると、キャプチャ画面が開きます。Dockへの表示は設定で変更できます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "⌘Tab으로 ScrollSnap으로 전환하면 캡처 화면이 열립니다. Dock 표시 여부는 설정에서 변경할 수 있습니다."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yakalama arayüzünü açmak için ⌘Tab ile ScrollSnap’e geçin. Dock’ta görünürlüğünü Ayarlar’dan değiştirebilirsiniz."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "使用 ⌘Tab 切换到 ScrollSnap 即可打开截图界面。在“设置”中选择是否在程序坞中显示。"
-          }
-        }
-      }
-    },
-    "whatsNew.highlight.dockAccess.title" : {
-      "comment" : "What's New highlight title for Dock visibility and Command-Tab access.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap im Dock"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap in Your Dock"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap en tu Dock"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap dans votre Dock"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "DockからScrollSnapへ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dock에서 만나는 ScrollSnap"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap Dock’unuzda"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "程序坞中的 ScrollSnap"
-          }
-        }
-      }
-    },
-    "whatsNew.highlight.incompleteCapture.message" : {
-      "comment" : "What's New highlight body for warnings when a capture may be incomplete.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap warnt dich jetzt, wenn eine Aufnahme möglicherweise unvollständig ist. Das aufgenommene Bild bleibt verfügbar."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap now warns you when a capture may be incomplete. Your captured image remains available."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap ahora te avisa si una captura podría estar incompleta. La imagen capturada sigue disponible."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap vous avertit désormais lorsqu’une capture peut être incomplète. L’image capturée reste disponible."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "キャプチャに欠けている部分がある可能性がある場合、ScrollSnapがお知らせします。キャプチャした画像はそのまま使えます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "캡처에 빠진 내용이 있을 수 있으면 ScrollSnap이 알려줍니다. 캡처한 이미지는 그대로 사용할 수 있습니다."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ScrollSnap artık bir yakalamanın eksik olabileceği durumlarda sizi uyarır. Yakaladığınız görüntüyü kullanmaya devam edebilirsiniz."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "当截图可能不完整时，ScrollSnap 现在会提醒你。已截取的图像仍可使用。"
-          }
-        }
-      }
-    },
-    "whatsNew.highlight.incompleteCapture.title" : {
-      "comment" : "What's New highlight title for warnings when a capture may be incomplete.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erfahre, wenn etwas fehlt"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Know When Something’s Missing"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Entérate si falta algo"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Soyez averti s’il manque du contenu"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "キャプチャの欠落をお知らせ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "빠진 내용이 있으면 알려드려요"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eksik İçerikten Haberdar Olun"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "内容缺失时及时知晓"
-          }
-        }
-      }
-    },
-    "whatsNew.highlight.sharperScreenshots.message" : {
-      "comment" : "What's New highlight body for sharper screenshots after fixing fractional selection blur.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ein Problem wurde behoben, durch das Text und feine Details in manchen Aufnahmebereichen unscharf erscheinen konnten."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fixed an issue that could make text and fine details look blurry in some capture areas."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Se corrigió un problema que podía hacer que el texto y los detalles finos se vieran borrosos en algunas áreas de captura."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Correction d’un problème pouvant rendre le texte et les détails fins flous dans certaines zones de capture."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "一部のキャプチャ範囲で文字や細部がぼやけることがある問題を修正しました。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "일부 캡처 영역에서 텍스트와 세부 내용이 흐릿하게 보일 수 있는 문제를 수정했습니다."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bazı yakalama alanlarında metinlerin ve ince ayrıntıların bulanık görünmesine neden olabilen bir sorun düzeltildi."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "修复了部分截图区域中文字和细节可能模糊的问题。"
-          }
-        }
-      }
-    },
-    "whatsNew.highlight.sharperScreenshots.title" : {
-      "comment" : "What's New highlight title for sharper screenshots after fixing fractional selection blur.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Schärfere Screenshots"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sharper Screenshots"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Capturas más nítidas"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Captures d’écran plus nettes"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "より鮮明なスクリーンショット"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "더 선명한 스크린샷"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Daha Net Ekran Görüntüleri"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更清晰的截图"
+            "value" : "可打印的 PDF"
           }
         }
       }
