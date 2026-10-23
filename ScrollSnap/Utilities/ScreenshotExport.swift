@@ -7,6 +7,10 @@ enum ScreenshotFormat: String, CaseIterable {
 
     static let storageKey = "ScreenshotFormat"
 
+    func persist(userDefaults: UserDefaults = .standard) {
+        userDefaults.set(rawValue, forKey: Self.storageKey)
+    }
+
     static func current(userDefaults: UserDefaults = .standard) -> ScreenshotFormat {
         ScreenshotFormat(rawValue: userDefaults.string(forKey: storageKey) ?? "") ?? .png
     }
@@ -17,6 +21,10 @@ enum PDFPaperSize: String, CaseIterable {
     case letter
 
     static let storageKey = "PDFPaperSize"
+
+    func persist(userDefaults: UserDefaults = .standard) {
+        userDefaults.set(rawValue, forKey: Self.storageKey)
+    }
 
     static func current(userDefaults: UserDefaults = .standard) -> PDFPaperSize {
         PDFPaperSize(rawValue: userDefaults.string(forKey: storageKey) ?? "") ?? .a4

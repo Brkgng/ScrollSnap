@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4A600012F20000100AA0001 /* ExportMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A600022F20000100AA0001 /* ExportMenuTests.swift */; };
 		D4A503012F20000100AA0001 /* TutorialDemo in Resources */ = {isa = PBXBuildFile; fileRef = D4A503022F20000100AA0001 /* TutorialDemo */; };
 		D4A502012F20000100AA0001 /* CaptureTutorialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A502022F20000100AA0001 /* CaptureTutorialTests.swift */; };
 		D4A501012F20000100AA0001 /* CaptureTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A501022F20000100AA0001 /* CaptureTutorialView.swift */; };
@@ -78,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4A600022F20000100AA0001 /* ExportMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportMenuTests.swift; sourceTree = "<group>"; };
 		D4A503022F20000100AA0001 /* TutorialDemo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TutorialDemo; path = ScrollSnap/Resources/TutorialDemo; sourceTree = SOURCE_ROOT; };
 		D4A502022F20000100AA0001 /* CaptureTutorialTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureTutorialTests.swift; sourceTree = "<group>"; };
 		D4A501022F20000100AA0001 /* CaptureTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureTutorialView.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */,
 				D4A200042F20000100AA0001 /* StitchingManagerTests.swift */,
 				D4A300042F20000100AA0001 /* ScreenshotExportTests.swift */,
+				D4A600022F20000100AA0001 /* ExportMenuTests.swift */,
 			);
 			path = ScrollSnapTests;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				D4A200012F20000100AA0001 /* ScrollingCaptureSessionTests.swift in Sources */,
 				D4A200022F20000100AA0001 /* StitchingManagerTests.swift in Sources */,
 				D4A300032F20000100AA0001 /* ScreenshotExportTests.swift in Sources */,
+				D4A600012F20000100AA0001 /* ExportMenuTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

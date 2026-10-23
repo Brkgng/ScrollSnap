@@ -14,6 +14,7 @@ class OverlayView: NSView {
     private var screenFrame: NSRect
     private let selectionRectangleView: SelectionRectangleView
     private var menuBarView: MenuBarView?
+    private var popupConsumedMouseDown = false
     private var hoverTrackingArea: NSTrackingArea?
     private var rectangleTrackingArea: NSTrackingArea?
     private var borderTrackingAreas: [NSTrackingArea] = []
@@ -52,7 +53,8 @@ class OverlayView: NSView {
         let localPoint = convertWindowToLocal(point: event.locationInWindow)
         let globalPoint = convertToGlobal(point: localPoint)
 
-        if menuBarView?.handleOpenPopupMouseDown(at: globalPoint) == true {
+        popupConsumedMouseDown = menuBarView?.handleOpenPopupMouseDown(at: globalPoint) == true
+        if popupConsumedMouseDown {
             return
         }
         
@@ -78,6 +80,10 @@ class OverlayView: NSView {
     }
     
     override func mouseUp(with event: NSEvent) {
+        if popupConsumedMouseDown {
+            popupConsumedMouseDown = false
+            return
+        }
         let localPoint = convertWindowToLocal(point: event.locationInWindow)
         let globalPoint = convertToGlobal(point: localPoint)
         selectionRectangleView.handleMouseUp()

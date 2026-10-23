@@ -76,7 +76,8 @@ Whether you want to add a completely new language or improve an existing transla
 6. **Save Options**:
 
 - Use the "Options" menu to set the save destination (Desktop, Clipboard, etc.).
-- In Settings → General, choose PNG or PDF under "File format". For PDF, choose A4 or Letter under "Paper size", then capture and save as usual. PDF pages preserve the image proportions and original pixels; print them at actual size (100%). Clipboard and drag-and-drop always use PNG.
+- In Options or Settings → General, choose PNG or PDF under "File format". For PDF, choose A4 or Letter under "Paper size", then capture and save as usual. PDF pages preserve the image proportions and original pixels; print them at actual size (100%). Clipboard and drag-and-drop always use PNG.
+- To choose a format for just one capture, right-click its thumbnail and choose "Save as PNG" or "Save as PDF" → A4 / Letter. This leaves your default format and paper size unchanged.
 
 7. **Settings**:
 

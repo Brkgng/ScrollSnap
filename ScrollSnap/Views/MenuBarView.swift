@@ -24,8 +24,10 @@ class MenuBarView: NSView {
         case capture
     }
 
-    private enum OptionsPopupTarget: Equatable {
+    enum OptionsPopupTarget: Equatable {
         case destination(SaveDestination)
+        case format(ScreenshotFormat)
+        case paperSize(PDFPaperSize)
         case reset
         case settings
         case quit
@@ -446,6 +448,25 @@ class MenuBarView: NSView {
         }
         drawOptionsPopupSeparator(in: getOptionsPopupSeparatorRect(in: popupRect))
 
+        drawExportOptionsRow(
+            title: AppText.fileFormat,
+            choices: ScreenshotFormat.allCases.map { (.format($0), $0.rawValue.uppercased(), $0 == ScreenshotFormat.current()) },
+            in: getExportOptionsRowRect(isPaperSize: false, in: popupRect)
+        )
+        if ScreenshotFormat.current() == .pdf {
+            drawExportOptionsRow(
+                title: AppText.paperSize,
+                choices: PDFPaperSize.allCases.map { (.paperSize($0), $0.localizedTitle, $0 == PDFPaperSize.current()) },
+                in: getExportOptionsRowRect(isPaperSize: true, in: popupRect)
+            )
+        }
+        drawOptionsPopupSeparator(in: NSRect(
+            x: popupRect.minX,
+            y: popupRect.minY + OptionsPopupLayout.padding + OptionsPopupLayout.actionHeight * 3 + OptionsPopupLayout.separatorHeight,
+            width: popupRect.width,
+            height: OptionsPopupLayout.separatorHeight
+        ))
+
         for (target, title) in [
             (OptionsPopupTarget.reset, AppText.resetSelectionAndMenuPositions),
             (.settings, AppText.settings),
@@ -460,6 +481,37 @@ class MenuBarView: NSView {
         }
 
         drawOptionsPopupSeparator(in: getOptionsPopupQuitSeparatorRect(in: popupRect))
+    }
+
+    private func drawExportOptionsRow(
+        title: String,
+        choices: [(OptionsPopupTarget, String, Bool)],
+        in rowRect: NSRect
+    ) {
+        drawOptionsPopupText(
+            title,
+            in: rowRect,
+            color: NSColor.black.withAlphaComponent(0.62),
+            font: NSFont.systemFont(ofSize: 12, weight: .semibold)
+        )
+        let titles = choices.map { $0.1 }
+        for (index, choice) in choices.enumerated() {
+            let rect = getOptionsChoiceRect(at: index, titles: titles, in: rowRect)
+            if choice.0 == hoveredOptionsPopupTarget {
+                drawHoveredOptionsPopupRow(rect)
+            } else if choice.2 {
+                drawSelectedOptionsPopupRow(rect)
+            }
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: Constants.Menu.Button.textFont,
+                .foregroundColor: Constants.Menu.Button.textColor
+            ]
+            let size = choice.1.size(withAttributes: attributes)
+            choice.1.draw(at: NSPoint(
+                x: rect.midX - size.width / 2 - screenFrame.minX,
+                y: rect.midY - size.height / 2 - screenFrame.minY
+            ), withAttributes: attributes)
+        }
     }
 
     private func drawHoveredOptionsPopupRow(_ globalRect: NSRect) {
@@ -532,6 +584,13 @@ class MenuBarView: NSView {
             switch target {
             case .destination(let destination):
                 destination.persist()
+            case .format(let format):
+                format.persist()
+                hoveredOptionsPopupTarget = nil
+                invalidateOverlay()
+                return true
+            case .paperSize(let paperSize):
+                paperSize.persist()
             case .reset:
                 manager?.resetPositions()
             case .settings:
@@ -553,7 +612,9 @@ class MenuBarView: NSView {
             }
         }
 
-        for target in [OptionsPopupTarget.reset, .settings, .quit] {
+        let exportTargets = ScreenshotFormat.allCases.map { OptionsPopupTarget.format($0) }
+            + PDFPaperSize.allCases.map { OptionsPopupTarget.paperSize($0) }
+        for target in exportTargets + [.reset, .settings, .quit] {
             if let rowRect = getOptionsPopupRect(for: target, in: popupRect),
                rowRect.contains(point) {
                 return target
@@ -563,7 +624,7 @@ class MenuBarView: NSView {
         return nil
     }
 
-    private func getOptionsPopupRect(for menuRect: NSRect) -> NSRect {
+    func getOptionsPopupRect(for menuRect: NSRect) -> NSRect {
         let optionsRect = getOptionsButtonRect(for: menuRect)
         let width = getOptionsPopupWidth()
         let height = getOptionsPopupHeight()
@@ -593,6 +654,9 @@ class MenuBarView: NSView {
             + OptionsPopupLayout.separatorHeight
             + OptionsPopupLayout.actionHeight * 3
             + OptionsPopupLayout.separatorHeight
+            + OptionsPopupLayout.rowHeight
+            + (ScreenshotFormat.current() == .pdf ? OptionsPopupLayout.rowHeight : 0)
+            + OptionsPopupLayout.separatorHeight
     }
 
     private func getOptionsPopupWidth() -> CGFloat {
@@ -603,7 +667,12 @@ class MenuBarView: NSView {
             AppText.quitApp
         ]
         let textWidth = titles.map { $0.size(withAttributes: attributes).width }.max() ?? 0
-        let preferredWidth = textWidth + OptionsPopupLayout.padding * 2 + OptionsPopupLayout.checkmarkWidth + 24
+        let formatWidth = AppText.fileFormat.size(withAttributes: attributes).width
+            + optionsChoiceWidths(for: ScreenshotFormat.allCases.map { $0.rawValue.uppercased() }).reduce(0, +) + 4
+        let paperWidth = AppText.paperSize.size(withAttributes: attributes).width
+            + optionsChoiceWidths(for: PDFPaperSize.allCases.map(\.localizedTitle)).reduce(0, +) + 4
+        let preferredWidth = max(textWidth, formatWidth, paperWidth)
+            + OptionsPopupLayout.padding * 2 + OptionsPopupLayout.checkmarkWidth + 24
         return min(max(220, preferredWidth), screenFrame.width - OptionsPopupLayout.margin * 2)
     }
 
@@ -648,7 +717,7 @@ class MenuBarView: NSView {
         )
     }
 
-    private func getOptionsPopupRect(for target: OptionsPopupTarget, in popupRect: NSRect) -> NSRect? {
+    func getOptionsPopupRect(for target: OptionsPopupTarget, in popupRect: NSRect) -> NSRect? {
         let firstRowMaxY = popupRect.maxY - OptionsPopupLayout.padding - OptionsPopupLayout.headingHeight
 
         switch target {
@@ -662,6 +731,21 @@ class MenuBarView: NSView {
                 y: firstRowMaxY - CGFloat(index + 1) * OptionsPopupLayout.rowHeight - separatorOffset,
                 width: popupRect.width,
                 height: OptionsPopupLayout.rowHeight
+            )
+        case .format(let format):
+            guard let index = ScreenshotFormat.allCases.firstIndex(of: format) else { return nil }
+            return getOptionsChoiceRect(
+                at: index,
+                titles: ScreenshotFormat.allCases.map { $0.rawValue.uppercased() },
+                in: getExportOptionsRowRect(isPaperSize: false, in: popupRect)
+            )
+        case .paperSize(let paperSize):
+            guard ScreenshotFormat.current() == .pdf,
+                  let index = PDFPaperSize.allCases.firstIndex(of: paperSize) else { return nil }
+            return getOptionsChoiceRect(
+                at: index,
+                titles: PDFPaperSize.allCases.map(\.localizedTitle),
+                in: getExportOptionsRowRect(isPaperSize: true, in: popupRect)
             )
         case .reset:
             return NSRect(
@@ -691,6 +775,34 @@ class MenuBarView: NSView {
                 height: OptionsPopupLayout.actionHeight
             )
         }
+    }
+
+    private func getExportOptionsRowRect(isPaperSize: Bool, in popupRect: NSRect) -> NSRect {
+        let paperRowHeight = !isPaperSize && ScreenshotFormat.current() == .pdf ? OptionsPopupLayout.rowHeight : 0
+        return NSRect(
+            x: popupRect.minX,
+            y: popupRect.minY + OptionsPopupLayout.padding + OptionsPopupLayout.actionHeight * 3
+                + OptionsPopupLayout.separatorHeight * 2 + paperRowHeight,
+            width: popupRect.width,
+            height: OptionsPopupLayout.rowHeight
+        )
+    }
+
+    private func optionsChoiceWidths(for titles: [String]) -> [CGFloat] {
+        let attributes: [NSAttributedString.Key: Any] = [.font: Constants.Menu.Button.textFont]
+        return titles.map { max(44, $0.size(withAttributes: attributes).width + 16) }
+    }
+
+    private func getOptionsChoiceRect(at index: Int, titles: [String], in rowRect: NSRect) -> NSRect {
+        let widths = optionsChoiceWidths(for: titles)
+        let totalWidth = widths.reduce(0, +) + CGFloat(titles.count - 1) * 4
+        return NSRect(
+            x: rowRect.maxX - OptionsPopupLayout.padding - totalWidth
+                + widths.prefix(index).reduce(0, +) + CGFloat(index) * 4,
+            y: rowRect.minY + 2,
+            width: widths[index],
+            height: rowRect.height - 4
+        )
     }
 
     private func invalidateOverlay() {

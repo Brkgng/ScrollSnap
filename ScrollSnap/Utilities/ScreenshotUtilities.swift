@@ -70,19 +70,26 @@ func captureSingleScreenshot(_ rectangle: NSRect) async -> NSImage? {
 /// - Parameters:
 ///   - image: The `NSImage` to save.
 ///   - destination: An optional save destination. If `nil`, uses the saved user preference or the default destination.
+///   - format: A format for this save only. If `nil`, uses the saved preference.
+///   - paperSize: A PDF paper size for this save only. If `nil`, uses the saved preference.
 /// - Returns: A `URL` to the saved file if saved to the file system, or `nil` if saved to Clipboard/Preview or if saving fails.
 /// - Note: Generates a filename with a timestamp (e.g., "Screenshot 2025-03-11 at 14.30.00.png").
 @discardableResult
-func saveImage(_ image: NSImage, to destination: SaveDestination? = nil) -> URL? {
+func saveImage(
+    _ image: NSImage,
+    to destination: SaveDestination? = nil,
+    format: ScreenshotFormat? = nil,
+    paperSize: PDFPaperSize? = nil
+) -> URL? {
     let selectedDestination = destination ?? SaveDestination.current()
-    let format = selectedDestination.behavior == .clipboard ? .png : ScreenshotFormat.current()
+    let format = selectedDestination.behavior == .clipboard ? .png : (format ?? ScreenshotFormat.current())
     let imageData: Data?
     switch format {
     case .png:
         imageData = image.pngData
     case .pdf:
         imageData = image.cgImage(forProposedRect: nil, context: nil, hints: nil).flatMap {
-            ScreenshotPDF.data(for: $0, paperSize: PDFPaperSize.current())
+            ScreenshotPDF.data(for: $0, paperSize: paperSize ?? PDFPaperSize.current())
         }
     }
     guard let imageData else {

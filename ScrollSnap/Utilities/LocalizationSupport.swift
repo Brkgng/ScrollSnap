@@ -150,6 +150,9 @@ enum AppText {
         text("Save")
     }
 
+    static var saveAsPNG: String { text("Save as PNG") }
+    static var saveAsPDF: String { text("Save as PDF") }
+
     static var options: String {
         text("Options")
     }
