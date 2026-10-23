@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4A503012F20000100AA0001 /* TutorialDemo in Resources */ = {isa = PBXBuildFile; fileRef = D4A503022F20000100AA0001 /* TutorialDemo */; };
+		D4A502012F20000100AA0001 /* CaptureTutorialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A502022F20000100AA0001 /* CaptureTutorialTests.swift */; };
+		D4A501012F20000100AA0001 /* CaptureTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A501022F20000100AA0001 /* CaptureTutorialView.swift */; };
+		D4A500012F20000100AA0001 /* CaptureTutorialState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A500022F20000100AA0001 /* CaptureTutorialState.swift */; };
 		D4A400012F20000100AA0001 /* ScreenRecordingPermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */; };
 		D4A300012F20000100AA0001 /* ScreenshotExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A300022F20000100AA0001 /* ScreenshotExport.swift */; };
 		D4A300032F20000100AA0001 /* ScreenshotExportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A300042F20000100AA0001 /* ScreenshotExportTests.swift */; };
@@ -74,6 +78,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4A503022F20000100AA0001 /* TutorialDemo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TutorialDemo; path = ScrollSnap/Resources/TutorialDemo; sourceTree = SOURCE_ROOT; };
+		D4A502022F20000100AA0001 /* CaptureTutorialTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureTutorialTests.swift; sourceTree = "<group>"; };
+		D4A501022F20000100AA0001 /* CaptureTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureTutorialView.swift; sourceTree = "<group>"; };
+		D4A500022F20000100AA0001 /* CaptureTutorialState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureTutorialState.swift; sourceTree = "<group>"; };
 		D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingPermissionTests.swift; sourceTree = "<group>"; };
 		D4A300022F20000100AA0001 /* ScreenshotExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotExport.swift; sourceTree = "<group>"; };
 		D4A300042F20000100AA0001 /* ScreenshotExportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotExportTests.swift; sourceTree = "<group>"; };
@@ -144,6 +152,7 @@
 		D4A200062F20000100AA0001 /* ScrollSnapTests */ = {
 			isa = PBXGroup;
 			children = (
+				D4A502022F20000100AA0001 /* CaptureTutorialTests.swift */,
 				D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */,
 				D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */,
 				D4A200042F20000100AA0001 /* StitchingManagerTests.swift */,
@@ -184,6 +193,7 @@
 		D4BBCA782D7089A10022FF73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D4A501022F20000100AA0001 /* CaptureTutorialView.swift */,
 				D4BBCA6E2D5A12600022FF73 /* OverlayView.swift */,
 				D4C1F4D02CEF9F6900E5A9A8 /* ContentView.swift */,
 				D40200102F00000100AA0001 /* SettingsView.swift */,
@@ -199,6 +209,7 @@
 		D4BBCA792D7089AC0022FF73 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D4A500022F20000100AA0001 /* CaptureTutorialState.swift */,
 				D4BBCA682D5A106B0022FF73 /* Constants.swift */,
 				D40200042F00000100AA0001 /* LocalizationSupport.swift */,
 				D47B00002EBA000100AA1001 /* ReviewUtilities.swift */,
@@ -247,6 +258,7 @@
 				D45709EB2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy */,
 				D4318A2B2D86CD3F009A9A1C /* Info.plist */,
 				D40200022F00000100AA0001 /* Localizable.xcstrings */,
+				D4A503022F20000100AA0001 /* TutorialDemo */,
 				D4BBCA7A2D708B170022FF73 /* App */,
 				D4BBCA792D7089AC0022FF73 /* Utilities */,
 				D4BBCA782D7089A10022FF73 /* Views */,
@@ -398,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40200032F00000100AA0001 /* Localizable.xcstrings in Resources */,
+				D4A503012F20000100AA0001 /* TutorialDemo in Resources */,
 				D45709EC2DB6BF7E00C05E54 /* PrivacyInfo.xcprivacy in Resources */,
 				D4C1F4D62CEF9F6A00E5A9A8 /* Preview Assets.xcassets in Resources */,
 				D4C1F4D32CEF9F6A00E5A9A8 /* Assets.xcassets in Resources */,
@@ -411,6 +424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A502012F20000100AA0001 /* CaptureTutorialTests.swift in Sources */,
 				D4A400012F20000100AA0001 /* ScreenRecordingPermissionTests.swift in Sources */,
 				D4A200012F20000100AA0001 /* ScrollingCaptureSessionTests.swift in Sources */,
 				D4A200022F20000100AA0001 /* StitchingManagerTests.swift in Sources */,
@@ -430,6 +444,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A501012F20000100AA0001 /* CaptureTutorialView.swift in Sources */,
+				D4A500012F20000100AA0001 /* CaptureTutorialState.swift in Sources */,
 				D4A100012F20000100AA0001 /* ScrollingCaptureSession.swift in Sources */,
 				E10000012F10000100AA0001 /* GlobalShortcut.swift in Sources */,
 				E10000022F10000100AA0001 /* LoginItemManager.swift in Sources */,

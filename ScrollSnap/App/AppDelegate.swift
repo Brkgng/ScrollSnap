@@ -10,7 +10,10 @@ import KeyboardShortcuts
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let overlayManager = OverlayManager()
     let loginItemManager = LoginItemManager()
-    private let updateFeedbackManager = UpdateFeedbackManager()
+    private let updateFeedbackManager: UpdateFeedbackManager
+    private let captureTutorialState: CaptureTutorialState
+    private(set) var captureTutorialWindow: NSWindow?
+    private var continueToCaptureAfterTutorial = false
     private var localKeyEventMonitor: Any?
     private var shortcutTask: Task<Void, Never>?
     private var screenRecordingPermissionTask: Task<Void, Never>?
@@ -19,6 +22,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var whatsNewWindowVersion: String?
     private var isLoginLaunch = false
     private var hasCompletedLaunch = false
+
+    override init() {
+        updateFeedbackManager = UpdateFeedbackManager()
+        captureTutorialState = CaptureTutorialState()
+        super.init()
+    }
+
+    init(defaults: UserDefaults) {
+        updateFeedbackManager = UpdateFeedbackManager(defaults: defaults)
+        captureTutorialState = CaptureTutorialState(defaults: defaults)
+        super.init()
+    }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Unit tests inject permission responses and must not open the real capture UI.
@@ -27,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let showInDock = UserDefaults.standard.object(forKey: Constants.showInDockKey) as? Bool ?? true
         NSApp.setActivationPolicy(showInDock ? .regular : .accessory)
 
-        updateFeedbackManager.recordLaunch(currentVersion: UpdateFeedbackManager.currentAppVersion)
+        recordLaunch(screenRecordingAlreadyAllowed: CGPreflightScreenCaptureAccess())
         cleanupOldTemporaryFiles()
         installLocalKeyEventMonitor()
         installGlobalShortcutHandler()
@@ -75,7 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         guard hasCompletedLaunch, NSApp.activationPolicy() == .regular else { return }
 
         Task { @MainActor in
-            guard NSApp.isActive else { return }
+            guard NSApp.isActive, captureTutorialWindow == nil else { return }
             if screenRecordingPermissionWindow != nil {
                 handleScreenRecordingPermissionOnLaunch()
                 return
@@ -85,6 +100,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func windowWillClose(_ notification: Notification) {
+        if notification.object as? NSWindow === captureTutorialWindow {
+            captureTutorialState.dismiss()
+            captureTutorialWindow = nil
+            let shouldContinue = continueToCaptureAfterTutorial
+            continueToCaptureAfterTutorial = false
+            overlayManager.resumeFloatingWindows(for: .tutorial)
+            if shouldContinue {
+                // Recheck access after the guide, including permission revoked while it was open.
+                Task { @MainActor [weak self] in self?.presentCaptureInterface() }
+            }
+            return
+        }
+
         guard notification.object as? NSWindow === whatsNewWindow else { return }
 
         if let whatsNewWindowVersion {
@@ -145,6 +173,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private func presentCaptureInterface() {
         guard screenRecordingPermissionWindow == nil,
               whatsNewWindow == nil,
+              captureTutorialWindow == nil,
               overlayManager.canPresentOverlay else {
             return
         }
@@ -169,6 +198,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     func quit() {
         NSApp.terminate(nil)
+    }
+
+    func recordLaunch(screenRecordingAlreadyAllowed: Bool) {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--test-first-use") {
+            captureTutorialState.prepareForFirstUseTest()
+        }
+        #endif
+
+        // An existing grant also identifies older installs without launch tracking.
+        captureTutorialState.recordLaunch(
+            isExistingUser: updateFeedbackManager.hasPreviousAppState || screenRecordingAlreadyAllowed
+        )
+        updateFeedbackManager.recordLaunch(currentVersion: UpdateFeedbackManager.currentAppVersion)
     }
 
     // MARK: - Screen Recording Permission
@@ -218,17 +261,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     @MainActor
-    private func presentCaptureInterfaceAfterPermissionGranted() {
+    func presentCaptureInterfaceAfterPermissionGranted() {
         screenRecordingPermissionWindow?.close()
         screenRecordingPermissionWindow = nil
 
-        if overlayManager.presentOverlay() {
+        guard captureTutorialWindow == nil, overlayManager.canPresentOverlay else { return }
+        if captureTutorialState.isPending {
+            showCaptureTutorial(continueToCapture: true)
+            return
+        }
+
+        if presentCaptureOverlay() {
             showWhatsNewWindowIfNeeded()
         }
     }
 
+    func presentCaptureOverlay() -> Bool {
+        overlayManager.presentOverlay()
+    }
+
     @MainActor
-    private func showScreenRecordingPermissionWindow() {
+    func showScreenRecordingPermissionWindow() {
         if let screenRecordingPermissionWindow {
             screenRecordingPermissionWindow.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
@@ -277,10 +330,48 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         handleScreenRecordingPermissionOnLaunch()
     }
 
+    // MARK: - Capture Tutorial
+
+    func showCaptureTutorial(continueToCapture: Bool = false) {
+        if let captureTutorialWindow {
+            activateTutorialWindow(captureTutorialWindow)
+            return
+        }
+        guard overlayManager.sessionState != .capturing,
+              overlayManager.sessionState != .finishing else { return }
+
+        let view = CaptureTutorialView { [weak self] in
+            self?.captureTutorialWindow?.close()
+        }
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 700, height: 0),
+            styleMask: [.titled, .closable],
+            backing: .buffered,
+            defer: false
+        )
+        window.title = AppText.captureTutorialTitle
+        window.isReleasedWhenClosed = false
+        window.delegate = self
+        let hostingView = NSHostingView(rootView: view)
+        window.contentView = hostingView
+        window.setContentSize(hostingView.fittingSize)
+        window.center()
+
+        captureTutorialWindow = window
+        continueToCaptureAfterTutorial = continueToCapture
+        overlayManager.suspendFloatingWindows(for: .tutorial)
+        activateTutorialWindow(window)
+    }
+
+    func activateTutorialWindow(_ window: NSWindow) {
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
     // MARK: - What's New
 
     @MainActor
-    private func showWhatsNewWindowIfNeeded() {
+    func showWhatsNewWindowIfNeeded() {
         guard let version = updateFeedbackManager.pendingVersionToShow else { return }
 
         let highlights = WhatsNewContent.currentHighlights

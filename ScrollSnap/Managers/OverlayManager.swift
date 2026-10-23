@@ -8,6 +8,7 @@ import SwiftUI
 enum FloatingWindowSuspensionReason: Hashable {
     case settings
     case whatsNew
+    case tutorial
 }
 
 enum CaptureSessionState {

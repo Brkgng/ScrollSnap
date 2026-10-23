@@ -12,6 +12,7 @@ struct SettingsView: View {
 
     @ObservedObject var loginItemManager: LoginItemManager
     let onResetPositions: () -> Void
+    let onShowCaptureTutorial: () -> Void
     let onAppear: () -> Void
     let onDisappear: () -> Void
 
@@ -264,6 +265,11 @@ struct SettingsView: View {
             .padding(.bottom, 8)
             
             Section {
+                Button(action: onShowCaptureTutorial) {
+                    Label(AppText.captureTutorialMenuTitle, systemImage: "questionmark.circle")
+                }
+                .buttonStyle(.plain)
+
                 Button(action: openSupportEmail) {
                     HStack {
                         Label(AppText.contactSupport, systemImage: "envelope")
