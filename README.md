@@ -23,6 +23,7 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 - **Interactive Menu**: Includes options to capture, save, reset positions, or cancel, with a draggable interface.
 - **Thumbnail Preview**: Displays a draggable thumbnail of the captured image with swipe-to-save or right-click options.
 - **Save Destinations**: Supports saving to Desktop, Documents, Downloads, Clipboard, or opening in Preview.
+- **Printable PDFs**: Choose PDF in Settings to split long screenshots across A4 or Letter pages with half-inch margins. PNG remains the default.
 - **Settings**: Adjust Dock visibility, language, and selection and menu positions via the native settings window (Command + ,).
 
 ## 🌍 Multi-Language Support
@@ -75,6 +76,7 @@ Whether you want to add a completely new language or improve an existing transla
 6. **Save Options**:
 
 - Use the "Options" menu to set the save destination (Desktop, Clipboard, etc.).
+- In Settings → General, choose PNG or PDF under "File format". For PDF, choose A4 or Letter under "Paper size", then capture and save as usual. PDF pages preserve the image proportions and original pixels; print them at actual size (100%). Clipboard and drag-and-drop always use PNG.
 
 7. **Settings**:
 

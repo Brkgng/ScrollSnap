@@ -141,6 +141,12 @@ enum AppText {
         text("Save to")
     }
 
+    static var fileFormat: String { text("File format") }
+    static var paperSize: String { text("Paper size") }
+    static var pdfExportDescription: String {
+        text("PDFs are split into printable pages. Clipboard and drag-and-drop use PNG.")
+    }
+
     static var settingsWindowTitle: String {
         text("ScrollSnap Settings")
     }

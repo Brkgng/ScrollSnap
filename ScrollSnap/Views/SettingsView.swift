@@ -20,6 +20,12 @@ struct SettingsView: View {
 
     @AppStorage(Constants.showInDockKey)
     private var showInDock = true
+
+    @AppStorage(ScreenshotFormat.storageKey)
+    private var screenshotFormat = ScreenshotFormat.png
+
+    @AppStorage(PDFPaperSize.storageKey)
+    private var pdfPaperSize = PDFPaperSize.a4
     
     @State private var initialLanguageRawValue: String = ""
     @State private var shortcutFeedback: String?
@@ -159,6 +165,25 @@ struct SettingsView: View {
                     Text(errorMessage)
                         .font(.caption)
                         .foregroundStyle(.red)
+                }
+            }
+
+            Section {
+                Picker(AppText.fileFormat, selection: $screenshotFormat) {
+                    ForEach(ScreenshotFormat.allCases, id: \.self) { format in
+                        Text(format.rawValue.uppercased()).tag(format)
+                    }
+                }
+
+                if screenshotFormat == .pdf {
+                    Picker(AppText.paperSize, selection: $pdfPaperSize) {
+                        ForEach(PDFPaperSize.allCases, id: \.self) { paperSize in
+                            Text(paperSize.localizedTitle).tag(paperSize)
+                        }
+                    }
+                    Text(AppText.pdfExportDescription)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             }
 

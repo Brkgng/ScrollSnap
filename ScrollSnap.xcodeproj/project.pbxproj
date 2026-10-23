@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D4A400012F20000100AA0001 /* ScreenRecordingPermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */; };
+		D4A300012F20000100AA0001 /* ScreenshotExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A300022F20000100AA0001 /* ScreenshotExport.swift */; };
+		D4A300032F20000100AA0001 /* ScreenshotExportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A300042F20000100AA0001 /* ScreenshotExportTests.swift */; };
 		D4A100012F20000100AA0001 /* ScrollingCaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A100022F20000100AA0001 /* ScrollingCaptureSession.swift */; };
 		D4A200012F20000100AA0001 /* ScrollingCaptureSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */; };
 		D4A200022F20000100AA0001 /* StitchingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A200042F20000100AA0001 /* StitchingManagerTests.swift */; };
@@ -73,6 +75,8 @@
 
 /* Begin PBXFileReference section */
 		D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingPermissionTests.swift; sourceTree = "<group>"; };
+		D4A300022F20000100AA0001 /* ScreenshotExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotExport.swift; sourceTree = "<group>"; };
+		D4A300042F20000100AA0001 /* ScreenshotExportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotExportTests.swift; sourceTree = "<group>"; };
 		D4A100022F20000100AA0001 /* ScrollingCaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingCaptureSession.swift; sourceTree = "<group>"; };
 		D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingCaptureSessionTests.swift; sourceTree = "<group>"; };
 		D4A200042F20000100AA0001 /* StitchingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StitchingManagerTests.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				D4A400022F20000100AA0001 /* ScreenRecordingPermissionTests.swift */,
 				D4A200032F20000100AA0001 /* ScrollingCaptureSessionTests.swift */,
 				D4A200042F20000100AA0001 /* StitchingManagerTests.swift */,
+				D4A300042F20000100AA0001 /* ScreenshotExportTests.swift */,
 			);
 			path = ScrollSnapTests;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				D47C00002F01000100AA1001 /* UpdateFeedbackManager.swift */,
 				D47C00022F01000100AA1001 /* WhatsNewContent.swift */,
 				D4C1F4DF2CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift */,
+				D4A300022F20000100AA0001 /* ScreenshotExport.swift */,
 				E10000112F10000100AA0001 /* GlobalShortcut.swift */,
 			);
 			path = Utilities;
@@ -408,6 +414,7 @@
 				D4A400012F20000100AA0001 /* ScreenRecordingPermissionTests.swift in Sources */,
 				D4A200012F20000100AA0001 /* ScrollingCaptureSessionTests.swift in Sources */,
 				D4A200022F20000100AA0001 /* StitchingManagerTests.swift in Sources */,
+				D4A300032F20000100AA0001 /* ScreenshotExportTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +442,7 @@
 				D4BBCA8A2D7343CB0022FF73 /* ThumbnailView.swift in Sources */,
 				D4C1F4CF2CEF9F6900E5A9A8 /* ScrollSnapApp.swift in Sources */,
 				D4C1F4E02CEFA2BB00E5A9A8 /* ScreenshotUtilities.swift in Sources */,
+				D4A300012F20000100AA0001 /* ScreenshotExport.swift in Sources */,
 				D4BBCA7C2D708B340022FF73 /* AppDelegate.swift in Sources */,
 				D47C00012F01000100AA1001 /* UpdateFeedbackManager.swift in Sources */,
 				D417112C2D7DD42200DE2390 /* SelectionRectangleView.swift in Sources */,

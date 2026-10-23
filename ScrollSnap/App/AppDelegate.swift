@@ -395,7 +395,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 guard AppText.supportedScreenshotFilenamePrefixes.contains(where: {
                     fileURL.lastPathComponent.hasPrefix("\($0) ")
                 }) &&
-                      fileURL.pathExtension == "png" else {
+                      ScreenshotFormat(rawValue: fileURL.pathExtension) != nil else {
                     continue
                 }
                 
