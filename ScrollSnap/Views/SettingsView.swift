@@ -12,11 +12,21 @@ struct SettingsView: View {
 
     @ObservedObject var loginItemManager: LoginItemManager
     let onResetPositions: () -> Void
+    let onShowCaptureTutorial: () -> Void
     let onAppear: () -> Void
     let onDisappear: () -> Void
 
     @AppStorage(AppLanguage.storageKey)
     private var selectedLanguageRawValue = AppLanguage.defaultValue.rawValue
+
+    @AppStorage(Constants.showInDockKey)
+    private var showInDock = true
+
+    @AppStorage(ScreenshotFormat.storageKey)
+    private var screenshotFormat = ScreenshotFormat.png
+
+    @AppStorage(PDFPaperSize.storageKey)
+    private var pdfPaperSize = PDFPaperSize.a4
     
     @State private var initialLanguageRawValue: String = ""
     @State private var shortcutFeedback: String?
@@ -129,6 +139,11 @@ struct SettingsView: View {
             }
 
             Section {
+                Toggle(AppText.showInDock, isOn: $showInDock)
+                    .onChange(of: showInDock) { _, isVisible in
+                        NSApp.setActivationPolicy(isVisible ? .regular : .accessory)
+                    }
+
                 Toggle(
                     AppText.launchAtLogin,
                     isOn: Binding(
@@ -151,6 +166,25 @@ struct SettingsView: View {
                     Text(errorMessage)
                         .font(.caption)
                         .foregroundStyle(.red)
+                }
+            }
+
+            Section {
+                Picker(AppText.fileFormat, selection: $screenshotFormat) {
+                    ForEach(ScreenshotFormat.allCases, id: \.self) { format in
+                        Text(format.rawValue.uppercased()).tag(format)
+                    }
+                }
+
+                if screenshotFormat == .pdf {
+                    Picker(AppText.paperSize, selection: $pdfPaperSize) {
+                        ForEach(PDFPaperSize.allCases, id: \.self) { paperSize in
+                            Text(paperSize.localizedTitle).tag(paperSize)
+                        }
+                    }
+                    Text(AppText.pdfExportDescription)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             }
 
@@ -231,6 +265,11 @@ struct SettingsView: View {
             .padding(.bottom, 8)
             
             Section {
+                Button(action: onShowCaptureTutorial) {
+                    Label(AppText.captureTutorialMenuTitle, systemImage: "questionmark.circle")
+                }
+                .buttonStyle(.plain)
+
                 Button(action: openSupportEmail) {
                     HStack {
                         Label(AppText.contactSupport, systemImage: "envelope")

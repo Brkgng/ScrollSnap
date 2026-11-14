@@ -1,0 +1,123 @@
+// !$*UTF8*$!
+{
+    archiveVersion = 1;
+    classes = {};
+    objectVersion = 56;
+    objects = {
+        A00000000000000000000001 = {isa = PBXBuildFile; fileRef = A00000000000000000000011; };
+        A00000000000000000000002 = {isa = PBXBuildFile; fileRef = A00000000000000000000012; };
+        A00000000000000000000003 = {isa = PBXBuildFile; fileRef = A00000000000000000000011; };
+        A00000000000000000000004 = {isa = PBXBuildFile; fileRef = A00000000000000000000013; };
+        A00000000000000000000005 = {isa = PBXBuildFile; fileRef = A00000000000000000000016; };
+        A00000000000000000000006 = {isa = PBXBuildFile; fileRef = A00000000000000000000016; };
+        A00000000000000000000007 = {isa = PBXBuildFile; fileRef = A00000000000000000000017; };
+        A00000000000000000000008 = {isa = PBXBuildFile; fileRef = A00000000000000000000017; };
+
+        A00000000000000000000011 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureDocument.swift; sourceTree = "<group>"; };
+        A00000000000000000000012 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureApp.swift; sourceTree = "<group>"; };
+        A00000000000000000000013 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureUITests.swift; sourceTree = "<group>"; };
+        A00000000000000000000014 = {isa = PBXFileReference; explicitFileType = wrapper.application; path = CaptureFixture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+        A00000000000000000000015 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = CaptureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+        A00000000000000000000016 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalDetailFixture.swift; sourceTree = "<group>"; };
+        A00000000000000000000017 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationFixture.swift; sourceTree = "<group>"; };
+
+        A00000000000000000000020 = {
+            isa = PBXGroup;
+            children = (A00000000000000000000011, A00000000000000000000012, A00000000000000000000013, A00000000000000000000016, A00000000000000000000017, A00000000000000000000021);
+            sourceTree = "<group>";
+        };
+        A00000000000000000000021 = {
+            isa = PBXGroup;
+            children = (A00000000000000000000014, A00000000000000000000015);
+            name = Products;
+            sourceTree = "<group>";
+        };
+
+        A00000000000000000000030 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000001, A00000000000000000000002, A00000000000000000000005, A00000000000000000000007); runOnlyForDeploymentPostprocessing = 0; };
+        A00000000000000000000031 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+        A00000000000000000000032 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+        A00000000000000000000033 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000003, A00000000000000000000004, A00000000000000000000006, A00000000000000000000008); runOnlyForDeploymentPostprocessing = 0; };
+        A00000000000000000000034 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+        A00000000000000000000035 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+
+        A00000000000000000000040 = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = A00000000000000000000061;
+            buildPhases = (A00000000000000000000030, A00000000000000000000031, A00000000000000000000032);
+            buildRules = ();
+            dependencies = ();
+            name = CaptureFixture;
+            productName = CaptureFixture;
+            productReference = A00000000000000000000014;
+            productType = "com.apple.product-type.application";
+        };
+        A00000000000000000000041 = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = A00000000000000000000062;
+            buildPhases = (A00000000000000000000033, A00000000000000000000034, A00000000000000000000035);
+            buildRules = ();
+            dependencies = (A00000000000000000000043);
+            name = CaptureUITests;
+            productName = CaptureUITests;
+            productReference = A00000000000000000000015;
+            productType = "com.apple.product-type.bundle.ui-testing";
+        };
+        A00000000000000000000042 = {
+            isa = PBXContainerItemProxy;
+            containerPortal = A00000000000000000000050;
+            proxyType = 1;
+            remoteGlobalIDString = A00000000000000000000040;
+            remoteInfo = CaptureFixture;
+        };
+        A00000000000000000000043 = {isa = PBXTargetDependency; target = A00000000000000000000040; targetProxy = A00000000000000000000042; };
+        A00000000000000000000050 = {
+            isa = PBXProject;
+            attributes = {LastUpgradeCheck = 2660; TargetAttributes = {A00000000000000000000040 = {CreatedOnToolsVersion = 26.6; }; A00000000000000000000041 = {CreatedOnToolsVersion = 26.6; TestTargetID = A00000000000000000000040; }; }; };
+            buildConfigurationList = A00000000000000000000060;
+            compatibilityVersion = "Xcode 14.0";
+            developmentRegion = en;
+            hasScannedForEncodings = 0;
+            knownRegions = (en, Base);
+            mainGroup = A00000000000000000000020;
+            productRefGroup = A00000000000000000000021;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (A00000000000000000000040, A00000000000000000000041);
+        };
+
+        A00000000000000000000060 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000070, A00000000000000000000071); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
+        A00000000000000000000061 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000072, A00000000000000000000073); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
+        A00000000000000000000062 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000074, A00000000000000000000075); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
+        A00000000000000000000070 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {SDKROOT = macosx; MACOSX_DEPLOYMENT_TARGET = 14.0; SWIFT_VERSION = 5.0; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; CODE_SIGN_STYLE = Manual; CODE_SIGN_IDENTITY = "-"; ENABLE_TESTABILITY = YES; ALWAYS_SEARCH_USER_PATHS = NO; ONLY_ACTIVE_ARCH = YES; };
+            name = Debug;
+        };
+        A00000000000000000000071 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {SDKROOT = macosx; MACOSX_DEPLOYMENT_TARGET = 14.0; SWIFT_VERSION = 5.0; SWIFT_OPTIMIZATION_LEVEL = "-O"; CODE_SIGN_STYLE = Manual; CODE_SIGN_IDENTITY = "-"; ALWAYS_SEARCH_USER_PATHS = NO; };
+            name = Release;
+        };
+        A00000000000000000000072 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_NSPrincipalClass = NSApplication; PRODUCT_BUNDLE_IDENTIFIER = com.scrollsnap.baseline.fixture; PRODUCT_NAME = "$(TARGET_NAME)"; };
+            name = Debug;
+        };
+        A00000000000000000000073 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_NSPrincipalClass = NSApplication; PRODUCT_BUNDLE_IDENTIFIER = com.scrollsnap.baseline.fixture; PRODUCT_NAME = "$(TARGET_NAME)"; };
+            name = Release;
+        };
+        A00000000000000000000074 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.scrollsnap.baseline.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; TEST_TARGET_NAME = CaptureFixture; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks"); };
+            name = Debug;
+        };
+        A00000000000000000000075 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.scrollsnap.baseline.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; TEST_TARGET_NAME = CaptureFixture; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks"); };
+            name = Release;
+        };
+    };
+    rootObject = A00000000000000000000050;
+}

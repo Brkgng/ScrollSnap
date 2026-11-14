@@ -20,7 +20,8 @@ final class ScreenshotCaptureSession {
             return nil
         }
 
-        let adjustedRect = adjustRectForScreen(rectangle, for: activeScreen)
+        // ScreenCaptureKit resamples fractional source rectangles, even on Retina displays.
+        let adjustedRect = adjustRectForScreen(rectangle, for: activeScreen).integral
         let filter = SCContentFilter(
             display: captureContext.display,
             excludingApplications: captureContext.excludedApplications,
@@ -63,31 +64,47 @@ func captureSingleScreenshot(_ rectangle: NSRect) async -> NSImage? {
 
 /// Saves the captured image to a specified destination or the default location.
 ///
-/// Supports saving to a file, copying to the clipboard, or opening in Preview. The destination is determined by the provided parameter, falling back to UserDefaults or the default downloads destination.
+/// Saves files or opens Preview in the selected PNG/PDF format. Clipboard output is always PNG.
+/// The destination falls back to the saved preference or Downloads.
 ///
 /// - Parameters:
 ///   - image: The `NSImage` to save.
 ///   - destination: An optional save destination. If `nil`, uses the saved user preference or the default destination.
+///   - format: A format for this save only. If `nil`, uses the saved preference.
+///   - paperSize: A PDF paper size for this save only. If `nil`, uses the saved preference.
 /// - Returns: A `URL` to the saved file if saved to the file system, or `nil` if saved to Clipboard/Preview or if saving fails.
 /// - Note: Generates a filename with a timestamp (e.g., "Screenshot 2025-03-11 at 14.30.00.png").
 @discardableResult
-func saveImage(_ image: NSImage, to destination: SaveDestination? = nil) -> URL? {
-    guard let tiffData = image.tiffRepresentation,
-          let bitmapRep = NSBitmapImageRep(data: tiffData),
-          let pngData = bitmapRep.representation(using: .png, properties: [:]) else {
-        print("Failed to generate PNG data.")
+func saveImage(
+    _ image: NSImage,
+    to destination: SaveDestination? = nil,
+    format: ScreenshotFormat? = nil,
+    paperSize: PDFPaperSize? = nil
+) -> URL? {
+    let selectedDestination = destination ?? SaveDestination.current()
+    let format = selectedDestination.behavior == .clipboard ? .png : (format ?? ScreenshotFormat.current())
+    let imageData: Data?
+    switch format {
+    case .png:
+        imageData = image.pngData
+    case .pdf:
+        imageData = image.cgImage(forProposedRect: nil, context: nil, hints: nil).flatMap {
+            ScreenshotPDF.data(for: $0, paperSize: paperSize ?? PDFPaperSize.current())
+        }
+    }
+    guard let imageData else {
+        print("Failed to generate \(format.rawValue.uppercased()) data.")
         return nil
     }
     
-    let filename = getFileName()
-    let selectedDestination = destination ?? SaveDestination.current()
+    let filename = getFileName(fileExtension: format.rawValue)
 
     switch selectedDestination.behavior {
     case .clipboard:
-        saveToClipboard(pngData)
+        saveToClipboard(imageData)
         return nil
     case .preview:
-        openInPreview(pngData, filename)
+        openInPreview(imageData, filename)
         return nil
     case .file:
         guard let folderURL = getFolderURL(for: selectedDestination) else {
@@ -99,7 +116,7 @@ func saveImage(_ image: NSImage, to destination: SaveDestination? = nil) -> URL?
         let fileURL = folderURL.appendingPathComponent(filename)
 
         do {
-            try pngData.write(to: fileURL)
+            try imageData.write(to: fileURL)
             return fileURL
         } catch {
             print("Failed to save image: \(error.localizedDescription)")
@@ -209,15 +226,15 @@ private func saveToClipboard(_ pngData: Data) {
     pasteboard.setData(pngData, forType: .png)
 }
 
-/// Opens a PNG image in the Preview app by saving it to a temporary file.
+/// Opens an exported screenshot in Preview by saving it to a temporary file.
 ///
 /// - Parameters:
-///   - pngData: The `Data` in PNG format to open.
-///   - filename: The base filename (default "Screenshot") for the temp file
-private func openInPreview(_ pngData: Data, _ filename: String = "Screenshot.png") {
+///   - data: The exported PNG or PDF data.
+///   - filename: The name of the temporary file, including its format extension.
+private func openInPreview(_ data: Data, _ filename: String = "Screenshot.png") {
     let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
     do {
-        try pngData.write(to: tempURL)
+        try data.write(to: tempURL)
         NSWorkspace.shared.open(tempURL)
     } catch {
         print("Failed to write temporary file for Preview: \(error.localizedDescription)")
@@ -244,11 +261,11 @@ private func getFolderURL(for destination: SaveDestination) -> URL? {
     return chosenURL
 }
 
-private func getFileName() -> String {
+private func getFileName(fileExtension: String = "png") -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = Constants.dateFormat
     let timestamp = dateFormatter.string(from: Date())
-    let filename = "\(AppText.screenshotFilenamePrefix) \(timestamp).png"
+    let filename = "\(AppText.screenshotFilenamePrefix) \(timestamp).\(fileExtension)"
     return filename
 }
 
@@ -327,15 +344,22 @@ private func defaultDirectoryURL(for destination: SaveDestination) -> URL? {
     return FileManager.default.urls(for: directory, in: .userDomainMask).first
 }
 
-/// Returns whether screen recording permission is currently granted.
+/// Checks access using the capture API when preflight does not confirm it.
+/// Only an explicit permission denial is treated as missing permission.
 @MainActor
-func hasScreenRecordingPermission() -> Bool {
-    CGPreflightScreenCaptureAccess()
-}
+func checkScreenRecordingPermission(
+    preflight: () -> Bool = { CGPreflightScreenCaptureAccess() },
+    requestAccess: () async throws -> Void = {
+        _ = try await SCShareableContent.excludingDesktopWindows(true, onScreenWindowsOnly: true)
+    }
+) async throws -> Bool {
+    if preflight() { return true }
 
-/// Requests screen recording permission if it is not already granted.
-/// - Returns: `true` if the request API reports access was granted, `false` otherwise.
-@MainActor
-func requestScreenRecordingPermission() -> Bool {
-    CGRequestScreenCaptureAccess()
+    do {
+        try await requestAccess()
+        return true
+    } catch let error as NSError where error.domain == SCStreamErrorDomain
+        && error.code == SCStreamError.Code.userDeclined.rawValue {
+        return false
+    }
 }

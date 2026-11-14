@@ -63,6 +63,7 @@ enum LocalizationResolver {
     private static let tableName = "Localizable"
     static let launchLanguage = AppLanguage.current()
     private static let launchBundle = bundle(for: launchLanguage)
+    static var localization: String { resolvedLocalization(for: launchLanguage) ?? "en" }
 
     static func string(_ key: String, fallback: String, language: AppLanguage? = nil) -> String {
         let bundle = language.map(bundle(for:)) ?? launchBundle
@@ -109,6 +110,22 @@ enum LocalizationResolver {
 }
 
 enum AppText {
+    static var captureTutorialMenuTitle: String { text("How to Capture…") }
+    static var captureTutorialTitle: String { text("Capture in Three Steps") }
+    static var captureTutorialSelection: String {
+        text("Move and resize the frame around your content.")
+    }
+    static var captureTutorialScroll: String {
+        text("Click Capture, then scroll slowly yourself.")
+    }
+    static var captureTutorialSave: String {
+        text("Click Save to finish and combine your capture.")
+    }
+    static var captureTutorialDone: String { text("Got It") }
+    static var pause: String { text("Pause") }
+    static var play: String { text("Play") }
+    static var replay: String { text("Replay") }
+
     static var about: String {
         text("About")
     }
@@ -137,12 +154,21 @@ enum AppText {
         text("Save")
     }
 
+    static var saveAsPNG: String { text("Save as PNG") }
+    static var saveAsPDF: String { text("Save as PDF") }
+
     static var options: String {
         text("Options")
     }
 
     static var saveTo: String {
         text("Save to")
+    }
+
+    static var fileFormat: String { text("File format") }
+    static var paperSize: String { text("Paper size") }
+    static var pdfExportDescription: String {
+        text("PDFs are split into printable pages. Clipboard and drag-and-drop use PNG.")
     }
 
     static var settingsWindowTitle: String {
@@ -179,6 +205,24 @@ enum AppText {
 
     static var screenRecordingPermissionTitle: String {
         text("Screen Recording Required")
+    }
+
+    static var screenRecordingAccessCheckFailed: String {
+        text("Screen recording access couldn’t be checked.")
+    }
+
+    static var screenRecordingAccessCheckRetryMessage: String {
+        text("Please try again.")
+    }
+
+    static var tryAgain: String {
+        text("Try Again")
+    }
+
+    static var incompleteCaptureTitle: String { text("Capture may be incomplete") }
+
+    static var incompleteCaptureMessage: String {
+        text("Your capture is still available. Try again and scroll more slowly.")
     }
 
     static var screenRecordingPermissionMessage: String {
@@ -227,6 +271,10 @@ enum AppText {
 
     static var launchAtLogin: String {
         text("Launch at Login")
+    }
+
+    static var showInDock: String {
+        text("Show in Dock")
     }
 
     static var loginItemRequiresApproval: String {

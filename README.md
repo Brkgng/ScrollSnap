@@ -23,7 +23,8 @@ ScrollSnap is an open-source macOS application designed to capture scrolling scr
 - **Interactive Menu**: Includes options to capture, save, reset positions, or cancel, with a draggable interface.
 - **Thumbnail Preview**: Displays a draggable thumbnail of the captured image with swipe-to-save or right-click options.
 - **Save Destinations**: Supports saving to Desktop, Documents, Downloads, Clipboard, or opening in Preview.
-- **Settings**: Adjust language and reset selection and menu positions via the native settings window (Command + ,).
+- **Printable PDFs**: Choose PDF in Settings to split long screenshots across A4 or Letter pages with half-inch margins. PNG remains the default.
+- **Settings**: Adjust Dock visibility, language, and selection and menu positions via the native settings window (Command + ,).
 
 ## 🌍 Multi-Language Support
 
@@ -54,7 +55,7 @@ Whether you want to add a completely new language or improve an existing transla
 
 1. **Launch the App**:
 
-- ScrollSnap displays an overlay with a selection rectangle and menu bar. Dismissing the overlay keeps ScrollSnap running in the background.
+- ScrollSnap displays an overlay with a selection rectangle and menu bar. Dismissing the overlay keeps ScrollSnap running, with its icon visible in the Dock and Command + Tab by default. Turn off "Show in Dock" in Settings to use the background-only mode.
 
 2. **Show the Overlay**:
 
@@ -75,6 +76,8 @@ Whether you want to add a completely new language or improve an existing transla
 6. **Save Options**:
 
 - Use the "Options" menu to set the save destination (Desktop, Clipboard, etc.).
+- In Options or Settings → General, choose PNG or PDF under "File format". For PDF, choose A4 or Letter under "Paper size", then capture and save as usual. PDF pages preserve the image proportions and original pixels; print them at actual size (100%). Clipboard and drag-and-drop always use PNG.
+- To choose a format for just one capture, right-click its thumbnail and choose "Save as PNG" or "Save as PDF" → A4 / Letter. This leaves your default format and paper size unchanged.
 
 7. **Settings**:
 
@@ -121,6 +124,13 @@ ScrollSnap
 
 ScrollSnap is an open-source project, and we welcome contributions! If you’d like to improve it:
 
+- **Report Issues**: Open an issue on the [GitHub repository](https://github.com/brkgng/ScrollSnap/issues) for bugs or feature requests.
+- **Submit Pull Requests**:
+  1. Fork the repo.
+  2. Create a new branch for your changes (e.g., `git checkout -b feature/your-feature-name`).
+  3. Make your changes and commit them.
+  4. Submit a pull request with your improvements.
+
 ### Development Signing
 
 If you are contributing locally in Xcode:
@@ -132,12 +142,12 @@ If you are contributing locally in Xcode:
 
 macOS tracks Screen Recording permission by signed app identity. Ad-hoc signing can make a rebuilt app look new after each code change, which causes repeated permission prompts. A real local development signature keeps that permission stable across rebuilds.
 
-- **Report Issues**: Open an issue on the [GitHub repository](https://github.com/brkgng/ScrollSnap/issues) for bugs or feature requests.
-- **Submit Pull Requests**:
-  1. Fork the repo.
-  2. Create a new branch for your changes (e.g., `git checkout -b feature/your-feature-name`).
-  3. Make your changes and commit them.
-  4. Submit a pull request with your improvements.
+Debug builds use `ScrollSnap Dev.app`; Release builds use `ScrollSnap.app`. They have separate bundle identifiers and Screen Recording permissions, so you can distinguish development and release builds in System Settings.
+
+### Tests
+
+Run the `ScrollSnap` scheme with **Product → Test** in Xcode for the capture-session and stitching unit tests. See [the capture test harness](Tests/CaptureBaseline/README.md) for image replay and full-app UI tests.
+
 
 ## License
 

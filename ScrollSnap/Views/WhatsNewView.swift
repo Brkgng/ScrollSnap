@@ -16,6 +16,7 @@ struct WhatsNewView: View {
         VStack(alignment: .leading, spacing: 24) {
             header
             highlightsList
+                .padding(.vertical, 24)
             footer
         }
         .frame(width: 520)
@@ -65,7 +66,7 @@ struct WhatsNewView: View {
                             .font(.headline)
 
                         Text(highlight.message)
-                            .font(.subheadline)
+                            .font(.system(size: 14))
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -100,7 +101,7 @@ struct WhatsNewView: View {
 
 #Preview {
     WhatsNewView(
-        version: "3.1.0",
+        version: "3.3.0",
         highlights: WhatsNewContent.currentHighlights,
         reportProblem: {},
         sendFeedback: {},

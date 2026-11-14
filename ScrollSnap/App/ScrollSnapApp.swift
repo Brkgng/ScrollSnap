@@ -14,6 +14,7 @@ struct ScrollSnapApp: App {
             SettingsView(
                 loginItemManager: appDelegate.loginItemManager,
                 onResetPositions: appDelegate.overlayManager.resetPositions,
+                onShowCaptureTutorial: { appDelegate.showCaptureTutorial() },
                 onAppear: {
                     appDelegate.overlayManager.suspendFloatingWindows(for: .settings)
                 },
@@ -36,6 +37,12 @@ struct ScrollSnapApp: App {
                     appDelegate.quit()
                 }
                 .keyboardShortcut("q", modifiers: .command)
+            }
+
+            CommandGroup(replacing: .help) {
+                Button(AppText.captureTutorialMenuTitle) {
+                    appDelegate.showCaptureTutorial()
+                }
             }
         }
     }

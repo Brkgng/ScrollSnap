@@ -4,6 +4,26 @@
 //
 
 import AppKit
+import SwiftUI
+
+@MainActor
+func makeIncompleteCaptureNotice(width: CGFloat) -> NSView {
+    NSHostingView(rootView:
+        VStack(alignment: .leading, spacing: 6) {
+            Label(AppText.incompleteCaptureTitle, systemImage: "exclamationmark.triangle")
+                .font(.system(size: 12, weight: .semibold))
+            Text(AppText.incompleteCaptureMessage)
+                .font(.system(size: 11))
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(12)
+        .frame(width: width, alignment: .leading)
+        .background(Color(nsColor: .windowBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("capture.incomplete.notice")
+    )
+}
 
 class ThumbnailView: NSView {
     // MARK: - Properties
@@ -14,12 +34,13 @@ class ThumbnailView: NSView {
     private let overlayManager: OverlayManager
     /// Screen where the thumbnail is displayed
     private let screen: NSScreen
+    private let save: (NSImage, ScreenshotFormat?, PDFPaperSize?) -> URL?
     /// Initial position of the thumbnail
     private var initialOrigin: NSPoint
     /// Initial width of the thumbnail
     private var initialWidth: CGFloat
     /// Timer for auto-saving after 15 seconds
-    private var thumbnailTimer: Timer?
+    private(set) var thumbnailTimer: Timer?
     /// Fire date of the timer for drag cancel checks
     private var timerFireDate: Date?
     private var hoverTrackingArea: NSTrackingArea?
@@ -27,6 +48,10 @@ class ThumbnailView: NSView {
     private var hoveredAction: ThumbnailAction?
     private var actionStripAlpha: CGFloat = 0.0
     private var actionStripFadeTimer: Timer?
+    private let noticeHeight: CGFloat
+    private var imageRect: NSRect {
+        NSRect(x: 0, y: 0, width: bounds.width, height: max(0, bounds.height - noticeHeight))
+    }
 
     private enum ThumbnailAction: CaseIterable {
         case save
@@ -78,13 +103,31 @@ class ThumbnailView: NSView {
     private let gestureThreshold: CGFloat = 10.0
     
     // MARK: - Initialization
-    init(image: NSImage, overlayManager: OverlayManager, screen: NSScreen, origin: NSPoint, size: NSSize) {
+    init(
+        image: NSImage,
+        overlayManager: OverlayManager,
+        screen: NSScreen,
+        origin: NSPoint,
+        size: NSSize,
+        isIncomplete: Bool = false,
+        save: @escaping (NSImage, ScreenshotFormat?, PDFPaperSize?) -> URL? = {
+            saveImage($0, format: $1, paperSize: $2)
+        }
+    ) {
         self.image = image
         self.overlayManager = overlayManager
         self.screen = screen
+        self.save = save
         self.initialOrigin = origin
         self.initialWidth = size.width
-        super.init(frame: NSRect(origin: .zero, size: size))
+        let notice = isIncomplete ? makeIncompleteCaptureNotice(width: size.width) : nil
+        noticeHeight = notice?.fittingSize.height ?? 0
+        super.init(frame: NSRect(x: 0, y: 0, width: size.width, height: size.height + noticeHeight))
+        if let notice {
+            notice.frame = NSRect(x: 0, y: size.height, width: size.width, height: noticeHeight)
+            notice.autoresizingMask = [.width, .minYMargin]
+            addSubview(notice)
+        }
         
         setupTimer()
     }
@@ -119,11 +162,11 @@ class ThumbnailView: NSView {
         super.draw(dirtyRect)
         guard let context = NSGraphicsContext.current?.cgContext else { return }
         
-        image.draw(in: bounds, from: .zero, operation: .sourceOver, fraction: 1.0)
+        image.draw(in: imageRect, from: .zero, operation: .sourceOver, fraction: 1.0)
         
         context.setStrokeColor(NSColor.white.cgColor)
         context.setLineWidth(2.0)
-        let borderPath = NSBezierPath(roundedRect: bounds, xRadius: 5, yRadius: 5)
+        let borderPath = NSBezierPath(roundedRect: imageRect, xRadius: 5, yRadius: 5)
         context.addPath(borderPath.cgPath)
         context.strokePath()
 
@@ -329,7 +372,7 @@ class ThumbnailView: NSView {
 
         return NSRect(
             x: bounds.maxX - actionStripMargin - width,
-            y: bounds.maxY - actionStripMargin - height,
+            y: imageRect.maxY - actionStripMargin - height,
             width: width,
             height: height
         )
@@ -503,11 +546,44 @@ class ThumbnailView: NSView {
     
     // MARK: - Right-Click Context Menu
     override func rightMouseDown(with event: NSEvent) {
+        withPausedAutoSave {
+            let menu = makeContextMenu()
+            menu.popUp(positioning: nil, at: event.locationInWindow, in: self)
+        }
+    }
+
+    func withPausedAutoSave(_ action: () -> Void) {
+        thumbnailTimer?.invalidate()
+        defer {
+            if overlayManager.thumbnailWindow?.contentView === self {
+                setupTimer()
+            }
+        }
+        action()
+    }
+
+    func makeContextMenu() -> NSMenu {
         let menu = NSMenu()
 
         let saveItem = NSMenuItem(title: AppText.save, action: #selector(saveImageAction), keyEquivalent: "")
         saveItem.target = self
         menu.addItem(saveItem)
+
+        let pngItem = NSMenuItem(title: AppText.saveAsPNG, action: #selector(savePNGAction), keyEquivalent: "")
+        pngItem.target = self
+        menu.addItem(pngItem)
+
+        let pdfItem = NSMenuItem(title: AppText.saveAsPDF, action: nil, keyEquivalent: "")
+        let paperMenu = NSMenu()
+        for paperSize in PDFPaperSize.allCases {
+            let item = NSMenuItem(title: paperSize.localizedTitle, action: #selector(savePDFAction(_:)), keyEquivalent: "")
+            item.target = self
+            item.representedObject = paperSize.rawValue
+            paperMenu.addItem(item)
+        }
+        pdfItem.submenu = paperMenu
+        menu.addItem(pdfItem)
+        menu.addItem(.separator())
 
         let deleteItem = NSMenuItem(title: AppText.delete, action: #selector(deleteImage), keyEquivalent: "")
         deleteItem.target = self
@@ -517,14 +593,34 @@ class ThumbnailView: NSView {
         closeItem.target = self
         menu.addItem(closeItem)
 
-        menu.popUp(positioning: nil, at: event.locationInWindow, in: self)
+        return menu
     }
     
     @objc private func saveImageAction() {
-        if let url = saveImage(image) {
+        saveCapture()
+    }
+
+    @objc private func savePNGAction() {
+        saveCapture(format: .png)
+    }
+
+    @objc private func savePDFAction(_ sender: NSMenuItem) {
+        guard let rawValue = sender.representedObject as? String,
+              let paperSize = PDFPaperSize(rawValue: rawValue) else { return }
+        saveCapture(format: .pdf, paperSize: paperSize)
+    }
+
+    private func saveCapture(format: ScreenshotFormat? = nil, paperSize: PDFPaperSize? = nil) {
+        thumbnailTimer?.invalidate()
+        if let url = save(image, format, paperSize) {
             NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
+            overlayManager.hideThumbnail()
+        } else if format == nil {
+            overlayManager.hideThumbnail()
+        } else {
+            // Keep the capture available when an explicit export fails or folder access is cancelled.
+            setupTimer()
         }
-        overlayManager.hideThumbnail()
     }
     
     @objc private func deleteImage() {
@@ -538,6 +634,7 @@ class ThumbnailView: NSView {
     // MARK: - Helper Methods
     /// Sets up the 15-second timer for auto-saving the image
     private func setupTimer() {
+        thumbnailTimer?.invalidate()
         thumbnailTimer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: false) { [weak self] _ in
             self?.saveAndClose()
         }

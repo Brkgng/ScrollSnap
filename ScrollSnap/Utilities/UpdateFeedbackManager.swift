@@ -31,6 +31,20 @@ struct UpdateFeedbackManager {
         pendingVersionToShow != nil
     }
 
+    var hasPreviousAppState: Bool {
+        let keys = [
+            Constants.UpdateFeedback.lastSeenAppVersionKey,
+            Constants.UpdateFeedback.pendingFeedbackVersionKey,
+            Constants.UpdateFeedback.handledFeedbackVersionKey,
+            Constants.showInDockKey,
+            AppLanguage.storageKey,
+            ScreenshotFormat.storageKey,
+            PDFPaperSize.storageKey,
+            "desktopBookmark", "documentsBookmark", "downloadsBookmark"
+        ]
+        return hasLegacyAppState || keys.contains { defaults.object(forKey: $0) != nil }
+    }
+
     func recordLaunch(currentVersion: String) {
         guard let lastSeenVersion = defaults.string(forKey: Constants.UpdateFeedback.lastSeenAppVersionKey) else {
             if currentVersion == firstTrackedUpgradeVersion,

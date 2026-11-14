@@ -14,6 +14,8 @@ class OverlayView: NSView {
     private var screenFrame: NSRect
     private let selectionRectangleView: SelectionRectangleView
     private var menuBarView: MenuBarView?
+    private var isMouseOverMenu = false
+    private var popupConsumedMouseDown = false
     private var hoverTrackingArea: NSTrackingArea?
     private var rectangleTrackingArea: NSTrackingArea?
     private var borderTrackingAreas: [NSTrackingArea] = []
@@ -52,7 +54,8 @@ class OverlayView: NSView {
         let localPoint = convertWindowToLocal(point: event.locationInWindow)
         let globalPoint = convertToGlobal(point: localPoint)
 
-        if menuBarView?.handleOpenPopupMouseDown(at: globalPoint) == true {
+        popupConsumedMouseDown = menuBarView?.handleOpenPopupMouseDown(at: globalPoint) == true
+        if popupConsumedMouseDown {
             return
         }
         
@@ -78,6 +81,11 @@ class OverlayView: NSView {
     }
     
     override func mouseUp(with event: NSEvent) {
+        defer { updateCaptureMouseEvents() }
+        if popupConsumedMouseDown {
+            popupConsumedMouseDown = false
+            return
+        }
         let localPoint = convertWindowToLocal(point: event.locationInWindow)
         let globalPoint = convertToGlobal(point: localPoint)
         selectionRectangleView.handleMouseUp()
@@ -169,11 +177,11 @@ class OverlayView: NSView {
             return
         }
         
-        guard let manager = manager else { return }
         if let type = userInfo["type"] as? String {
-            if type == "menu" && manager.getIsScrollingCaptureActive() {
+            if type == "menu" {
                 // Re-enable mouse events so the user can click the menu while scrolling capture is active
-                manager.setOverlayIgnoresMouseEvents(false)
+                isMouseOverMenu = true
+                updateCaptureMouseEvents()
             }
         } else if let zone = userInfo["zone"] as? String {
             selectionRectangleView.handleMouseEnteredBorder(zone: zone)
@@ -189,16 +197,23 @@ class OverlayView: NSView {
             return
         }
         
-        guard let manager = manager else { return }
         if let type = userInfo["type"] as? String {
-            if type == "menu" && manager.getIsScrollingCaptureActive() {
-                manager.setOverlayIgnoresMouseEvents(true)
+            if type == "menu" {
+                isMouseOverMenu = false
+                updateCaptureMouseEvents()
             }
         } else if userInfo["zone"] != nil {
             selectionRectangleView.handleMouseExitedBorder()
         } else {
             selectionRectangleView.handleMouseExited()
         }
+    }
+
+    private func updateCaptureMouseEvents() {
+        guard let manager, manager.getIsScrollingCaptureActive() else { return }
+        // Keep the popup and the gap below the toolbar clickable until dismissal.
+        let isInteractingWithMenu = isMouseOverMenu || menuBarView?.isOptionsPopupVisible == true
+        manager.setOverlayIgnoresMouseEvents(!isInteractingWithMenu)
     }
     
     // MARK: - Private Drawing Helpers
