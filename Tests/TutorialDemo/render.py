@@ -11,7 +11,7 @@ import tempfile
 REPO = Path(__file__).resolve().parents[2]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--app-bundle', type=Path, required=True, help='Built app supplying localized toolbar strings')
-parser.add_argument('--locales', nargs='+', default=['en', 'de', 'es', 'fr', 'ja', 'ko', 'tr', 'zh-Hans'])
+parser.add_argument('--locales', nargs='+', default=['en', 'de', 'es', 'fr', 'ja', 'ko', 'ro', 'tr', 'zh-Hans'])
 args = parser.parse_args()
 with tempfile.TemporaryDirectory(prefix='scrollsnap-tutorial-') as scratch:
     root = Path(scratch)
@@ -24,7 +24,7 @@ with tempfile.TemporaryDirectory(prefix='scrollsnap-tutorial-') as scratch:
     (helper / 'Info.plist').write_text('<?xml version="1.0"?><plist version="1.0"><dict><key>CFBundleExecutable</key><string>render</string><key>CFBundleIdentifier</key><string>local.scrollsnap.tutorial-renderer</string></dict></plist>')
     binary = helper / 'MacOS' / 'render'
     sources = [REPO / 'ScrollSnap' / name for name in [
-        'Utilities/Constants.swift', 'Utilities/LocalizationSupport.swift',
+        'Utilities/Constants.swift', 'Utilities/LocalizationSupport.swift', 'Utilities/ScreenshotExport.swift',
         'Views/OverlayView.swift', 'Views/SelectionRectangleView.swift', 'Views/MenuBarView.swift']]
     subprocess.run(['swiftc', '-module-cache-path', '/private/tmp/scrollsnap-tutorial-render-cache',
                     *map(str, sources), str(Path(__file__).with_name('main.swift')), '-o', str(binary)], check=True)

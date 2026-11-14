@@ -30,7 +30,7 @@ final class CaptureTutorialTests: XCTestCase {
     }
 
     func testLocalizedMoviesAndPostersAreBundled() async throws {
-        for locale in ["en", "de", "es", "fr", "ja", "ko", "tr", "zh-Hans"] {
+        for locale in ["en", "de", "es", "fr", "ja", "ko", "ro", "tr", "zh-Hans"] {
             let movie = try XCTUnwrap(CaptureTutorialStep.resourceURL(extension: "mp4", localization: locale))
             let poster = try XCTUnwrap(CaptureTutorialStep.resourceURL(extension: "png", localization: locale))
             XCTAssertNotNil(NSImage(contentsOf: poster), locale)
@@ -72,7 +72,7 @@ final class CaptureTutorialTests: XCTestCase {
     }
 
     func testCompletedDemoLeavesClearPaddingBelowLastLine() async throws {
-        for locale in ["en", "de", "es", "fr", "ja", "ko", "tr", "zh-Hans"] {
+        for locale in ["en", "de", "es", "fr", "ja", "ko", "ro", "tr", "zh-Hans"] {
             let url = try XCTUnwrap(CaptureTutorialStep.resourceURL(extension: "mp4", localization: locale))
             let generator = AVAssetImageGenerator(asset: AVURLAsset(url: url))
             generator.requestedTimeToleranceBefore = .zero

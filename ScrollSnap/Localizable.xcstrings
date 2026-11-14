@@ -54,6 +54,12 @@
             "state" : "translated",
             "value" : "A4"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A4"
+          }
         }
       }
     },
@@ -107,6 +113,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "关于"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Despre"
           }
         }
       }
@@ -162,6 +174,12 @@
             "state" : "translated",
             "value" : "关于 ScrollSnap"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Despre ScrollSnap"
+          }
         }
       }
     },
@@ -214,6 +232,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "需要在“系统设置”中批准。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este necesară aprobarea în Configurări sistem."
           }
         }
       }
@@ -269,6 +293,12 @@
             "state" : "translated",
             "value" : "取消"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anulează"
+          }
         }
       }
     },
@@ -323,6 +353,12 @@
             "state" : "translated",
             "value" : "截取"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturează"
+          }
         }
       }
     },
@@ -340,6 +376,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "다시 확인"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifică din nou"
           }
         }
       }
@@ -395,6 +437,12 @@
             "state" : "translated",
             "value" : "简体中文"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chineză (simplificată)"
+          }
         }
       }
     },
@@ -448,6 +496,12 @@
             "state" : "translated",
             "value" : "点击“截取”，然后手动缓慢滚动。"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apasă pe Capturează, apoi derulează manual, încet."
+          }
         }
       }
     },
@@ -500,6 +554,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "点击“保存”，结束截取并拼接内容。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apasă pe Salvează pentru a încheia și a combina captura."
           }
         }
       }
@@ -555,6 +615,12 @@
             "state" : "translated",
             "value" : "剪贴板"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clipboard"
+          }
         }
       }
     },
@@ -608,6 +674,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "关闭"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Închide"
           }
         }
       }
@@ -663,6 +735,12 @@
             "state" : "translated",
             "value" : "联系支持"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contactează asistența"
+          }
         }
       }
     },
@@ -716,6 +794,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "删除"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Șterge"
           }
         }
       }
@@ -771,6 +855,12 @@
             "state" : "translated",
             "value" : "桌面"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desktop"
+          }
         }
       }
     },
@@ -823,6 +913,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "关闭捕捉"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renunță la captură"
           }
         }
       }
@@ -878,6 +974,12 @@
             "state" : "translated",
             "value" : "文稿"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Documente"
+          }
         }
       }
     },
@@ -931,6 +1033,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "下载"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descărcări"
           }
         }
       }
@@ -986,6 +1094,12 @@
             "state" : "translated",
             "value" : "英语"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engleză"
+          }
         }
       }
     },
@@ -1038,6 +1152,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "文件格式"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format fișier"
           }
         }
       }
@@ -1093,6 +1213,12 @@
             "state" : "translated",
             "value" : "法语"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Franceză"
+          }
         }
       }
     },
@@ -1146,6 +1272,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "通用"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
           }
         }
       }
@@ -1201,6 +1333,12 @@
             "state" : "translated",
             "value" : "德语"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Germană"
+          }
         }
       }
     },
@@ -1253,6 +1391,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "全局快捷键"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scurtătură globală"
           }
         }
       }
@@ -1307,6 +1451,12 @@
             "state" : "translated",
             "value" : "如何截取…"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cum faci o captură…"
+          }
         }
       }
     },
@@ -1359,6 +1509,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "知道了"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Am înțeles"
           }
         }
       }
@@ -1414,6 +1570,12 @@
             "state" : "translated",
             "value" : "日语"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japoneză"
+          }
         }
       }
     },
@@ -1467,6 +1629,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "韩语"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coreeană"
           }
         }
       }
@@ -1522,6 +1690,12 @@
             "state" : "translated",
             "value" : "语言"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limbă"
+          }
         }
       }
     },
@@ -1575,6 +1749,12 @@
             "state" : "translated",
             "value" : "登录时启动"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deschide la login"
+          }
         }
       }
     },
@@ -1627,6 +1807,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "美式信纸"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letter"
           }
         }
       }
@@ -1682,6 +1868,12 @@
             "state" : "translated",
             "value" : "移动"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mută"
+          }
         }
       }
     },
@@ -1734,6 +1926,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "移动并调整选框大小，框住所需内容。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mută și redimensionează cadrul în jurul conținutului."
           }
         }
       }
@@ -1788,6 +1986,12 @@
             "state" : "translated",
             "value" : "打开登录项设置"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deschide configurările Lansare la login"
+          }
         }
       }
     },
@@ -1805,6 +2009,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "시스템 설정 열기"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deschide Configurări sistem"
           }
         }
       }
@@ -1860,6 +2070,12 @@
             "state" : "translated",
             "value" : "选项"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opțiuni"
+          }
         }
       }
     },
@@ -1912,6 +2128,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PDF 会拆分为适合打印的页面。复制到剪贴板和拖放时仍使用 PNG 格式。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PDF-urile sunt împărțite în pagini pentru imprimare. Clipboardul și tragerea și plasarea folosesc PNG."
           }
         }
       }
@@ -1966,6 +2188,12 @@
             "state" : "translated",
             "value" : "纸张大小"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dimensiune hârtie"
+          }
         }
       }
     },
@@ -2019,6 +2247,12 @@
             "state" : "translated",
             "value" : "暂停"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pauză"
+          }
         }
       }
     },
@@ -2071,6 +2305,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "播放"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redă"
           }
         }
       }
@@ -2126,6 +2366,12 @@
             "state" : "translated",
             "value" : "请选择桌面文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează dosarul Desktop pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
+          }
         }
       }
     },
@@ -2179,6 +2425,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请选择文稿文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează dosarul Documente pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
           }
         }
       }
@@ -2234,6 +2486,12 @@
             "state" : "translated",
             "value" : "请选择下载文件夹，以允许 ScrollSnap 将屏幕截图保存到此处。"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează dosarul Descărcări pentru a permite aplicației ScrollSnap să salveze capturile de ecran acolo."
+          }
         }
       }
     },
@@ -2288,6 +2546,12 @@
             "state" : "translated",
             "value" : "预览"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previzualizare"
+          }
         }
       }
     },
@@ -2305,6 +2569,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "종료"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Închide"
           }
         }
       }
@@ -2360,6 +2630,12 @@
             "state" : "translated",
             "value" : "退出 ScrollSnap"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Închide ScrollSnap"
+          }
         }
       }
     },
@@ -2413,6 +2689,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "在 App Store 上评分"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evaluează în App Store"
           }
         }
       }
@@ -2468,6 +2750,12 @@
             "state" : "translated",
             "value" : "立即重新启动以应用语言更改"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relansează acum pentru a aplica schimbările de limbă"
+          }
         }
       }
     },
@@ -2520,6 +2808,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重播"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redă din nou"
           }
         }
       }
@@ -2575,6 +2869,12 @@
             "state" : "translated",
             "value" : "重置捕获布局"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resetează aranjamentul capturii"
+          }
         }
       }
     },
@@ -2627,6 +2927,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "恢复默认设置"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restabilește valorile implicite"
           }
         }
       }
@@ -2682,6 +2988,12 @@
             "state" : "translated",
             "value" : "保存"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvează"
+          }
         }
       }
     },
@@ -2735,6 +3047,12 @@
             "state" : "translated",
             "value" : "存储为 PDF"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvează ca PDF"
+          }
         }
       }
     },
@@ -2787,6 +3105,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "存储为 PNG"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvează ca PNG"
           }
         }
       }
@@ -2842,6 +3166,12 @@
             "state" : "translated",
             "value" : "保存到"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvează în"
+          }
         }
       }
     },
@@ -2894,6 +3224,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无法检查屏幕录制权限。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accesul la înregistrarea ecranului nu a putut fi verificat."
           }
         }
       }
@@ -2948,6 +3284,12 @@
             "state" : "translated",
             "value" : "请重试。"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Te rugăm să încerci din nou."
+          }
         }
       }
     },
@@ -3001,6 +3343,12 @@
             "state" : "translated",
             "value" : "重试"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Încearcă din nou"
+          }
         }
       }
     },
@@ -3018,6 +3366,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "화면 녹화 권한 필요"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este necesară înregistrarea ecranului"
           }
         }
       }
@@ -3073,6 +3427,12 @@
             "state" : "translated",
             "value" : "屏幕截图"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captură de ecran"
+          }
         }
       }
     },
@@ -3090,6 +3450,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap이 캡처 오버레이를 표시하고 화면을 캡처하려면 화면 녹화 권한이 필요합니다. 권한을 허용한 후 여기로 돌아와 다시 확인해 주세요."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ScrollSnap are nevoie de permisiunea Înregistrare ecran pentru a afișa interfața de captură și a captura ecranul. După acordarea accesului, revino aici și verifică din nou."
           }
         }
       }
@@ -3145,6 +3511,12 @@
             "state" : "translated",
             "value" : "ScrollSnap 设置"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurări ScrollSnap"
+          }
         }
       }
     },
@@ -3198,6 +3570,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设置…"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurări…"
           }
         }
       }
@@ -3253,6 +3631,12 @@
             "state" : "translated",
             "value" : "在程序坞中显示"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afișează în Dock"
+          }
         }
       }
     },
@@ -3306,6 +3690,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "西班牙语"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spaniolă"
           }
         }
       }
@@ -3361,6 +3751,12 @@
             "state" : "translated",
             "value" : "支持与反馈"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asistență și feedback"
+          }
         }
       }
     },
@@ -3415,6 +3811,12 @@
             "state" : "translated",
             "value" : "系统默认"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Implicit al sistemului"
+          }
         }
       }
     },
@@ -3467,6 +3869,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此快捷键已被 macOS 使用。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Această scurtătură este deja utilizată de macOS."
           }
         }
       }
@@ -3522,6 +3930,12 @@
             "state" : "translated",
             "value" : "土耳其语"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turcă"
+          }
         }
       }
     },
@@ -3574,6 +3988,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请将 Command、Option 或 Control 与另一个按键组合使用。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folosește tasta Comandă, Opțiune sau Control împreună cu o altă tastă."
           }
         }
       }
@@ -3629,6 +4049,12 @@
             "state" : "translated",
             "value" : "版本"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versiune"
+          }
         }
       }
     },
@@ -3682,6 +4108,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap 反馈 (v%@)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback ScrollSnap (v%@)"
           }
         }
       }
@@ -3737,6 +4169,12 @@
             "state" : "translated",
             "value" : "知道了"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Am înțeles"
+          }
         }
       }
     },
@@ -3790,6 +4228,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "将长截图保存为多页 PDF，方便使用 A4 或 Letter 纸张打印。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvează capturile lungi ca PDF-uri cu mai multe pagini, gata de imprimat pe hârtie A4 sau Letter."
           }
         }
       }
@@ -3845,6 +4289,12 @@
             "state" : "translated",
             "value" : "可打印的 PDF"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PDF-uri pentru imprimare"
+          }
         }
       }
     },
@@ -3898,6 +4348,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ScrollSnap 问题反馈 (v%@)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raport de problemă ScrollSnap (v%@)"
           }
         }
       }
@@ -3953,6 +4409,12 @@
             "state" : "translated",
             "value" : "报告问题"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raportează o problemă"
+          }
         }
       }
     },
@@ -4006,6 +4468,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "发送反馈"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trimite feedback"
           }
         }
       }
@@ -4061,6 +4529,12 @@
             "state" : "translated",
             "value" : "ScrollSnap 新功能"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noutăți în ScrollSnap"
+          }
         }
       }
     },
@@ -4114,6 +4588,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "版本 %@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versiunea %@"
           }
         }
       }
@@ -4169,6 +4649,12 @@
             "state" : "translated",
             "value" : "新功能"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noutăți"
+          }
         }
       }
     },
@@ -4221,6 +4707,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "三步完成截取"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captură în trei pași"
           }
         }
       }
@@ -4276,6 +4768,12 @@
             "state" : "translated",
             "value" : "截图可能不完整"
           }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captura poate fi incompletă"
+          }
         }
       }
     },
@@ -4329,6 +4827,72 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "当前截图仍可使用，请放慢滚动速度后重试。"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captura este în continuare disponibilă. Încearcă din nou și derulează mai încet."
+          }
+        }
+      }
+    },
+    "Romanian" : {
+      "comment" : "Language picker option for Romanian.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumänisch"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romanian"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumano"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roumain"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ルーマニア語"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "루마니아어"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Română"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rumence"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "罗马尼亚语"
           }
         }
       }
